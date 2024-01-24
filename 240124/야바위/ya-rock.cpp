@@ -15,8 +15,8 @@ int main() {
         cin >> a[i] >> b[i] >> c[i];
     
     
-    for(int i=0; i<3; i++){
-        int cups[3]={};
+    for(int i=1; i<=3; i++){
+        int cups[4]={};
         cups[i] = 1;
         int score = 0;
         for(int j= 0; j<n;j++){
