@@ -17,7 +17,7 @@ int main() {
 
     for(int i=0; i<= div_ca+1; i++){
         for(int j=0; j<=div_cb+1; j++){
-            if((a*i +b*j)<c) temp = a*i+b*j;
+            if((a*i +b*j)<= c) temp = a*i+b*j;
             
             ans = max(ans, temp);
         }
