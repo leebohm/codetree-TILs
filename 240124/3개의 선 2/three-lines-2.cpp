@@ -20,7 +20,7 @@ int main() {
     for(int i=0; i<=MAX_X;i++)
         for(int j=0; j<=MAX_X;j++)
             for(int k=0; k<= MAX_X; k++){
-                boo success = true;
+                bool success = true;
 
                 for(int l=0; l<n;l++){
                     if(x[l] == i || x[l] == j || x[l] ==k) continue;
