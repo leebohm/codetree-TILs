@@ -11,7 +11,6 @@ int main() {
     int div_ca = c/a;
     int div_cb = c/b;
 
-    //int sum_div = div_ca + div_cb+1;
     int temp = 0;
     int ans = 0;
 
