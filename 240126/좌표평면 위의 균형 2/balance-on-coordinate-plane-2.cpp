@@ -9,34 +9,33 @@ int main() {
 
     cin >> n;
 
-    for(int i=0; i<n; i+=2)
+    for(int i=0; i<n; i++)
         cin >> x[i] >> y[i];
     
-    int ans =1e9;
+    int ans =100;
 
     for(int i=2; i<=100; i+=2){  // n개의 줄
         for(int j=2; j<=100; j+=2){ 
-            int tempx = i, tempy =j;
+            //cout << tempx <<" " << tempy << " " << endl;
             int cnt1=0,cnt2=0, cnt3=0, cnt4=0;
 
             for(int k=0; k<n;k++){
 
-                if(x[k] <tempx && y[k]<tempy)
+                if(x[k] <i && y[k]<j)
                     cnt1++;
-                else if(x[k]<tempx && y[k] > tempy)
+                else if(x[k]<i && y[k] > j)
                     cnt2++;
-                else if(x[k]>tempx && y[k] <tempy)
+                else if(x[k]>i && y[k] <j)
                     cnt3++;
-                else if(x[k]>tempx && y[k] > tempy)
+                else 
                     cnt4++;
             }
 
-            int cnt_1 = max(cnt1,cnt2);
-            int cnt_2 = max(cnt3,cnt4);
+            int cnt_m = max(cnt1,cnt2);
+            cnt_m = max(cnt_m,cnt3);
+            cnt_m = max(cnt_m,cnt4);
 
-            int final_cnt = max(cnt_1,cnt_2);
-
-            ans = min(ans, final_cnt);
+            ans = min(ans, cnt_m);
         }
     }
     cout << ans;
