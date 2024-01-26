@@ -14,11 +14,11 @@ int main() {
     int ans =0;
     
     for(int i=1; i<=m;i++){ // 움직임
-        int tmp_ans = 0;
+        
         int num = i;
         for(int j=1; j<=n;j++){ // 시작위치
             int temp = arr[j];
-
+            int tmp_ans = 0;
             while(num){
                 tmp_ans += temp;
                 temp = arr[temp];
