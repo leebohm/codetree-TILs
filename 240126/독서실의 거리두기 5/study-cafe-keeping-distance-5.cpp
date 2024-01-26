@@ -10,7 +10,7 @@ string seat;
 int MinDist(){
     int min_dist = n;
 
-    for(int i=0; i<n;j++)
+    for(int i=0; i<n;i++)
         for(int j=i+1;j<n;j++)
             if(seat[i]=='1' && seat[j]=='1')
                 min_dist = min(min_dist,j-i);
