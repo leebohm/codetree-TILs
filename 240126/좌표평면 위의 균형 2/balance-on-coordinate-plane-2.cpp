@@ -14,10 +14,11 @@ int main() {
     
     int ans =1e9;
 
-    for(int i=0; i<100; i+=2){  // n개의 줄
-        for(int j=0; j<100; j+=2){ 
+    for(int i=2; i<=100; i+=2){  // n개의 줄
+        for(int j=2; j<=100; j+=2){ 
             int tempx = i, tempy =j;
             int cnt1=0,cnt2=0, cnt3=0, cnt4=0;
+
             for(int k=0; k<n;k++){
 
                 if(x[k] <tempx && y[k]<tempy)
