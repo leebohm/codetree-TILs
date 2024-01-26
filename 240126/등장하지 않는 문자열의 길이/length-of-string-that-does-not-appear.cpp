@@ -15,7 +15,7 @@ int main() {
     int ans =0;
 
     for(int i=0; i<n;i++){
-        for(int j=0; j<n/2+1;j++){
+        for(int j=0; j<n/2+i;j++){
             string str = {};
             for(int k=i;k<=j;k++){
                 str += inp[0][k];
