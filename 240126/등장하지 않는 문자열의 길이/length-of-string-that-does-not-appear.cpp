@@ -1,41 +1,40 @@
 #include <iostream>
 #include <string>
-
-int n;
+#include <algorithm>
 
 using namespace std;
 
-string inp[1];
+int n;
+string str;
 
 int main() {
-    cin>> n;
-    cin >> inp[0];
 
-    int tmp_ans =0;
-    int ans =0;
+    cin >> n;
+    cin >> str;
 
-    for(int i=0; i<n;i++){
-        for(int j=0; j<n/2+i;j++){
-            string str = {};
-            for(int k=i;k<=j;k++){
-                str += inp[0][k];
-            }
+    int ans =1;
 
-            for(int p=j+1;p<n;p++){
-                for(int q=j+1;q<n;q++){
-                    string temp = {};
-                    for(int k=p;k<=q;k++){
-                        temp+=inp[0][k];
-                    }
-                    if(str ==temp ) tmp_ans = q-p+1; 
-                    ans = max(tmp_ans,ans);
-                    
+    for(int i=1; i<n;i++){
+        bool twice = false;
+
+        for(int j=0; j<= n-i; j++){
+            for(int k=j+1;k<=n-i;k++){
+                bool issame = true;
+
+                for(int l=0; l<i;l++){
+                    if(str[j+l] != str[k+l]) issame = false;
                 }
+
+                if(issame) twice = true;
             }
         }
+        if(twice) ans = i+1;
+        else break;
     }
 
-    cout << ans+1;
-    // 여기에 코드를 작성해주세요.
+    cout << ans;
+
     return 0;
+
+    
 }
