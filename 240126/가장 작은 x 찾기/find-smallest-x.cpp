@@ -12,7 +12,7 @@ int main() {
         }
 
     int ans = b[0]+1;
-    for(int x = a[0]; x<=b[0];x++){
+    for(int x = 1; x<=b[0]/2;x++){
         int temp = x;
         bool flag = true;
         temp *=2;
