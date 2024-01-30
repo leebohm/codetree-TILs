@@ -1,54 +1,36 @@
 #include <iostream>
+#include <algorithm>
 
-int n,k;
+#define MAX_N 100
+#define MAX_NUM 100
 
 using namespace std;
 
-int arr[100];
-int min_a = 1e9, max_a = 0;
-int arr2[100];
+int n,k;
+int arr[MAX_N];
 
-bool Check(int temp){
-
-    // temp가 최댓값
-    int cnt =1;
-    for(int i=0; i<n;i++){
-        if(arr[i]<=temp) {
-            arr2[cnt++] = i;
-            }
-
-    }
-    arr2[cnt] = n-1;
-
-    for(int i=1; i<=cnt;i++){
-        int dist = abs(arr2[i]-arr2[i-1]);
-        if(dist > k){
-            return false;
+bool IsPossible(int limit){
+    int last_idx =0;
+    for(int i=1;i<n ;i++){
+        if(arr[i] <= limit){
+            if(i-last_idx >k)
+                return false;
+            last_idx =i;
         }
     }
     return true;
 }
 
-
-
-int main() {
-    
+int main(){
     cin >> n >> k;
 
-
-    for(int i=0; i<n;i++){
+    for(int i=0; i<n; i++)
         cin >> arr[i];
-        min_a = min(arr[i],min_a);
-        max_a = max(arr[i],max_a);
-    }
-    int ans =1e9;
-    for(int i=min_a;i<max_a;i++){ 
-        if(Check(i)) ans = min(i,ans); 
-        else continue;
-    }
-
-    cout << ans;
-
-    // 여기에 코드를 작성해주세요.
+    
+    for(int i=max(arr[0],arr[n-1]);i<=MAX_NUM; i++)
+        if(IsPossible(i)){
+            cout << i;
+            break;
+        }
     return 0;
 }
