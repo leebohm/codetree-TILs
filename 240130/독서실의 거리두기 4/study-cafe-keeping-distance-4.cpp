@@ -29,6 +29,9 @@ int main() {
                             ch=min(ch,num);
                             num =1;
                         }
+                        else if(num == 1){
+                            ch=min(ch,num);
+                        }
                         else if(temp[k-1]=='1') {
                             flag = false;
                             break;
