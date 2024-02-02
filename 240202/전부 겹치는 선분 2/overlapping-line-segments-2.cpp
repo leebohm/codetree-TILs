@@ -16,19 +16,19 @@ int main() {
 
     int min_x2 = INT_MAX;
     int max_x1 = 0;
-    bool flag = true;
+    bool flag = false;
     for(int i=0; i<n;i++){ // 이 선을 사용하지 않을 예정
         for(int j=0; j<n; j++){
             if(i!=j){
-                min_x2 = x2[j];
-                max_x1 = x1[j];
+                min_x2 = min(min_x2,x2[j]);
+                max_x1 = max(max_x1,x1[j]);
             }
         }
         if(min_x2 >= max_x1) flag = true;
         if(flag) break;
     }
     if(flag) cout << "Yes";
-    else "No";
+    else cout << "No";
     // 여기에 코드를 작성해주세요.
     return 0;
 }
