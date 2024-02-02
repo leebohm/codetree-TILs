@@ -22,7 +22,7 @@ int main() {
         int cost = 0;
         for(int j=0;j<n;j++){
             if(i!= j){
-                if((arr[i]-arr[j] <= 17) && (arr[i]-arr[j]>0)){
+                if((arr[i]-arr[j] <= 17) && (arr[i]-arr[j]>=0)){
                     continue;
                 }
                 else{
@@ -30,8 +30,8 @@ int main() {
                         int tmp = abs(arr[j] - arr[i]);
                         cost += tmp*tmp;  
                     }
-                    else{
-                        int tmp = abs(arr[j] - (arr[i]-17));
+                    else if ((arr[i]>arr[j])&&(abs(arr[i]-arr[j])>17)){
+                        int tmp = abs(arr[j] - abs(arr[i]-17));
                         cost += tmp*tmp;  
                     }
                 }
