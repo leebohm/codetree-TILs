@@ -27,10 +27,11 @@ int main() {
         int cnt_l = 0;
         for(int i=0 ; i<n;i++){
             if(arr[i]>=h) cnt++;
-            if(arr[i]+1 == h) {
-                cnt_l++;
-                cnt++;
-            }
+            if(cnt_l < l)
+                if(arr[i]+1 == h) {
+                    cnt_l++;
+                    cnt++;
+                }
         }
 
         if((cnt >= h) && (cnt_l <= l))
