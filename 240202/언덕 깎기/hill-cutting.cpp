@@ -2,7 +2,7 @@
 #include <climits>
 
 #define MAX_N 1000
-#defien MAX_H 100
+#define MAX_H 100
 
 using namespace std;
 
