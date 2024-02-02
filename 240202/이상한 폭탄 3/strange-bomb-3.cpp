@@ -24,12 +24,14 @@ int main() {
             }
         }
     }
-    int max_bomb = 0; 
+    int max_bomb = -1; 
     int num = 0;
     for(int i=0; i<1000000; i++){
-        max_bomb = max(max_bomb, arr2[i]);
-        if(max_bomb == arr2[i])
+        if(arr2[i]!=0)
+            max_bomb = max(max_bomb, arr2[i]);
+        if(max_bomb == arr2[i]){
             num = i;
+        }
 
     }
     cout << num;
