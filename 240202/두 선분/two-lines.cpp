@@ -1,3 +1,5 @@
+// 아 두 선분이 서로 겹치지 않는 경우가 더 적은 경우의 수구나.. 
+// x2 < x3 이거나 x4 < x1 이면 선분 안겹침... 
 #include <iostream>
 
 using namespace std;
