@@ -20,14 +20,17 @@ int main() {
     for(int i=0 ;i < n; i++)
         cin >> x1[i] >> x2[i];
     
-    bool possible = false;
-
+    int cnt =1;
     for(int i=0; i<n; i++){
+        
+        bool possible = false;
         for(int j=i+1; j<n; j++){
             possible = Check(x1[i],x2[i],x1[j],x2[j] );
         }
+
+        if(possible) cnt++;
     }
-    if(possible) cout <<"Yes";
+    if(cnt== n) cout <<"Yes";
     else cout << "No";
     // 여기에 코드를 작성해주세요.
     return 0;
