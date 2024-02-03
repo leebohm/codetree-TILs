@@ -18,20 +18,15 @@ int main() {
 
         if((x-cur_dist)>=((v+1)*(v+2))/2){
             v+=1;
-            //cout << "case 1 : " << cur_dist << " v : " << v << endl;
         }
         else if((x-cur_dist)>=((v)*(v+1))/2){
             v=v;
-            //cout << "case 2 : " << cur_dist << " v : " << v << endl;
         } 
-        else //if((x-cur_dist)==((v-1)*(v))/2){
-           {
+        else {
             v-=1;            
-            //cout << "case 3 : " << cur_dist << " v : " << v << endl;
         } 
         
         sec++;
-        //cout << "sec : " << sec <<" "<< cur_dist << " v : " << v << endl;
     }
     cout << sec;
 
