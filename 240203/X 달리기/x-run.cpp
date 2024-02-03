@@ -9,25 +9,19 @@ int main() {
 
     cin >> x;
     
-    int y = sqrt(x);
-
+    int cur_dist = 0;
+    int v = 0;
     int sec = 0;
-    int tmp = 0; 
-    for(int v = 1; v <=y; v++){
-        tmp += v*1;
-        sec++;
-    }
-    for(int v= y-1; v>=1 ; v--){
-        tmp += v*1;
-        sec++;
-    }
-    if(tmp == x) cout << sec;
-    while(tmp!=x){
-        tmp += 1;
-        sec++;
-    }
-    if(tmp == x) cout << sec;
 
-    // 여기에 코드를 작성해주세요.
+    while(cur_dist < x){
+        cur_dist += v;
+
+        if((x-cur_dist)>=((v)*(v+1))/2) v+=1;
+        else if(x-cur_dist == cur_dist + v*v/2) v= v;
+        else if((x-cur_dist)>=((v)*(v-1))/2) v-=1;
+        sec++;
+    }
+    cout << sec;
+
     return 0;
 }
