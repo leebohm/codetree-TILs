@@ -11,8 +11,22 @@ int main() {
     
     int y = sqrt(x);
 
-    if(y*y == x) cout << 2*y-1;
-    else if(y*y == x-1) cout << 2*y;
+    int sec = 0;
+    int tmp = 0; 
+    for(int v = 1; v <=y; v++){
+        tmp += v*1;
+        sec++;
+    }
+    for(int v= y-1; v>=1 ; v--){
+        tmp += v*1;
+        sec++;
+    }
+    if(tmp == x) cout << sec;
+    while(tmp!=x){
+        tmp += 1;
+        sec++;
+    }
+    if(tmp == x) cout << sec;
 
     // 여기에 코드를 작성해주세요.
     return 0;
