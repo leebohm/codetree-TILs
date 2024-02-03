@@ -26,6 +26,7 @@ int main() {
         } 
         else if((x-cur_dist)==((v)*(v))/2){
             //cout << "case 3 : " << cur_dist << " v : " << v << endl;
+            v=v;
         } 
         sec++;
     }
