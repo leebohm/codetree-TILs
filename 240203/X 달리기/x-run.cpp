@@ -16,9 +16,9 @@ int main() {
     while(cur_dist < x){
         cur_dist += v;
 
-        if((x-cur_dist)>=((v)*(v+1))/2) v+=1;
-        else if(x-cur_dist == cur_dist + v*v/2) v= v;
-        else if((x-cur_dist)>=((v)*(v-1))/2) v-=1;
+        if((x-cur_dist)>=((v+1)*(v+2))/2) v+=1;
+        else if(x-cur_dist == cur_dist + v*(v+1)/2) v= v;
+        else if((x-cur_dist)<=((v-1)*(v))/2) v-=1;
         sec++;
     }
     cout << sec;
