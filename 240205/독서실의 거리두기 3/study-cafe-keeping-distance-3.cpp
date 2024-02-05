@@ -17,7 +17,8 @@ int FindMax(){
         for(int j=i+1; j<n;j++){
             if(str[i]=='1' && str[j]=='1'){
                 dist = max(dist, j-i);
-                fin_i = i; fin_j=j;
+                if(dist == j-i)
+                    fin_i = i; fin_j=j;
                 break;
             }
             
@@ -31,7 +32,7 @@ int FindMin(){
         for(int j=i+1; j<n;j++){
             if(str[i]=='1' && str[j]=='1'){
                 dist = min(dist, j-i);
-                fin_i = i; fin_j=j;
+
                 break;
             }
             
@@ -48,7 +49,7 @@ int main() {
     FindMax();
     str[(fin_j-fin_i)/2+fin_i]='1';
     ans = FindMin();
-
+    //cout << fin_i << " " << fin_j << endl; 
     cout << ans;
 
     // 여기에 코드를 작성해주세요.
