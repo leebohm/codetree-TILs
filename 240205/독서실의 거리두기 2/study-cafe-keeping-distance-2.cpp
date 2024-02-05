@@ -53,6 +53,12 @@ int main() {
     if(str[n-1]=='0'){
         str[n-1] = '1';
         ans = max(ans, findMin());
+        str[n-1] ='0';
+    }
+
+    if(str[0]=='0'){
+        str[0] = '1';
+        ans = max(ans, findMin());
     }
 
     cout << ans;
