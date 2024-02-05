@@ -17,8 +17,9 @@ int FindMax(){
         for(int j=i+1; j<n;j++){
             if(str[i]=='1' && str[j]=='1'){
                 dist = max(dist, j-i);
-                if(dist == j-i)
-                    fin_i = i; fin_j=j;
+                if(dist == j-i){
+                    fin_i = i; 
+                    fin_j=j;}
                 break;
             }
             
