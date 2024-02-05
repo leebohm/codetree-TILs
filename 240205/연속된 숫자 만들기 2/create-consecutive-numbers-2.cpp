@@ -44,7 +44,7 @@ int main() {
 
     while(arr[1]-arr[0]!=1 && arr[2]-arr[1]!=1){
         if (arr[1]-arr[0]==2) cnt++;
-        else if (arr[2]-arr[2]==2) cnt++;
+        else if (arr[2]-arr[1]==2) cnt++;
         else if(arr[1]- arr[0]>= 3) Case1();
 
         else if(arr[2] - arr[1]>=3) Case2();
