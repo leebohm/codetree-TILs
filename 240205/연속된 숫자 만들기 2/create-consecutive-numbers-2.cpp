@@ -3,7 +3,7 @@
 
 #define MAX_N 3
 
-usingnamespace std;
+using namespace std;
 
 int n=3;
 int a[MAX_N];
