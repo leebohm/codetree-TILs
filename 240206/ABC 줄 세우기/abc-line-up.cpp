@@ -17,12 +17,13 @@ int main() {
     
     bool flag = true;
     int ans = 0; 
+
     while(flag){
         bool check = true; 
         for(int i=0; i<n-1 ;i++){
-            if (arr[i+1] - arr[i] != 1) check = false;
-            if (check) flag = false;  
+            if ((arr[i+1] - arr[i] ) != 1) check = false;
         }
+        if (check) flag = false;  
 
         for(int i=0; i<n-1;i++){
             if(arr[i+1]-arr[i]<0) {
