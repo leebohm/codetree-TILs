@@ -20,7 +20,8 @@ int main() {
     for(int i=0;i<m;i++){
         cin >> c;
         if(c == 'L'){
-            it --;
+            if(it!=l.begin())
+                it --;
         }
 
         if(c=='P'){
@@ -29,7 +30,8 @@ int main() {
         }
 
         if(c=='R'){
-            it ++; 
+            if(it!=l.end())
+                it ++; 
         }
 
         if(c=='D'){
