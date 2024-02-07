@@ -24,19 +24,20 @@ int main() {
                 it --;
         }
 
-        if(c=='P'){
+        else if(c=='P'){
             cin >> c;
             l.insert(it,c);
+    
         }
 
-        if(c=='R'){
+        else if(c=='R'){
             if(it!=l.end())
                 it ++; 
         }
 
-        if(c=='D'){
+        else if(c=='D'){
             if(it != l.end())
-                l.erase(it);
+                it = l.erase(it);
         }
     }
     
