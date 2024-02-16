@@ -14,7 +14,7 @@ void Heapify(int n, int i){
     int r = i*2+1;
 
     if(l<= n && arr[l] > arr[largest])
-        largest = 1;
+        largest = l;
     
     if(r<= n && arr[r] > arr[largest])
         largest = r;
