@@ -1,16 +1,22 @@
 #include <iostream>
 
-int a,b;
-
 using namespace std;
 
 int main() {
-    cin >> a>> b;
-    cout << fixed;
-    cout.precision(20);
+    int a,b;
 
-    double c = (double) a/ (double) b;
-    cout<< c;
-    // 여기에 코드를 작성해주세요.
+    cin >> a>> b;
+
+    cout << a/b << ".";
+
+    a %= b;
+
+    for(int i=0; i<20; i++){
+        
+        a*= 10;
+        cout << a/ b;
+
+        a%= b;
+    }
     return 0;
 }
