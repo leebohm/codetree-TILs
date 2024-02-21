@@ -42,7 +42,7 @@ int GetMaxSum(int x, int y){
         int sum = 0;
         for(int dx =0; dx < 3; dx++)
             for(int dy = 0; dy < 3; dy++){
-                if(shapes[i][ds][dy] == 0) continue;
+                if(shapes[i][dx][dy] == 0) continue;
                 if(x+dx >= n || y + dy >= m) is_possible = false;
                 else sum += grid[x+dx][y+dy];
             }
