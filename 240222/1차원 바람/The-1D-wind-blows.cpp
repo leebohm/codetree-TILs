@@ -69,6 +69,7 @@ int main() {
             }
             else break;
         }
+        key_row = row_num[i];
         d = dir[i];
         while(check_row2<n){
             if(Check(key_row, check_row2)){
