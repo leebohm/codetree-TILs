@@ -30,7 +30,7 @@ int main() {
         for(int j=0; j<m; j++)
             cin >> arr[i][j];
     
-    int ans =0;
+    int ans =-1;
     bool flag = true;
 
     for(int x1 =0; x1 < n; x1++)
