@@ -25,6 +25,7 @@ int RunLengthEncoding(){
             temp = str[i];
         }
     }
+    if(cnt == 1 && n >= 10) return 3;
     return cnt*2;
 }
 
