@@ -22,7 +22,7 @@ void Move_clockwise(int x, int y){
 
     int i = x-m1; int j = y-m1;
     for(int k = 0; k <m1; k++){
-        arr[i][j] = arr[i-1][j-1];
+        arr[i][j] = arr[i+1][j+1];
         i++; j++;
     }
     
@@ -46,7 +46,7 @@ void Move_clockwise(int x, int y){
         arr[i][j] = arr[i-1][j+1];
         i--;j++;
     }
-    arr[x-m4+1][y+m4-1] = temp3;
+    arr[x-m4+1][y+m4-1] = temp4;
 
 }
 
