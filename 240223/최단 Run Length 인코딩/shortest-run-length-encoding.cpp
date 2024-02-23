@@ -33,10 +33,13 @@ int main() {
 
     n = str.length();
     int ans = INT_MAX;
-    for(int i=0; i<n-1; i++){
-        Shift();
-        ans = min(ans, RunLengthEncoding());
+    if(n!= 1){
+        for(int i=0; i<n-1; i++){
+            Shift();
+            ans = min(ans, RunLengthEncoding());
+        }
     }
+    if(n==1) ans = 2;
     cout << ans;
         // 여기에 코드를 작성해주세요.
     return 0;
