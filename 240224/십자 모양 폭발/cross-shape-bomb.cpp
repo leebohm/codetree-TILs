@@ -22,27 +22,31 @@ void Bomb (int x, int y){
             int ny = y+dy[i]*(j);
             if(InRange(nx,ny)){
                 //cout << nx << " " << ny << endl;
-                arr[nx][ny] = 0;
+                arr[ nx][ny] = 0;
             }
         }
     }
 }
 int Check(int col){
-    int min_row = n;
+    int max_row = -1;
     for(int row = 0; row <n; row++)
         if(arr[row][col] == 0)
-            min_row = min(min_row,row);
-    return min_row;
+            max_row = max(max_row,row);
+    return max_row;
 }
 
 void Fall(){
 
     for(int col=0; col < n; col++){
-        if(Check(col)!= n){
+        if(Check(col)!= -1){
             int row = Check(col);
-            for(int i=row; i>=1; i--){
-                arr[i][col] = arr[i-1][col];
-                arr[i-1][col] = 0;
+            //cout << row << " ";
+            int temp_row = row;
+            for(int i=row-1; i>=0; i--){
+                if(arr[i][col]!=0){
+                    arr[temp_row++][col] =arr[i][col];
+                    arr[i][col]=0; 
+                }
             }
         }
     }
