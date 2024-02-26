@@ -71,7 +71,7 @@ void Left_sum(){
     for(int i=0; i<MAX_N;i++){
         for(int j = 0 ; j<MAX_N ; j++ ){
             if(arr[i][j] == arr[i][j+1]){
-                arr[i][j] *=0;
+                arr[i][j] *=2;
                 arr[i][j+1] = 0;
             }
                 
