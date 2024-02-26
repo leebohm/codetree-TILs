@@ -80,6 +80,7 @@ int main() {
     if(n==0)
         cout << 0;
     else{
+        cout << n << endl;
         for(int i=0; i<n; i++)
                 cout << arr[i] << " " ;
             // 여기에 코드를 작성해주세요.
