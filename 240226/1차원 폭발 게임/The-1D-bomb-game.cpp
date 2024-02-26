@@ -68,7 +68,7 @@ int main(){
     cout << end_of_array << endl;
 
     for(int i=0; i<end_of_array; i++)
-        cout << end_of_array << endl;
+        cout << arr[i] << endl;
 
     return 0;
 }
