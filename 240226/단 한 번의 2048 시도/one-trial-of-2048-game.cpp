@@ -43,7 +43,7 @@ void Up(){
 
 void Up_sum () {
     for(int j=0;j<MAX_N; j++){
-        for(int i=0; i<MAX_N; i++){
+        for(int i=0; i<MAX_N-1; i++){
             if(arr[i][j] == arr[i+1][j]){
                 arr[i+1][j] = 0;
                 arr[i][j] *= 2;
@@ -69,7 +69,7 @@ void Left(){
 
 void Left_sum(){
     for(int i=0; i<MAX_N;i++){
-        for(int j = 0 ; j<MAX_N ; j++ ){
+        for(int j = 0 ; j<MAX_N-1 ; j++ ){
             if(arr[i][j] == arr[i][j+1]){
                 arr[i][j] *=2;
                 arr[i][j+1] = 0;
