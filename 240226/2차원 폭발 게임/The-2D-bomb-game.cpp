@@ -82,12 +82,16 @@ int main() {
         for(int j=0; j<n; j++)
             cin >> arr[i][j];
 
+    Bomb();
+    Fall();
 
     for(int i=0; i<k; i++){
-        Bomb();
-        Fall();
+
         Rotate();
         Fall();
+        Bomb();
+        Fall();
+        
     }
     Bomb();
     Fall();
