@@ -1,71 +1,73 @@
 #include <iostream>
 
 using namespace std;
+
 int n,m;
+int end_of_array, end_of_temp;
 int arr[100];
 int temp[100];
-int end_of_arr, end_of_temp;
 
-
-int GetEndidx(int curr_idx, int num){
-    int idx = curr_idx;
-    for(int i=curr_idx+1; i<end_of_arr; i++){
-        if(arr[i] == num) idx ++;
+int GetEndIdx(int curr_idx, int num){
+    int end_idx = curr_idx+1;
+    while(end_idx<end_of_array){
+        if(arr[end_idx] == num) end_idx++;
         else break;
     }
-    return idx--;
-
+    return end_idx-1;
+    
 }
 
-void FillZero(int sidx, int eidx){
-    for(int i=sidx; i<= eidx;i++)
-        arr[i] = 0;
+void FillZero(int start_idx, int end_idx){
+    for(int i=start_idx; i<= end_idx; i++)
+        arr[i]= 0;
 }
 
-void MakeTemp (){
+void Bomb(){
+
     end_of_temp = 0;
-    for(int i=0; i<end_of_arr; i++){
-        if(arr[i] != 0){
+    for(int i=0; i<end_of_array; i++)
+        if(arr[i] != 0)
             temp[end_of_temp++] = arr[i];
-        }
-    }
-    end_of_arr = end_of_temp;
+
+    end_of_array = end_of_temp;
 }
 
-void Copy(){
-    for(int i=0; i<end_of_arr; i++)
-        arr[i]= temp[i];
+void Copy()
+{
+    for(int i=0; i<end_of_array; i++)
+        arr[i] = temp[i];
 }
 
 int main(){
-
-    cin>> n >> m;
+    cin >> n >> m;
 
     for(int i=0; i<n; i++)
         cin >> arr[i];
 
-    bool didexplode = false;
+    bool flag = false;
 
     do{
-        didexplode = false;
+        flag = false;
 
-        for(int i=0; i<n; i++){
+        for(int idx = 0; idx <end_of_array; idx++){
+            if(arr[idx] == 0) continue;
 
-            if(arr[i] == 0) continue;
-            int idx = GetEndidx(i,arr[i]);
+            int end_idx = GetEndIdx(idx, arr[idx]);
 
-            if(idx - i +1 >= m){
-                didexplode = true;
-                FillZero(i,idx);
-            }   
-
+            if(end_idx-idx +1 >= m){
+                FillZero(idx,end_idx);
+                flag = true; 
+            }
         }
-        MakeTemp();
-        Copy();
-    }while(didexplode);
 
-    cout << end_of_arr << endl;
-    for(int i=0; i< end_of_arr; i++)
-        cout << arr[i] << endl;
+        Bomb();
+        Copy();
+    }while(flag);
+
+    cout << end_of_array << endl;
+
+    for(int i=0; i<end_of_array; i++)
+        cout << end_of_array << endl;
+
     return 0;
 }
