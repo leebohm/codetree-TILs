@@ -7,6 +7,7 @@ int n,m,k;
 int arr[100][100];
 int temp[100][100];
 
+
 void Rotate(){
     for(int i=0; i<n; i++)
         for(int j=0; j<n; j++)
@@ -14,7 +15,7 @@ void Rotate(){
     
     for(int i=0; i<n; i++)
         for(int j=0; j<n; j++)
-            temp[i][j] = arr[n-j+1][i];
+            temp[i][j] = arr[n-j-1][i];
     
     for(int i=0; i<n;i++)
         for(int j=0;j<n; j++)
@@ -26,7 +27,7 @@ int GetEndRow(int start_row, int col){
     int end_row = start_row+1;
     for(int i=start_row+1; i<n; i++){
         if(key == arr[i][col]) end_row++; 
-        else break;
+        else return start_row;
     }
     return end_row-1;
 }
@@ -85,8 +86,7 @@ int main() {
     for(int i=0; i<k; i++){
         Bomb();
         Fall();
-        if(n!=1)
-            Rotate();
+        Rotate();
         Fall();
     }
     
