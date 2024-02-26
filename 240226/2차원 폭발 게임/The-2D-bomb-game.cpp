@@ -89,7 +89,9 @@ int main() {
         Rotate();
         Fall();
     }
-    
+    Bomb();
+    Fall();
+
     int ans =0;
     
     for(int i=0; i<n; i++){
@@ -98,6 +100,7 @@ int main() {
         }
     }
     cout << ans;
+
     // 여기에 코드를 작성해주세요.
     return 0;
 }
