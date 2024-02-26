@@ -44,6 +44,7 @@ int main(){
     for(int i=0; i<n; i++)
         cin >> arr[i];
 
+    end_of_array = n;
     bool flag = false;
 
     do{
