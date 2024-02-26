@@ -27,7 +27,7 @@ int GetEndRow(int start_row, int col){
     int end_row = start_row+1;
     for(int i=start_row+1; i<n; i++){
         if(key == arr[i][col]) end_row++; 
-        else return start_row;
+        else break;
     }
     return end_row-1;
 }
