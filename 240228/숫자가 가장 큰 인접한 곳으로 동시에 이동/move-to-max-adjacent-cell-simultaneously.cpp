@@ -52,7 +52,9 @@ void GetBombsPose(){
                 r[x++]=i;
                 c[y++]=j;
             }
-            //if(temp[i][j]==0)
+            if(temp[i][j]>1){
+                m -= temp[i][j];
+            }
         }
     }
 }
