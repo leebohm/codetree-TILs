@@ -18,7 +18,7 @@ bool InRange(int x, int y){
 void Reset_temp(){
     for(int i=0; i<n; i++)
         for(int j=0; j<n; j++){
-            temp[i][j] == 0;
+            temp[i][j] = 0;
         }
 }
 
@@ -91,7 +91,9 @@ int main() {
     }
     
     while(t--){
+        //cout << t << endl;
         Reset_temp();
+        //Output_temp();
             for(int i=0; i<m; i++){
                 Move(r[i],c[i]);
             }
