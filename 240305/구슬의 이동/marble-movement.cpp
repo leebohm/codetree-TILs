@@ -16,6 +16,7 @@ int board[50][50];
 vector<pair<int,int>> index;
 typedef tuple<int,int,int,int> marbles_info;
 vector<marbles_info> marbles;
+vector<marbles_info> temps;
 
 bool InRange(int x, int y){
     return 0 <= x && x<n && y>=0 && y<n;
@@ -65,6 +66,7 @@ void Bomb(){
         int x,y;
         tie(x,y) = index[i];
         int num = board[x][y];
+        temps.clear();
         // num 개 중에 num-k 개의 구슬을 지워야 함.... 
         // 우선순위 일단 v 큰것. 그다음 구슬 번호가 큰 것. 
         // num 이 k보다 작거나 같아지면 끝남. 
@@ -87,11 +89,12 @@ void Bomb(){
                 }
             }
 
-            for(int j = min_j; j<(int) marbles.size()-1; j++){
-                marbles[j] = marbles[j+1];
+            for(int j = 0 ; j<(int) marbles.size(); j++){
+                if(j != min_j)
+                    temps.push_back(marbles[j]);
             }
             num--;
-            
+            marbles = temps;
 
         }
         
