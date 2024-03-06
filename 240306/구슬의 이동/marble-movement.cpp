@@ -89,14 +89,14 @@ int main(){
         );
     }
 
-    int ans =0;
-
-    while(t--){
+    while(t--)
         Simulate();
+    
+    int ans = 0;
         for(int i=0; i<n; i++)
             for(int j=0; j<n; j++)
                 ans+= (int) grid[i][j].size();
-    }
+
     cout << ans;
     return 0;
     
