@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <vector>
 
-using namespaces std;
+using namespace std;
 
 int n;
 int ans;
