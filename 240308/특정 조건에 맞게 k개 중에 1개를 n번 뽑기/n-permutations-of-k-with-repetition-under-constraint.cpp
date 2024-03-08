@@ -20,6 +20,7 @@ bool Possible(){
             cnt = 1;
         }
     }
+    max_cnt = max(cnt, max_cnt);
     if(max_cnt >= 3) return false;
     else return true;
 }
