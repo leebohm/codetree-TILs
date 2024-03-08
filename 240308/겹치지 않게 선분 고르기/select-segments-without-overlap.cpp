@@ -23,10 +23,10 @@ bool Possible(){
         int x2,y2;
         for(int i=1; i<(int) vec.size(); i++){
             tie(x2,y2) = line[(int) vec[i] -1];
-            if(Overlab(x1,y1,x2,y2) == false){
+            if(Overlab(x1,y1,x2,y2) == false){ // 안겹치면 
                 continue;
             }
-            else false; // 겹치면 false 반환
+            else return false; // 겹치면 false 반환
             x1 = x2;
             y1 = y2;
         }
