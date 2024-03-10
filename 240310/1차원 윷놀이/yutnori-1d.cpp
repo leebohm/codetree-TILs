@@ -1,3 +1,28 @@
+// #include <iostream>
+// #include <algorithm>
+
+// #define MAX_N 12
+// #define MAX_K 4
+
+// using namespace std;
+
+// int n,m,k;
+// int nums[MAX_N], pieces[MAX_K];
+
+// int ans;
+
+// int Calc(){
+//     int score = 0;
+//     for(int i=0; i<k; i++)
+//         score += (pieces[i] >= m);
+//     return score;
+// }
+
+// void FindMax(int cnt){
+//     ans = max(ans, Calc());
+
+// }
+
 #include <iostream>
 #include <vector>
 
@@ -9,9 +34,13 @@ vector<int> horse; // 선택된 말의 순서
 int horse_pos[4];
 int ans;
 
+void ResetHorsePos(){
+    for(int i=0; i<4; i++)
+        horse_pos[i] = 0;
+}
 
-int MoveHorse(){
-    for(int i=0; i<(int)horse.size(); i++){
+void MoveHorse(){
+    for(int i=0; i<=(int)horse.size(); i++){
         horse_pos[horse[i]-1] += arr[i];
     }
 }
@@ -21,13 +50,24 @@ int GetScore(){
     for(int i=0; i<k; i++){
         if(horse_pos[i]>=m-1) score++;
     }
+    //cout << "score : " << score << endl;
     return score;
 }
 
-void Choose(int cnt){
+void Output(){
+    cout << "horse_pos : ";
+    for(int i=0; i<4; i++)
+        cout << horse_pos[i] << " ";
+    cout << endl;
+}
 
+void Choose(int cnt){
+    
     if(cnt == n){
+        //cout << "horse size : " << (int) horse.size() <<  endl;
+        ResetHorsePos();
         MoveHorse();
+        //Output();
         ans = max(ans,GetScore());
         return;
     }
@@ -48,9 +88,9 @@ int main() {
         cin >> arr[i];
     
     Choose(0);
-    cout << ans;
+    cout << ans << endl;
 
+    // for(int i=0; i<4; i++)
+    //     cout << horse_pos[i] << " ";
     return 0;
 }
-
-// 중복으로 말을 뽑아야함. k개의 말을 중복으로 n번 뽑아야 함
