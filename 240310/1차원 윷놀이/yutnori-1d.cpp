@@ -40,7 +40,7 @@ void ResetHorsePos(){
 }
 
 void MoveHorse(){
-    for(int i=0; i<=(int)horse.size(); i++){
+    for(int i=0; i<(int)horse.size(); i++){
         horse_pos[horse[i]-1] += arr[i];
     }
 }
