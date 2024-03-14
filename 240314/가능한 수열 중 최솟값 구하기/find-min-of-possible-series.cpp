@@ -27,7 +27,7 @@ void Output(){
     for(int i=0; i<(int) vec.size(); i++){
         cout << vec[i];
     }
-    cout << endl;
+    exit(0);
 }
 
 void Choose(int cnt){
