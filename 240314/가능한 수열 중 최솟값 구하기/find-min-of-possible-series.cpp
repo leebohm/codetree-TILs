@@ -32,12 +32,7 @@ void Output(){
 
 void Choose(int cnt){
     if(cnt == n){
-        if(flag == false){
-            Output();
-            flag = true;
-            return;
-        }
-            
+        Output();            
         return;
     }
     
