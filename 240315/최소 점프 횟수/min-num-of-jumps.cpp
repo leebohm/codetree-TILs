@@ -28,7 +28,10 @@ int main() {
         cin >> arr[i];
 
     Jump(0,0);
-    cout << ans;
+    if(ans == 11)
+        cout<< -1;
+    else
+        cout << ans;
     // 여기에 코드를 작성해주세요.
     return 0;
 }
