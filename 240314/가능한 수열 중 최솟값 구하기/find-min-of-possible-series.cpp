@@ -35,6 +35,7 @@ void Choose(int cnt){
         if(Possible() && flag == false){
             Output();
             flag = true;
+            return;
         }
             
         return;
