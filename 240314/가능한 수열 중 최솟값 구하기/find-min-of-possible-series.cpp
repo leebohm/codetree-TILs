@@ -16,7 +16,7 @@ bool Possible(){
                 if(vec[j] == vec[j+tmp]){
                     cnt ++;
                 }
-                if(cnt >= tmp) return false;
+                if(cnt == tmp) return false;
             }
         }
     }
