@@ -13,9 +13,10 @@ bool Possible(){
         for(int i=0;i<(int) vec.size()-tmp; i++){
             cnt = 0;
             for(int j=i; j<i+tmp;j++){
-                if(vec[j] == vec[j+tmp]){
-                    cnt ++;
-                }
+                if(j+tmp < (int) vec.size())
+                    if(vec[j] == vec[j+tmp]){
+                        cnt ++;
+                    }
                 if(cnt == tmp) return false;
             }
         }
