@@ -9,7 +9,7 @@ bool flag = false;
 
 bool Possible(){
     int cnt = 0;
-    for(int tmp = 1; tmp< (int)vec.size(); tmp++){
+    for(int tmp = 1; tmp< (int)vec.size()/2; tmp++){
         for(int i=0;i<(int) vec.size()-tmp; i++){
             cnt = 0;
             for(int j=i; j<i+tmp;j++){
