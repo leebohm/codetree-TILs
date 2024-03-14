@@ -33,7 +33,6 @@ void Output(){
 void Choose(int cnt){
     if(cnt == n){
         Output();            
-        return;
     }
     
     for(int i=4; i<=6; i++){
