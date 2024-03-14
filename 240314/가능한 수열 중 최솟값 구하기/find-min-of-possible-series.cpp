@@ -43,7 +43,8 @@ void Choose(int cnt){
     
     for(int i=4; i<=6; i++){
         vec.push_back(i);
-        Choose(cnt+1);
+        if(Possible())
+            Choose(cnt+1);
         vec.pop_back();
     }
     return;
