@@ -27,7 +27,7 @@ void FindMax(int x, int y, int cnt){
     int d = move_dir[x][y] -1;
 
     for(int i=0; i<n; i++){
-        int nx = x+dx[d] * i; ny = y + dy[d]*i;
+        int nx = x+dx[d] * i, ny = y + dy[d]*i;
         if(CanGo(nx, ny, num[x][y]))
             FindMax(nx,ny, cnt+1);
     }
