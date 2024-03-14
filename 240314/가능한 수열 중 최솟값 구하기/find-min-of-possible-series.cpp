@@ -32,7 +32,7 @@ void Output(){
 
 void Choose(int cnt){
     if(cnt == n){
-        if(Possible() && flag == false){
+        if(flag == false){
             Output();
             flag = true;
             return;
