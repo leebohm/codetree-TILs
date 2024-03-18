@@ -30,7 +30,7 @@ int Dist(pair<int,int> a, pair<int,int> b){
     int bx,by;
     tie(bx,by) = b;
 
-    return abs(ax-ba) + abs(ay-by);
+    return abs(ax-bx) + abs(ay-by);
 }
 
 int Calc() {
@@ -38,6 +38,8 @@ int Calc() {
     for(int i=0; i<m-1; i++)
         num_moves += Dist(selected_pos[i], selected_pos[i+1]);
     num_moves += Dist(selected_pos[m-1], end_pos);
+
+    return num_moves;
 }
 
 void FindMinMoves(int curr_idx, int cnt){
