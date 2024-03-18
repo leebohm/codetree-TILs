@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 
-#define MAX_N 8
+#define MAX_N 9
 
 using namespace std;
 vector<int> vec;
