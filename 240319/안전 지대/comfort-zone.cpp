@@ -63,7 +63,7 @@ int main() {
             max_k = max(max_k, arr[i][j]);
         }
             
-    int ans = 0;
+    int ans = 1;
     int min_k = 0;
     for(int i=1; i<=max_k; i++){
         k = i;
