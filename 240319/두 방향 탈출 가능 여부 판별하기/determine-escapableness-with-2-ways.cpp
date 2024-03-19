@@ -22,12 +22,12 @@ void DFS(int x, int y){
         int nx = x + dx[i];
         int ny = y + dy[i];
         if(CanGo(nx,ny)){
+            //cout << nx << " " << ny << endl;
             visited[nx][ny] = true;
             DFS(nx,ny);
         }
     }
     return;
-
 }
 
 int main(){
@@ -39,6 +39,8 @@ int main(){
             cin >> arr[i][j];
         }
     }
+
+    DFS(0,0);
 
     if(visited[n-1][m-1])
         cout << 1;
