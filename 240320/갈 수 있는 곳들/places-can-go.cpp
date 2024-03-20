@@ -86,7 +86,7 @@ int main() {
     for(int i=0; i<(int) start_pos.size(); i++){
 
         //cout << " i : " << i << endl;
-        InitializeVisited();
+        //InitializeVisited();
         pair<int,int> pos = start_pos[i];
         int x, y;
         x = pos.first;
