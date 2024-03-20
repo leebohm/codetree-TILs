@@ -99,9 +99,11 @@ void Simulation(){
 
             BFS();
         }
-        pair<int,int> curr_pos =  FindMaxNum();        
-        r = curr_pos.first;
-        c = curr_pos.second;
+        pair<int,int> curr_pos =  FindMaxNum();  
+        if(curr_pos.first != -1){
+            r = curr_pos.first;
+            c = curr_pos.second;
+        }
         //cout << r <<" " << c  <<" " << arr[r][c]  << " k : " << i << endl;
        // Output();
     }
