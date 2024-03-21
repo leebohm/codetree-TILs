@@ -21,7 +21,10 @@ queue<pair<int,int>> q;
 bool visited[MAX_N][MAX_N];
 
 bool InRange(int x, int y){
-    return 0 < = x && x < n && 0 <= y && y < n;
+    return 0 <= x && x < n && 0 <= y && y < n;
+}
+bool CanGo(int x, int y){
+    return InRange(x,y) && ! a[x][y] && !visited[x][y];
 }
 
 void BFS(){
@@ -102,7 +105,7 @@ int main(){
     
     for(int i=0;i<k;i++){
         int r,c;
-        cin >> r >> c >>;
+        cin >> r >> c ;
         r--; c--;
         s_pos.push_back(make_pair(r,c));
     }
