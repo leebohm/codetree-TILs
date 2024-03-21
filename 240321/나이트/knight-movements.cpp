@@ -52,8 +52,10 @@ int main() {
 
     step[r2][c2] = -1;
     BFS();
-
-    cout << step[r2][c2] ;
+    if(r1 == r2 && c1 == c2)
+        cout << 0;
+    else
+        cout << step[r2][c2] ;
     // 여기에 코드를 작성해주세요.
     return 0;
 }
