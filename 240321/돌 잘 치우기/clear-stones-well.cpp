@@ -11,6 +11,7 @@ int n,m,k;
 int arr[MAX_N][MAX_N];
 int tmp[MAX_N][MAX_N];
 bool visited[MAX_N][MAX_N];
+bool visited_stone[MAX_N][MAX_N];
 vector<pair<int,int>> start_point;
 vector<pair<int,int>> stone_pos;
 vector<pair<int,int>> selected_stone_pos;
@@ -76,6 +77,7 @@ void DeleteStone(){
         int x, y;
         tie(x,y) = pos;
         tmp[x][y] = 0;
+        //cout << x << " " << y << endl;
     }
 }
 
@@ -84,6 +86,11 @@ void InitializedVisited(){
         for(int j=0; j<n; j++)
             visited[i][j] = false;
 }
+void InitializedVisitedStone(){
+    for(int i=0 ; i<n;i++)
+        for(int j=0; j<n; j++)
+            visited_stone[i][j] = false;
+}
 
 void InitializedTmp(){
     for(int i=0 ; i<n;i++)
@@ -91,22 +98,49 @@ void InitializedTmp(){
             tmp[i][j] = arr[i][j];
 }
 
+void Output(){
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            cout << !visited[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
+void Output_tmp(){
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            cout << tmp[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
 void Choose(int num){
 
     if(num == m){
+        //cout << "stone_size : " << selected_stone_pos.size() << endl;
         InitializedTmp();
         InitializedVisited();
+        //InitializedVisitedStone();
         DeleteStone();
+        //Output_tmp();
         Simulation();
+        //Output();
+        //cout << endl;
         return;
     }
 
-    for(int i=0; i<m; i++){
-        selected_stone_pos.push_back(stone_pos[i]);
-        Choose(num +1 );
-        selected_stone_pos.pop_back();
+    for(int i=0; i<stone_num; i++){
+        pair<int,int> pos = stone_pos[i];
+        int x,y;
+        tie(x,y) = pos;
+        if(visited_stone[x][y] == false){
+            visited_stone[x][y] = true;
+            selected_stone_pos.push_back(stone_pos[i]);
+            Choose(num +1 );
+            selected_stone_pos.pop_back();
+            visited_stone[x][y] = false;
+        }
     }
-
 }
 
 int main() {
@@ -131,7 +165,7 @@ int main() {
     }
 
     Choose(0);
-    
+
     cout << ans;
     // 여기에 코드를 작성해주세요.
     return 0;
