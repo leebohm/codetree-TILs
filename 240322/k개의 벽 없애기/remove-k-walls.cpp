@@ -66,7 +66,7 @@ void BFS(){
 void InitializedTmp(){
     for(int i=0; i<n; i++)
         for(int j=0; j<n; j++)
-            tmp[i][j] == arr[i][j];
+            tmp[i][j] = arr[i][j];
 }
 
 void RemoveWalls(){
@@ -77,12 +77,23 @@ void RemoveWalls(){
     }
 }
 
+void OutputTmp(){
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n;j ++){
+            cout << tmp[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
 void Choose(int idx, int cnt){
     if(cnt == k){
+        //cout << (int) selected_walls.size() << endl;
         InitializedVisited();
         q.push(make_pair(r1,c1));
         visited[r1][c1] = true;
         InitializedTmp();
+        RemoveWalls();
+        //OutputTmp();
         BFS();
 
     }
