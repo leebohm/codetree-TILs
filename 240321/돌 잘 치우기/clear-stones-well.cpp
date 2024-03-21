@@ -1,172 +1,113 @@
 #include <iostream>
-#include <vector>
 #include <queue>
-#include <tuple>
-#define MAX_N 100
+#include <vector>
 
+#define MAX_N 100
+#define DIR_NUM 4
 
 using namespace std;
 
-int n,m,k;
-int arr[MAX_N][MAX_N];
-int tmp[MAX_N][MAX_N];
-bool visited[MAX_N][MAX_N];
-bool visited_stone[MAX_N][MAX_N];
-vector<pair<int,int>> start_point;
-vector<pair<int,int>> stone_pos;
-vector<pair<int,int>> selected_stone_pos;
-int stone_num;
-queue<pair<int,int>> bfs_q;
+int n,k,m;
+int a[MAX_N][MAX_N];
+
 int ans;
 
-bool InRange(int x, int y){
-    return x >=0 && x < n &&  y >= 0 && y < n;
-}
+vector<pair<int,int>> s_pos;
+vector<pair<int,int>> stone_pos;
+vector<pair<int,int>> selected_stones;
 
-bool CanGo(int x, int y){
-    if(InRange(x,y) == false)
-        return false;
-    if(tmp[x][y] == 1 || visited[x][y] == true)
-        return false;
-    return true;
+
+queue<pair<int,int>> q;
+bool visited[MAX_N][MAX_N];
+
+bool InRange(int x, int y){
+    return 0 < = x && x < n && 0 <= y && y < n;
 }
 
 void BFS(){
-    while(!bfs_q.empty()){
-        int dx[4] = {1,0,-1,0};
-        int dy[4] = {0,1,0,-1};
+    while(!q.empty()){
 
-        pair<int,int> pos = bfs_q.front();
-        bfs_q.pop();
-        int x= pos.first , y = pos.second;
+        pair<int,int> curr_pos = q.front();
+        int x = curr_pos.first, y= curr_pos.second;
+        q.pop();
 
-        for(int i=0; i<4; i++){
-            int nx = x+dx[i], ny = y+dy[i];
+        int dx[DIR_NUM] ={1,-1,0,0};
+        int dy[DIR_NUM] = {0,0,1,-1};
+
+        for(int dir =0; dir <DIR_NUM; dir++){
+            int nx = x +dx[dir] , ny = y+dy[dir];
             if(CanGo(nx,ny)){
+                q.push(make_pair(nx,ny));
                 visited[nx][ny] = true;
-                bfs_q.push(make_pair(nx,ny));
             }
         }
     }
-
 }
 
-int Count(){
-    int cnt =0;
+int Calc(){
+    for(int i=0 ; i<m; i++) {
+        int x = selected_stones[i].first, y= selected_stones[i].second;
+        a[x][y] = 0;
+    }
+
     for(int i=0; i<n; i++)
+        for(int j=0; j<n; j++)
+            visited[i][j] =0;
+
+    for(int i=0; i <k; i++) {
+        q.push(s_pos[i]);
+        visited[s_pos[i].first][s_pos[i].second] = true;
+    }
+
+    BFS();
+
+    for(int i=0; i<m; i++){
+        int x = selected_stones[i].first , y = selected_stones[i].second;
+        a[x][y] = 1;
+    }
+
+    int cnt = 0;
+    for(int i=0; i<n ; i++)
         for(int j=0; j<n; j++)
             if(visited[i][j])
                 cnt++;
+    
     return cnt;
 }
 
-void Simulation(){
-    for(int i=0; i<k; i++){
-        pair<int,int> pos = start_point[i];
-        int x,y;
-        tie(x,y) = pos;
-        bfs_q.push(make_pair(x,y));
-        BFS();
-        ans = max(ans,Count());
-    }
-}
-
-void DeleteStone(){
-    for(int i=0; i<(int) selected_stone_pos.size(); i++){
-        pair<int,int> pos = selected_stone_pos[i];
-        int x, y;
-        tie(x,y) = pos;
-        tmp[x][y] = 0;
-        //cout << x << " " << y << endl;
-    }
-}
-
-void InitializedVisited(){
-    for(int i=0 ; i<n;i++)
-        for(int j=0; j<n; j++)
-            visited[i][j] = false;
-}
-void InitializedVisitedStone(){
-    for(int i=0 ; i<n;i++)
-        for(int j=0; j<n; j++)
-            visited_stone[i][j] = false;
-}
-
-void InitializedTmp(){
-    for(int i=0 ; i<n;i++)
-        for(int j=0; j<n; j++)
-            tmp[i][j] = arr[i][j];
-}
-
-void Output(){
-    for(int i=0; i<n; i++){
-        for(int j=0; j<n; j++){
-            cout << !visited[i][j] << " ";
-        }
-        cout << endl;
-    }
-}
-void Output_tmp(){
-    for(int i=0; i<n; i++){
-        for(int j=0; j<n; j++){
-            cout << tmp[i][j] << " ";
-        }
-        cout << endl;
-    }
-}
-void Choose(int num){
-
-    if(num == m){
-        //cout << "stone_size : " << selected_stone_pos.size() << endl;
-        InitializedTmp();
-        InitializedVisited();
-        //InitializedVisitedStone();
-        DeleteStone();
-        //Output_tmp();
-        Simulation();
-        //Output();
-        //cout << endl;
+void FindMax(int idx, int cnt){
+    if(idx == (int) stone_pos.size()){
+        if(cnt == m)
+            ans = max(ans, Calc());
         return;
     }
 
-    for(int i=0; i<stone_num; i++){
-        pair<int,int> pos = stone_pos[i];
-        int x,y;
-        tie(x,y) = pos;
-        if(visited_stone[x][y] == false){
-            visited_stone[x][y] = true;
-            selected_stone_pos.push_back(stone_pos[i]);
-            Choose(num +1 );
-            selected_stone_pos.pop_back();
-            visited_stone[x][y] = false;
-        }
-    }
+    selected_stones.push_back(stone_pos[idx]);
+    FindMax(idx+1, cnt+1);
+    selected_stones.pop_back();
+
+    FindMax(idx+1, cnt);
 }
 
-int main() {
+int main(){
 
     cin >> n >> k >> m;
 
     for(int i=0; i<n; i++)
         for(int j=0; j<n; j++){
-            cin >> arr[i][j];
-            if(arr[i][j] == 1){
+            cin >> a[i][j];
+            if(a[i][j] == 1)
                 stone_pos.push_back(make_pair(i,j));
-                stone_num++;
-            }
         }
-            
     
-    int r,c;
-    for(int i=0 ;i<k; i++){
-        cin >> r >> c;
-        r--; c--; 
-        start_point.push_back(make_pair(r,c));
+    for(int i=0;i<k;i++){
+        int r,c;
+        cin >> r >> c >>;
+        r--; c--;
+        s_pos.push_back(make_pair(r,c));
     }
-
-    Choose(0);
+    FindMax(0,0);
 
     cout << ans;
-    // 여기에 코드를 작성해주세요.
     return 0;
 }
