@@ -52,6 +52,7 @@ int main() {
         for(int j=0; j<m; j++)
             cin >> arr[i][j];
     
+    step[n-1][m-1] = -1;
     q.push(make_pair(0,0));
     visited[0][0] = true;
     BFS();
