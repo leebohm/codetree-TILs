@@ -32,5 +32,5 @@ int main() {
     cin >> n;
     InitializeMemo();
 
-    cout << InitializeMemo(n);
+    cout << NumOfUniqueBST(n);
 }
