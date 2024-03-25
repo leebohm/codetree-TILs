@@ -23,6 +23,16 @@ void Initialize(){
         dp[0][j] = max(dp[0][j-1],arr[0][j]);
 }
 
+void OutputDp(){
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            cout << dp[i][j] << " ";
+        }
+        cout << endl;
+    }
+    cout << endl;
+}
+
 int main() {
     
     cin >> n;
@@ -31,11 +41,14 @@ int main() {
         for(int j=0; j<n; j++)
             cin >> arr[i][j];
 
-    
-    for(int i=1; i<n;i++)
-        for(int j=1; j<n; j++)
+    Initialize();
+
+    for(int i=1; i<n;i++){
+        for(int j=1; j<n; j++){
             dp[i][j] = max(min(dp[i-1][j], dp[i][j-1]),arr[i][j]);
-   
+        }
+        //OutputDp();
+    }
     cout << dp[n-1][n-1];
         // 여기에 코드를 작성해주세요.
     return 0;
