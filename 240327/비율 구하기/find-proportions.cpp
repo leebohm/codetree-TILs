@@ -14,6 +14,9 @@ int main(){
     cin >> n;
 
     for(int i=0; i<n; i++)
+        cin >> words[i];
+        
+    for(int i=0; i<n; i++)
         freq[words[i]]++;
     
     map<string,int>::iterator it;
