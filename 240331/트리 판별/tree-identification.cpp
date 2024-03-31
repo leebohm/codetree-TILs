@@ -30,7 +30,7 @@ void DFS(int x){
 int main(){
     cin >> m;
     for(int i=1; i<=m; i++){
-        int x, int y;
+        int x, y;
         cin >> x >> y;
 
         edges[x].push_back(y);
