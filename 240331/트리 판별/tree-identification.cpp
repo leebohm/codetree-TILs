@@ -60,7 +60,7 @@ int main(){
         DFS(root);
     }
 
-    for(int i-1; i<=MAX_N; i++){
+    for(int i=1; i<=MAX_N; i++){
         if(used[i] && !visited[i] )
             is_tree = false;
     }
