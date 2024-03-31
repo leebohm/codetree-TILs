@@ -24,6 +24,7 @@ void DFS(int x, int d){
             DFS(y, d+1);
         }
     }
+    return ;
 }
 
 int main() {
