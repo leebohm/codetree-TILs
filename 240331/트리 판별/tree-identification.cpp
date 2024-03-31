@@ -1,58 +1,71 @@
 #include <iostream>
 #include <vector>
+#include <tuple>
 
-#define MAX_N 10001
+#define MAX_N 10000
 
 using namespace std;
 
-vector<int> edges[MAX_N];
 int m;
-int comein[MAX_N];
-int ans = 0;
-bool visited[MAX_N];
+int root;
+int deg[MAX_N+1];
+vector<int> edges[MAX_N+1];
+bool used[MAX_N+1];
+bool visited[MAX_N+1];
+bool is_tree = true;
 
 void DFS(int x){
-    
-    for(int i=0; i<(int)edges[x].size(); i++){
+    for(int i=0; i<edges[x].size(); i++){
         int y = edges[x][i];
         
-        if(!visited[y]){
-            ans++;
-            DFS(y);
-        }
-
+        if(visited[y])
+            continue;
+        
+        visited[y] = true;
+        DFS(y);
     }
+    return;
 }
 
-int main() {
-
-    int x, y;
+int main(){
     cin >> m;
-    
-    int max_node = 0;
-
-    for(int i=0; i<m; i++){
+    for(int i=1; i<=m; i++){
+        int x, int y;
         cin >> x >> y;
-        max_node = max(max_node,max(x,y));
-        comein[y]++;
+
         edges[x].push_back(y);
+        used[x] = used[y] = true;
+
+        deg[y]++;
     }
 
-    int root = 0;
-
-    for(int i=1; i<= max_node ;i++ ){
-        if((int) edges[i].size() > 0 && comein[i] == 0)
+    for(int i=1; i<=MAX_N; i++){
+        if(used[i] && deg[i] == 0){
+            if(root != 0)
+                is_tree = false;
             root = i;
+        }
     }
 
-    visited[root] = true;
-    DFS(root);
+    if(root == 0)
+        is_tree = false;
+    
+    for(int i=1; i<=MAX_N; i++){
+        if(used[i] && i != root && deg[i] != 1)
+            is_tree = false;
+    }
 
-    if(ans == m)
-        cout << 1;
-    else
-        cout << 0;
+    if(is_tree){
+        visited[root] = true;
+        DFS(root);
+    }
 
-    // 여기에 코드를 작성해주세요.
+    for(int i-1; i<=MAX_N; i++){
+        if(used[i] && !visited[i] )
+            is_tree = false;
+    }
+
+    if(is_tree) cout << 1;
+    else cout << 0;
     return 0;
 }
