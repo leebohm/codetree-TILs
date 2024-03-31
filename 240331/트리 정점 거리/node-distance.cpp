@@ -8,7 +8,7 @@ using namespace std;
 
 int n,m;
 vector<pair<int,int>> edges[MAX_N+1];
-bool visited[MAX_N]+1;
+bool visited[MAX_N+1];
 int dist[MAX_N+1][MAX_N+1];
 
 void DFS(int st, int x){
