@@ -18,7 +18,7 @@ void DFS(int x, int d){
         int y = edges[x][i];
 
         if(!visited[y]){
-            visited[y];
+            visited[y] = true;
             dist[y] = d+1;
             par[x].push_back(y);
             DFS(y, d+1);
