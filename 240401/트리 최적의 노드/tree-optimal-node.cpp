@@ -42,7 +42,7 @@ int FindMaxDist(){
 
 int FindMinDist(){
     int d = INT_MAX;
-    for(int i=0; i<MAX_N; i++){
+    for(int i=0; i<=n; i++){
         if(used[i]){
             Initialize();
             visited[i] = true;
