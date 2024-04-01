@@ -21,6 +21,7 @@ void DFS(int x){
             DFS(y);
         }
     }
+    return;
 }
 
 void Initialize(){
