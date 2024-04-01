@@ -1,75 +1,59 @@
 #include <iostream>
 #include <vector>
-#include <climits>
+#include <tuple>
 
-#define MAX_N 100001
+#define MAX_N 100000
+
 using namespace std;
 
 int n;
-vector<int> edges[MAX_N];
-bool used[MAX_N];
-int dist[MAX_N];
-bool visited[MAX_N];
+vector<int> edge[MAX_N+1];
+bool visited[MAX_N+1];
+int dist[MAX_N+1];
+int max_dist;
+int last_node;
 
 void DFS(int x){
 
-    for(int i=0; i<edges[x].size(); i++){
-        int y = edges[x][i];
-        if(!visited[y]){
-            visited[y] = true;
-            dist[y] = dist[x] + 1;
-            DFS(y);
+    visited[x] = true;
+
+    for(int i=0; i<edge[x].size(); i++){
+        int y = edge[x][i];
+
+        if(visited[y]) continue;
+
+        dist[y] = dist[x] + 1;
+
+        if(dist[y] > max_dist){
+            max_dist = dist[y];
+            last_node = y;
         }
+
+        DFS(y);
     }
-    return;
 }
 
-void Initialize(){
-    for(int i=0; i<MAX_N; i++){
-        visited[i] = false;
-        dist[i] = 0;
-    }
-}
-int FindMaxDist(){
-    int d = INT_MIN;
-    for(int i=0; i<MAX_N; i++){
-        if(used[i]){
-            d = max(d,dist[i]);
-        }
-    }
-    return d;
-}
-
-int FindMinDist(){
-    int d = INT_MAX;
-    for(int i=0; i<=n; i++){
-        if(used[i]){
-            Initialize();
-            visited[i] = true;
-            DFS(i);
-            int tmp = FindMaxDist();
-            if(tmp != 0)
-                d = min(d, tmp);
-        }
-    }
-    return d;
-}
-
-int main() {
+int main(){
 
     cin >> n;
 
-    for(int i=0; i<n-1; i++){
+    for(int i=1; i<=n-1; i++){
         int x, y;
         cin >> x >> y;
-        edges[x].push_back(y);
-        edges[y].push_back(x);
-        used[x] = used[y] = true;
+
+        edge[x].push_back(y);
+        edge[y].push_back(x);
     }
 
-    int ans = FindMinDist();
+    DFS(1);
 
-    cout << ans;
-    // 여기에 코드를 작성해주세요.
+    for(int i=1; i<=n; i++){
+        visited[i] = false;
+        dist[i] = 0;
+    }
+
+    DFS(last_node);
+
+    cout << (max_dist + 1) / 2;
     return 0;
 }
