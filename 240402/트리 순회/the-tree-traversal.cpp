@@ -20,7 +20,7 @@ void InOrder(int x){
     if( x== -1)
         return;
     
-    InOrder(left_num[x])
+    InOrder(left_num[x]);
     cout << (char) (x+'A');
     InOrder(right_num[x]);
 }
