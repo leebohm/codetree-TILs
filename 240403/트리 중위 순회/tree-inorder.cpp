@@ -1,46 +1,39 @@
 #include <iostream>
-#include <vector>
 #include <cmath>
 
 #define MAX_N 1024
-
 using namespace std;
 
-vector<int> vec;
-int k;
-int arr[MAX_N];
+int k,n;
+int a[MAX_N+1];
+int tree_num[MAX_N+1];
+int cnt = 1;
 
 void InOrder(int x){
-    if( x > pow(2,k)-1)
+    if(x > n)
         return;
+    
     InOrder(x*2);
-    vec.push_back(x);
+    tree_num[x] = a[cnt++];
     InOrder(x*2+1);
 }
 
-void Output(){
-    for(int i=0; i<(int) vec.size(); i++){
-        cout << vec[i] << " ";
-    }
-}
-
-int main() {
-
+int main(){
     cin >> k;
 
-    for(int i=1; i<=pow(2,k)-1; i++){
-        cin >> arr[i];
-    }
-    InOrder(1);
-    //Output();
+    n = pow(2,k) -1;
 
-    for(int idx_k = 0; idx_k <k;idx_k++){
-        for(int i = 0; i<pow(2,idx_k); i++){
-            cout << arr[vec[i+pow(2,idx_k)-1]]<<" ";
+    for(int i=1; i<=n; i++)
+        cin >> a[i];
+    
+    InOrder(1);
+
+    for(int i=1; i<=k; i++ ){
+        for(int j= pow(2,i-1); j<= pow(2,i)-1; j++){
+            cout << tree_num[j] <<" ";
         }
         cout << endl;
     }
 
-    // 여기에 코드를 작성해주세요.
     return 0;
 }
