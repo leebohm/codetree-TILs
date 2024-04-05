@@ -14,6 +14,7 @@ int main() {
 
     for(int i=0; i<t; i++){
         cin >> k;
+        s.clear();
         for(int j=0; j< k; j++){
             cin >> x >> n;
 
