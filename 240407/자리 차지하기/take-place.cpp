@@ -1,40 +1,39 @@
 #include <iostream>
 #include <set>
 
+#define MAX_N 100000
+
 using namespace std;
 
-set<int> s;
 int n,m;
-int arr[100000];
+int arr[MAX_N];
 
-int main() {
+set<int> seats;
 
-    cin >> n >>  m;
-
-    for(int i=0; i<n; i++){
+int main(){
+    cin >>  n >> m;
+    
+    for(int i=0; i<n; i++)
         cin >> arr[i];
-    }
+    
+    for(int i=1; i<=m; i++)
+        seats.insert(i);
+    
+    int ans = 0;
 
     for(int i=0; i<n; i++){
-        int tmp = arr[i];
-        while(tmp--){
-            if(s.find(tmp) == s.end()){
-                s.insert(tmp);
-                break;
-            }
-                
-        }
+        set<int>::iterator idx = seats.upper_bound(arr[i]);
+    
+        if(idx != seats.begin()){
+            idx--;
+            seats.erase(*idx);
 
-        if(tmp== 0 ){
-            break;
+            ans++;
         }
-
-        s.insert(tmp);
+        else break;
     }
-
-    int ans = (int) s.size();
 
     cout << ans;
-    // 여기에 코드를 작성해주세요.
     return 0;
+
 }
