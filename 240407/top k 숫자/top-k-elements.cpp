@@ -13,9 +13,7 @@ int main() {
     for(int i=0; i<n; i++){
         int tmp;
         cin >> tmp;
-        if(s.find(tmp) == s.end()){
-            s.insert(tmp);
-        }
+        s.insert(tmp);
             
     }
 
@@ -23,7 +21,7 @@ int main() {
 
     for(int i=0; i<k; i++){
         cout << *it << " " ;
-        it--;
+        it++;
     }
 
     // 여기에 코드를 작성해주세요.
