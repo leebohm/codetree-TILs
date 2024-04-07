@@ -13,7 +13,8 @@ int main() {
     for(int i=0; i<n; i++){
         int tmp;
         cin >> tmp;
-        s.insert(tmp);
+        if(s.find(tmp) == s.end())
+            s.insert(tmp);
     }
 
     set<int>::iterator it = s.lower_bound(1000000000);
