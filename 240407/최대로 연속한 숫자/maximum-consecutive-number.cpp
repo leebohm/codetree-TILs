@@ -1,44 +1,53 @@
 #include <iostream>
 #include <set>
+#include <tuple>
 
 using namespace std;
 
 int n,m;
-set<int> s;
+set<int> s_num;
+set<tuple<int,int,int> > s_len;
 
-int main() {
+int main(){
 
     cin >> n >> m;
-
-    for(int i=0; i<=n; i++)
-        s.insert(i);
     
-    int ans = 0;
+    s_num.insert(-1);
+    s_num.insert(n+1);
+
+    s_len.insert(make_tuple(-(n+1),-1,n+1));
+
     for(int i=0; i<m; i++){
-        int tmp;
-        cin >> tmp;
-        s.erase(tmp);
-        set<int>::iterator it = s.begin();
-        int val = *it;
-        it++;
-        int cnt = 1;
-        ans = 0;
-        while(it != s.end()){
-            if(*it - val == 1){
-                val = *it;
-                cnt++;
-            }   
-            else{
-                cnt = 1;
-                val = *it;
-            }
-            ans = max(ans, cnt);
-            it++;
-        }
-        cout << ans << endl;
 
+        int y;
+        cin >> y;
+
+        s_num.insert(y);
+
+        set<int>::iterator it;
+        it = s_num.find(y);
+        it++;
+        int z = *it;
+
+        it = s_num.find(y);
+        it--;
+        int x = *it;
+
+        s_len.erase(make_tuple(
+            -(z-x-1),x,z
+        ));
+
+        s_len.insert(make_tuple(
+            -(y-x-1),x,y
+        ));
+        s_len.insert(make_tuple(
+            -(z-y-1),y,z
+        ));
+
+        int best_length;
+        tie(best_length, ignore, ignore) = *s_len.begin();
+        cout << -best_length << endl;
     }
-    
-    // 여기에 코드를 작성해주세요.
+
     return 0;
 }
