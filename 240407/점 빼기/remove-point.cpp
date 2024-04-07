@@ -1,35 +1,41 @@
 #include <iostream>
-#include <set>
 #include <tuple>
+#include <set>
+
+#define MAX_N 100000
 
 using namespace std;
 
 int n,m;
-set<pair<int,int>> s;
 
-int main() {
+pair<int,int> points[MAX_N];
+set<pair<int,int> > s;
 
+int main(){
     cin >> n >> m;
-
     for(int i=0; i<n; i++){
         int x,y;
         cin >> x >> y;
-        s.insert(make_pair(x,y));
+        points[i] = make_pair(x,y);
     }
 
-    for(int i=0; i<m; i++){
+    for(int i=0; i<n; i++)
+        s.insert(points[i]);
+    
+    while(m--){
         int k;
         cin >> k;
-        int x,y;
-        pair<int,int> tmp = *s.lower_bound(make_pair(k,-1));
-        tie(x,y) = tmp;
-        if(s.lower_bound(make_pair(k,-1)) == s.end())
-            cout << -1 << " " << -1 << endl;
+
+        if(s.upper_bound(make_pair(k,-1)) == s.end())
+            cout << "-1 -1" << endl;
+        
         else{
+            pair<int,int> target = *s.upper_bound(make_pair(k,-1));
+            int x,y;
+            tie(x,y) = target;
             cout << x << " " << y << endl;
-            s.erase(tmp);
+            s.erase(target);
         }
     }
-    // 여기에 코드를 작성해주세요.
     return 0;
 }
