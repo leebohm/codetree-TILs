@@ -2,7 +2,7 @@
 #include <set>
 #include <tuple>
 
-define MAX_N 100000
+#define MAX_N 100000
 
 using namespace std;
 
@@ -17,7 +17,7 @@ void AddEvent(int x1, int v1, int x2, int v2){
     if(v1 <= v2)
         return;
     
-    event_t.insert(make_tuple(1.0 * (x2-x1) / (v1 - v2), x1, v2));
+    event_t.insert(make_tuple(1.0 * (x2-x1) / (v1 - v2), x1, v1));
 }
 
 void RemoveEvent(int x1, int v1, int x2, int v2){
@@ -66,5 +66,5 @@ int main() {
 
     cout << (int) people_x.size();
 
-    retunr 0;
+    return 0;
 }
