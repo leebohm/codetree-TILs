@@ -15,22 +15,17 @@ int main() {
     for(int i=1; i<=n; i++){
         cin >> arr[i];
     }
+    priority_queue<int> pq;
+
+    pq.push(-arr[n]);
+    int sum_val = arr[n];
 
     double ans = 0.0;
-    for(int k =1; k<=n-2; k++){
-        int sum_val = 0;
-        int cnt = 0;
-        priority_queue<int> pq;
+    for(int i = n-1; i>=2; i--){
+        pq.push(-arr[i]);
+        sum_val += arr[i];
 
-        for(int j=k+1; j<=n; j++ ){
-            pq.push(-arr[j]);
-            sum_val += arr[j];
-            cnt++;
-        }
-
-        int tmp = pq.top();
-        sum_val += tmp;
-        double avg = (1.0 * sum_val) / (cnt-1);
+        double avg = (1.0 * sum_val + pq.top()) / (n - i );
         ans = max(ans, avg);
     }
     cout << fixed;
