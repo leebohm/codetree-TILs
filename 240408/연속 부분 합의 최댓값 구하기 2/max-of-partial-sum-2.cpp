@@ -1,0 +1,29 @@
+#include <iostream>
+
+#define MAX_N 100000
+using namespace std;
+
+int n;
+int arr[MAX_N];
+
+int main() {
+
+    cin >> n;
+    
+    for(int i=0; i<n; i++)
+        cin >> arr[i];
+    
+    int ans = 0;
+    int sum_val = 0;
+    for(int i = 0; i<n; i++){
+        sum_val += arr[i];
+        if(sum_val < 0){
+            sum_val = 0;
+        }
+        ans = max(ans, sum_val);
+    }
+    cout << ans;
+
+    // 여기에 코드를 작성해주세요.
+    return 0;
+}
