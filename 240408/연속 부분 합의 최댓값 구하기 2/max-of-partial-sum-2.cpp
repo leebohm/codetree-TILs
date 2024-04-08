@@ -18,11 +18,11 @@ int main() {
     int sum_val = 0;
     for(int i = 0; i<n; i++){
         sum_val += arr[i];
+        ans = max(ans, sum_val);
         if(sum_val < 0){
             sum_val = 0;
-            continue;
         }
-        ans = max(ans, sum_val);
+
     }
     cout << ans;
 
