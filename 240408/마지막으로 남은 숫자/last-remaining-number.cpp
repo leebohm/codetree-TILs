@@ -16,7 +16,7 @@ int main() {
         pq.push(x);
     }
 
-    while((int) pq.size()!= 1){
+    while((int) pq.size() > 1){
         x = pq.top(); pq.pop();
         y = pq.top(); pq.pop();
         if(abs(x-y) != 0){
@@ -24,8 +24,13 @@ int main() {
         }
     }
 
-    int ans = pq.top();
-    cout << ans;
+    if(pq.empty() == true)
+        cout << -1;
+    else{
+        int ans = pq.top();
+        cout << ans;
+    }
+
     // 여기에 코드를 작성해주세요.
     return 0;
 }
