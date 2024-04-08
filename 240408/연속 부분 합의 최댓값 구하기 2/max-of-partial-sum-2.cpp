@@ -20,6 +20,7 @@ int main() {
         sum_val += arr[i];
         if(sum_val < 0){
             sum_val = 0;
+            continue;
         }
         ans = max(ans, sum_val);
     }
