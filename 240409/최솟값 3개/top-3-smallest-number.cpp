@@ -19,7 +19,7 @@ int main() {
             cout << -1 << endl;
         
         else{
-            int output = 1;
+            long long output = 1;
             for(int i=0; i<3; i++){
                 tmp = -pq.top();
                 output *= tmp;
