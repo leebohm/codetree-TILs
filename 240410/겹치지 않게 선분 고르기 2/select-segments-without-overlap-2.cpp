@@ -1,6 +1,7 @@
 #include <iostream>
 #include <tuple>
 #include <climits>
+#include <algorithm>
 
 #define MAX_N 1001
 
@@ -11,15 +12,6 @@ int x,y;
 pair<int,int> xy[MAX_N];
 int dp[MAX_N];
 int max_y = 0;
-
-void Initialize(){
-    
-    for(int i=0; i<max_y; i++)
-        dp[i] = -1;
-
-    tie(x,y) = xy[0];
-    dp[y] = 1;
-}
 
 void Output(){
     for(int i=0; i<=max_y; i++)  
@@ -35,9 +27,9 @@ int main() {
         cin >> x >> y;
         max_y = max(y, max_y);
         xy[i] = make_pair(x,y);
+        dp[y] = 1;
     }
-
-    Initialize();
+    sort(xy, xy+n);
 
     for(int i=1; i<n; i++){
         int cx,cy;
