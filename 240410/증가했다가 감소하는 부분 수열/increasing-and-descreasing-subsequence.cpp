@@ -9,6 +9,12 @@ int arr[MAX_N];
 string str[MAX_N];
 int dp[MAX_N];
 
+void Output(){
+    for(int i=0; i<n; i++)
+        cout << str[i] << " ";
+    cout << endl;
+}
+
 int main() {
 
     cin >> n;
@@ -29,7 +35,7 @@ int main() {
                 dp[i] = max(dp[i], dp[j]+1);
                 str[i] = "updown";
             }
-            else if((arr[i] < arr[i] && str[j] == "down")||(j==0 && arr[i] < arr[j]) ||(arr[i] < arr[j] && str[j] == "updown")){
+            else if((arr[i] < arr[j] && str[j] == "down")||(j==0 && arr[i] < arr[j]) ||(arr[i] < arr[j] && str[j] == "updown")){
                 if(str[j] == "updown")
                     str[i] = "updown";
                 else 
@@ -37,7 +43,8 @@ int main() {
                 dp[i] = max(dp[i], dp[j]+1);
             }
 
-        }        
+        }     
+        //Output();   
     } 
 
     int ans = 0;
