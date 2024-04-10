@@ -6,6 +6,12 @@ using namespace std;
 int n;
 int arr[MAX_N];
 
+int change(int a){
+    if(a == 1)
+        return 0;
+    else
+        return 1;
+}
 int main() {
     
     cin >> n;
@@ -18,9 +24,10 @@ int main() {
     for(int i = 2; i<=n; i++){
         if(arr[i-1] == 0){
             ans++;
-            arr[i-1] = 1;
-            arr[i] = 1;
-            arr[i+1] = 1;
+            int tmp = change(arr[i]);
+            arr[i] = tmp;
+            tmp = change(arr[i+1]);
+            arr[i+1] = tmp;
         }
     }
     bool flag = true;
