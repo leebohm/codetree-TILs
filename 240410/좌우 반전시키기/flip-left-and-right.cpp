@@ -12,6 +12,11 @@ int change(int a){
     else
         return 1;
 }
+void Output(){
+    for(int i=1; i<=n; i++)
+        cout << arr[i] <<" ";
+    cout << endl;
+}
 int main() {
     
     cin >> n;
@@ -24,11 +29,13 @@ int main() {
     for(int i = 2; i<=n; i++){
         if(arr[i-1] == 0){
             ans++;
+            arr[i-1] = 1;
             int tmp = change(arr[i]);
             arr[i] = tmp;
             tmp = change(arr[i+1]);
             arr[i+1] = tmp;
         }
+        //Output();
     }
     bool flag = true;
     for(int i=1; i<=n; i++){
