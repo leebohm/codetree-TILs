@@ -47,6 +47,11 @@ int main() {
         }
         //cout << "i : " << i <<" , cnt : "<<cnt  <<" " << src << endl;
     }
+    if(cnt > 0){
+        Change(n-1,cnt);
+        ans++;
+        //cout << src;
+    }
     cout << ans;
     // 여기에 코드를 작성해주세요.
     return 0;
