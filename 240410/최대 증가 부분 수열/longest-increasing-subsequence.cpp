@@ -12,10 +12,10 @@ int main(){
     
     cin >> n;
     
-    for(int i=0; i<n; i++)
+    for(int i=0; i<n; i++){
         cin >> arr[i];
-    
-    max_val[0] = arr[0];
+        max_val[i] = arr[i];
+    }
 
     for(int i=0; i<n; i++)
         arr_len[i] = 1;
