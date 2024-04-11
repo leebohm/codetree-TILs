@@ -23,7 +23,7 @@ int main() {
         }
     }
 
-    int ans = 0;
+    long long ans = 0;
     for(unordered_map<int,int>::iterator it = xy.begin(); it != xy.end(); it++)
         ans += it->second;
     
