@@ -13,14 +13,15 @@ int main() {
 
     for(int i=0; i<(int)str.size(); i++){
         if(freq.find(str[i]) == freq.end())
-            freq.insert({str[i],1});
+            freq[str[i]] = 1;
         else
             freq[str[i]]++;         
     }
     bool flag = false;
-    for(unordered_map<char,int>::iterator it = freq.begin(); it!= freq.end(); it++){
-        if(it->second == 1){
-            cout << it->first;
+
+    for(int i=0; i<(int)str.size(); i++){
+        if(freq[str[i]] ==1){
+            cout << str[i];
             flag = true;
             break;
         }
