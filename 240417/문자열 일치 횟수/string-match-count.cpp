@@ -42,16 +42,10 @@ int main() {
 
     cin >> n >> T >> P;
 
-    for(int i=0; i<n; i++){
-        char tmp = P[0];
-        //cout << tmp << endl;
-        for(int j=0; j<n; j++)
-            P[j] = P[j+1];
-        P[n-1] = tmp;
-        //cout << P << endl;
 
-        kmp(T, P);
-    }
+    T += T;
+    T.pop_back();
+    kmp(T, P);
     cout << ans;
 
 
