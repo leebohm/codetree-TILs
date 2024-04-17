@@ -23,7 +23,7 @@ void kmp(string t, string p){
         int j = f[i-1];
         while(j>=0 && p[i] != p[j+1])
             j = f[j];
-        i = f[j+1];
+        f[i] = j+1;
     }
 
     int j = 0;
@@ -40,12 +40,13 @@ void kmp(string t, string p){
 }
 int main() {
 
-    cin >> n >> T >> P;
+    cin >> n >> P>> T;
 
 
     T += T;
     T.pop_back();
-    kmp(T, P);
+
+    kmp(T,P);
     cout << ans;
 
 
