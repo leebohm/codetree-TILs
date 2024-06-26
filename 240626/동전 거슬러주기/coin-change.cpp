@@ -3,6 +3,7 @@
 
 #define MAX_N 101
 #define MAX_M 10001
+#define MAX_ANS 100000
 using namespace std;
 
 int n,m;
@@ -21,7 +22,7 @@ int dp[MAX_M];
 
 void InitDp(){
     for(int i=0; i<=m; i++)
-        dp[i] = INT_MAX;
+        dp[i] = MAX_ANS;
     dp[0] = 0;
 }
 
@@ -45,7 +46,7 @@ int main() {
     
     int ans = dp[m];
 
-    if(ans == INT_MAX)
+    if(ans == MAX_ANS)
         ans = -1;
     cout << ans;
 
