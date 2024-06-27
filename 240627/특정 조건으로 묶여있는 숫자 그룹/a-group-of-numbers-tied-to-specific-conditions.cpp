@@ -24,7 +24,7 @@ int main(){
             i++;
         
         max_num = max(max_num, j-i+1);
-        l[i] = max_num;
+        l[j] = max_num;
     }
 
     max_num = 0;
