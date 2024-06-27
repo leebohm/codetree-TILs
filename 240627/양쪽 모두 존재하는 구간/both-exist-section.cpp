@@ -61,12 +61,11 @@ int main(){
         if(distinct_in < m)
             break;
         
-        if(distinct_out == m)
+        if(distinct_out == m){
             ans= min(ans, j-i+1);
+        }
         
-        count_in[arr[i]]--;
-        if(count_in[arr[i]] == 0)
-            distinct_in--;
+        Pop(i);
     }
 
     if(ans == INT_MAX)
