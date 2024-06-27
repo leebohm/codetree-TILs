@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <climits>
 
-#define MAX_N 100000
+#define MAX_N 100001
 
 using namespace std;
 
