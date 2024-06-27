@@ -35,6 +35,8 @@ int main() {
         ans = max(ans, j-i+1);
             //cout << "m.size() :  " << m.size() << endl;
         m[str[i]]--;
+        if(m[str[i]]==0)
+            m.erase(str[i]);
     }
     if(ans ==0)
         ans = 1;
