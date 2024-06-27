@@ -24,7 +24,7 @@ int main(){
         if(i < j)
             ans = min(ans, abs(arr[i]+arr[j]));
         
-        while(j-1 >i && arr[i]+arr[j-1] >= 0){
+        while(j-1 >i && arr[i]+arr[j-1] > 0){
             j--;
             ans = min(ans, abs(arr[i]+arr[j]));
         }
