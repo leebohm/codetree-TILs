@@ -14,8 +14,10 @@ bool Check(){
         while(i <= n && A[i] != B[j] ){
             i++;
         }
-        if(i>n)
+        if(i == n+1)
             return false;
+        else 
+            i++;
     }
 
     return true;
@@ -23,8 +25,8 @@ bool Check(){
 }
 
 int main() {
-    int n,m;
 
+    cin >> n >> m;
     for(int i=1; i<=n; i++)
         cin >> A[i];
     
