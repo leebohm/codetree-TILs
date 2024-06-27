@@ -1,54 +1,52 @@
 #include <iostream>
-#include <tuple>
 #include <algorithm>
+#include <set>
 #include <climits>
 
-#define MAX_N 100000
-
+#define MAX_N 100001
 using namespace std;
 
-int n,x,y,d;
+int n,d;
+int x,y;
 pair<int,int> pos[MAX_N];
+set<pair<int,int> > pos_set;
 
-int GetX(int idx){
-    tie(x,y) = pos[idx];
-    return x;
+int getmin(){
+    if(pos_set.empty()) return 0;
+    return pos_set.begin()->first;
 }
 
-int GetY(int idx){
-    tie(x,y) = pos[idx];
-    return y;
+int getmax(){
+    if(pos_set.empty()) return 0;
+    return pos_set.rbegin()->first;
 }
 
-int main() {
-    
+
+int main(){
     cin >> n >> d;
 
-    for(int i=1; i<=n; i++){
-        cin >> x >> y;
-        pos[i] = {x,y};
-    }
-
+    for(int i=1; i<=n; i++)
+        cin >> pos[i].first >> pos[i].second;
+    
     sort(pos+1, pos+n+1);
 
-    int b = n;
+    int j =0; 
     int ans = INT_MAX;
+    for(int i=1; i<=n; i++){
+        while(j+1<=n && getmax() - getmin() < d){
+            pos_set.insert({pos[j+1].second, pos[j+1].first});
+            j++;
+        }
 
-    for(int a = 1; a<=n; a++ ){
-        while(b-1 >a && abs(GetY(b)-GetY(a)) < d ){
-            b--;
-        }
-        if(abs(GetY(b)-GetY(a))>= d){
-            ans = min(ans, abs(GetX(b)-GetX(a)));
-        }
+        if(getmax()- getmin() < d)
+            break;
         
-    }
+        ans = min(ans, pos[j].first - pos[i].first);
+        pos_set.erase({pos[i].second,pos[i].first});
 
+    }
     if(ans == INT_MAX)
         ans = -1;
     cout << ans;
-
-
-    // 여기에 코드를 작성해주세요.
     return 0;
 }
