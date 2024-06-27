@@ -29,7 +29,8 @@ int main() {
         }
         m[str[i]]--;
     }
-
+    if(ans ==0)
+        ans = 1;
     cout << ans;
     // 여기에 코드를 작성해주세요.
     return 0;
