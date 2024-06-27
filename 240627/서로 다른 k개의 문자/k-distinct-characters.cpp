@@ -11,8 +11,9 @@ bool Canmove(int j){
     if(j+1 > n)
         return false;
     
-    if(m.size()==k && m[str[j+1]]==0)
+    if(m.size()==k && m.find(str[j+1]) == m.end())
         return false;
+
     return true;
 }
 int main() {
@@ -26,7 +27,7 @@ int main() {
     int ans = 0;
 
     for(int i=1; i<=n; i++){
-        while(Canmove(j)){
+        while(Canmove(j)== true){
             //cout << j+1  << " " << i<< endl;
             m[str[j+1]]++;
             j++;
