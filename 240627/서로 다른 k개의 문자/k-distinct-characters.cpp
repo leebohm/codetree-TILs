@@ -6,11 +6,19 @@ using namespace std;
 string str;
 int k;
 unordered_map<char,int> m;
-
+int n;
+bool Canmove(int j){
+    if(j+1 > n)
+        return false;
+    
+    if(m.size()==k && m[str[j+1]]==0)
+        return false;
+    return true;
+}
 int main() {
 
     cin >> str >> k;
-    int n = (int) str.size();
+    n = (int) str.size();
 
     str = "#" + str;
 
@@ -18,15 +26,14 @@ int main() {
     int ans = 0;
 
     for(int i=1; i<=n; i++){
-        while(j+1 <=n && m.size() <= k){
+        while(Canmove(j)){
             //cout << j+1  << " " << i<< endl;
             m[str[j+1]]++;
             j++;
         }
-        if(m.size() <= k){
-            ans = max(ans, j-i+1);
+        
+        ans = max(ans, j-i+1);
             //cout << "m.size() :  " << m.size() << endl;
-        }
         m[str[i]]--;
     }
     if(ans ==0)
