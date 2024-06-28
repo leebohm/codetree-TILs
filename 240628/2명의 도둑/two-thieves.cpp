@@ -28,7 +28,7 @@ void FindMaxSum(int curr_idx, int curr_weight, int curr_val){
 
 
 int FindMax(int sx, int sy){
-    for(int i=sy, i<=sy + m -1; i++)
+    for(int i=sy; i<=sy + m -1; i++)
         a[i-sy] = weight[sx][i];
     
     max_val = 0;
