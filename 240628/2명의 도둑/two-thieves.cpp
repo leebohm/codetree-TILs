@@ -11,7 +11,7 @@ int weight[MAX_N][MAX_N];
 
 int a[MAX_M];
 
-int ans;
+int ans =0 ;
 int max_val;
 
 void FindMaxSum(int curr_idx, int curr_weight, int curr_val){
@@ -48,7 +48,7 @@ bool Possible(int sx1, int sy1, int sx2, int sy2){
     if(sx1 != sx2)
         return true;
 
-    if(Intersect(sy1, sy1 + m-1, sy2, sy2+m-1));
+    if(Intersect(sy1, sy1 + m-1, sy2, sy2+m-1))
         return false;
     return true;
 }
