@@ -28,10 +28,11 @@ int main(){
         tie(a,idx,t) = vec[i];
 
         while(a > exit_time && pq.empty() == false){
-            tie(ignore, a,t) = pq.top();
+            int na,nt;
+            tie(ignore, na,nt) = pq.top();
             pq.pop();
-            ans = max(ans, exit_time - a);
-            exit_time += t;
+            ans = max(ans, exit_time - na);
+            exit_time += nt;
         }
 
         if(a > exit_time){
