@@ -24,7 +24,7 @@ int main(){
     int ans  = 0;
     int exit_time = 0;
 
-    for(int i=0; i<n; i++){
+    for(int i=0; i<=n; i++){
         tie(a,idx,t) = vec[i];
 
         while(a > exit_time && pq.empty() == false){
