@@ -5,6 +5,8 @@
 #include <climits>
 #include <algorithm>
 
+using namespace std;
+
 int n;
 vector<tuple<int,int,int> > vec;
 int a,t,idx;
@@ -17,13 +19,15 @@ int main(){
     }
     vec.push_back(make_tuple(INT_MAX,n+1, 0));
 
+    sort(vec.begin(), vec.end());
+
     int ans  = 0;
     int exit_time = 0;
 
     for(int i=0; i<n; i++){
         tie(a,idx,t) = vec[i];
 
-        while(a < exit_time && pq.empty() == false){
+        while(a > exit_time && pq.empty() == false){
             tie(ignore, a,t) = pq.top();
             pq.pop();
             ans = max(ans, exit_time - a);
