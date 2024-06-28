@@ -26,6 +26,8 @@ int main(){
             ans = min(ans, j-i+1);
         sub_sum -= arr[i];
     }
+    if(ans == INT_MAX)
+        ans = -1;
     cout << ans;
     return 0;
 }
