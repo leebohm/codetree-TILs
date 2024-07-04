@@ -32,7 +32,7 @@ void swap_abcd(Node *a, Node *b, Node *c, Node *d){
     }
     if(d->next == a){
         after_nextB = c;
-        after_prevC = a;
+        after_prevC = b;
     }
 
     connect(after_prevA,a);
