@@ -7,10 +7,10 @@ using namespace std;
 int k, n, q;
 
 struct Node{
-    int id;
+    int data;
     Node *prev;
     Node *next;
-    Node(int id) : id(id), prev(nullptr), next(nullptr){}
+    Node(int data) :data(data), prev(nullptr), next(nullptr){}
 };
 
 Node *nodes[MAX_N];
