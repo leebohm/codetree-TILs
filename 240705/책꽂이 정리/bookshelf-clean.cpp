@@ -78,7 +78,7 @@ void move_all_front(int i, int j){
     if(i==j || empty(i))
         return;
     if(empty(j)){
-        heads[i] = heads[i];
+        heads[j] = heads[i];
         tails[j] = tails[i];
     }
     else{
