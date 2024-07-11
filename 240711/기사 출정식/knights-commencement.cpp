@@ -27,7 +27,7 @@ void Pop(Node *a){
     Node *next_a = a->next;
     Node *prev_a = a->prev;
 
-    connect(prev_a,next_a,);
+    connect(prev_a,next_a);
     a->next = a->prev = nullptr;
 }
 
