@@ -15,9 +15,9 @@ struct Node{
 };
 
 void connect(Node *a, Node *b){
-    if(a->next == nullptr)
-        a->next = b;
-    if(b->prev == nullptr)
+    if(nullptr != a)
+        a-> next = b;
+    if(nullptr != b)
         b->prev = a;
 }
 
@@ -27,9 +27,8 @@ void Pop(Node *a){
     Node *next_a = a->next;
     Node *prev_a = a->prev;
 
-    connect(next_a,prev_a);
-
-    a = a->next = a->prev = nullptr;
+    connect(prev_a,next_a,);
+    a->next = a->prev = nullptr;
 }
 
 int main() {
