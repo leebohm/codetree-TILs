@@ -21,9 +21,9 @@ void connect(Node *s, Node *e){
 }
 
 void insertNextRange(Node *s, Node *e, Node *v){
-    Node *nextV = v->next;
+    //Node *nextV = v->next;
+    connect(e,v->next);
     connect(v,s);
-    connect(e,nextV);
 }
 
 void insertPrevRange(Node *s, Node *e, Node *v){
