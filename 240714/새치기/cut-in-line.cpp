@@ -12,7 +12,7 @@ struct Node{
 };
 
 Node *nodes[MAX_N];
-Node *heads[MAX_M], *tail[MAX_M];
+Node *head[MAX_M], *tail[MAX_M];
 
 int lineNum[MAX_N];
 
@@ -31,7 +31,7 @@ void pop(Node *i){
 
     if(tail[l] == i) tail[l] = tail[l]->prev;
 
-    connect(i->prev, i>next);
+    connect(i->prev, i->next);
 
     lineNum[i->id] = 0;
     i->next = i->prev = nullptr;
