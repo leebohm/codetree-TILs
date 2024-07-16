@@ -9,12 +9,21 @@ struct Node {
     Node (string id) : id(id) , prev(nullptr), next(nullptr){}
 };
 
+
 void insertPrev (Node *s, Node *e){
+    Node *sPrev = s->prev;
+
+    if(sPrev != nullptr) sPrev->next = e;
+    if(e != nullptr) e->prev = sPrev;
     if(s != nullptr) s->prev = e;
     if(e != nullptr) e->next = s;
 }
 
 void insertNext (Node *s , Node *e){
+    Node *sNext = s->next;
+
+    if(sNext != nullptr) sNext->prev = e;
+    if(e != nullptr) e->next = sNext;
     if(s != nullptr) s->next = e;
     if(e != nullptr) e->prev = s;
 }
