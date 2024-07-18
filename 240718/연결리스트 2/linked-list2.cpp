@@ -21,6 +21,8 @@ void connect (Node *s, Node *e){
 
 void popNode(int i){
     connect(nodes[i]->prev, nodes[i]->next);
+    nodes[i]->prev = nullptr;
+    nodes[i]->next = nullptr;
 }
 
 // j번 노드를 i번 노드 앞에 삽입
