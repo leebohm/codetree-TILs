@@ -5,7 +5,7 @@ using namespace std;
 struct Node{
     string data;
     Node *prev, *next;
-    Node(string data) : data(data), prev(nullptr), next(nullptr) {}
+    Node(string data) : data(data), prev(nullptr), next(nullptr) {};
 };
 
 void connect(Node *s, Node *e){
@@ -53,6 +53,7 @@ int main(){
             string data;
             cin >> data;
             Node *target = new Node(data);
+
             insertPrev(cur, target);
         }
 
@@ -65,6 +66,10 @@ int main(){
 
         if(opt == 3){
             if(cur->prev != nullptr) cur= cur->prev;
+        }
+
+        if(opt == 4){
+            if(cur->next != nullptr) cur = cur->next;
         }
 
         printNode(cur);
