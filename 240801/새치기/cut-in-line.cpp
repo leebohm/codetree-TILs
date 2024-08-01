@@ -94,9 +94,6 @@ int main(){
             }
 
         }
-        for(int j= init+1; j<init+num; j++){
-            connect(nodes[j-1],nodes[j]);
-        }
     }
 
     for(int i=1; i<=q; i++){
