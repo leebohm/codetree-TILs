@@ -31,6 +31,7 @@ void pop(Node *u){
     Node *u_next = u->next;
     connect(u_prev,u_next);
     u->prev = u->next = nullptr;
+    info[u->id] = 0;
 }
 void insertPrev(Node *a, Node *b){
     int line_num = info[b->id];
