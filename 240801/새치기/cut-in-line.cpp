@@ -8,6 +8,7 @@ using namespace std;
 
 int n,m,q;
 unordered_map<int,int> info; // index : node의 번호,  val : 줄의 번호 
+int lineNum[MAX_N];
 
 struct Node {
     int id;
@@ -22,14 +23,18 @@ void connect(Node *s, Node *e){
     if(s != nullptr) s->next = e;
     if(e != nullptr) e->prev = s;
 }
+
 void pop(Node *u){
     int line_num = info[u->id];
+
     if(line_num == 0) return;
+
     if(heads[line_num] == u)
         heads[line_num] = u->next;
     Node *u_prev = u->prev;
     Node *u_next = u->next;
     connect(u_prev,u_next);
+
     u->prev = u->next = nullptr;
     info[u->id] = 0;
 }
@@ -54,12 +59,14 @@ void insertPrevRange(Node *a, Node *b, Node *c){
 
     int line_num = info[c->id];
     Node *c_prev = c->prev;
-    if(heads[line_num] == c)
+    if(heads[line_num] == c){
+        connect(b,c);
         heads[line_num] = a; 
-    
-    connect(c_prev,a);
-    connect(b,c);
-
+    }
+    else{
+        connect(c_prev,a);
+        connect(b,c);
+    }
     Node *cur = a;
     while(cur != b->next){
         info[cur->id] = line_num;
