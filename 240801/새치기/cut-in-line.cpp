@@ -45,6 +45,10 @@ void insertPrev(Node *a, Node *b){
 }
 
 void insertPrevRange(Node *a, Node *b, Node *c){
+    Node *a_prev = a->prev;
+    Node *b_next = b->next;
+    connect(a_prev,b_next);
+    
     int line_num = info[c->id];
     Node *c_prev = c->prev;
     if(heads[line_num] == c)
