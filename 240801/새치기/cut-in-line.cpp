@@ -44,8 +44,7 @@ void insertPrev(Node *a, Node *b){
     if(heads[line_num] == b)
         heads[line_num] = a;
     
-    Node *b_prev = b->prev;
-    connect(b_prev,a);
+    connect(b->prev,a);
     connect(a,b);
     info[a->id] = line_num;
 }
@@ -55,16 +54,16 @@ void insertPrevRange(Node *a, Node *b, Node *c){
     Node *b_next = b->next;
     connect(a_prev,b_next);
 
-    if(heads[info[a->id]] == a) heads[info[a->id]] = b_next;
+    if(heads[info[a->id]] == a) heads[info[a->id]] = b->next;
 
     int line_num = info[c->id];
-    Node *c_prev = c->prev;
+
     if(heads[line_num] == c){
         connect(b,c);
         heads[line_num] = a; 
     }
     else{
-        connect(c_prev,a);
+        connect(c->prev,a);
         connect(b,c);
     }
     Node *cur = a;
@@ -116,12 +115,11 @@ int main(){
     }
 
     for(int i=1; i<=m; i++){
-
-        if(heads[i] == nullptr)
+        Node *cur = heads[i];
+        if(cur == nullptr)
             cout << -1 << endl;
 
         else{
-            Node *cur = heads[i];
             while(cur!=nullptr){
                 cout << cur->id << " ";
                 cur = cur->next;
