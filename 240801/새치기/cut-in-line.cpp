@@ -61,7 +61,7 @@ void insertPrevRange(Node *a, Node *b, Node *c){
     connect(b,c);
 
     Node *cur = a;
-    while(cur != c){
+    while(cur != b->next){
         info[cur->id] = line_num;
         cur = cur->next;
     }
