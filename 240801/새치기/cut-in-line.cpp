@@ -4,7 +4,7 @@
 using namespace std;
 
 #define MAX_N 100002
-#define MAX_M 11
+#define MAX_M 12
 
 int n,m,q;
 unordered_map<int,int> info; // index : node의 번호,  val : 줄의 번호 
@@ -24,13 +24,13 @@ void connect(Node *s, Node *e){
 }
 void pop(Node *u){
     int line_num = info[u->id];
+    if(line_num == 0) return;
     if(heads[line_num] == u)
         heads[line_num] = u->next;
     Node *u_prev = u->prev;
     Node *u_next = u->next;
     connect(u_prev,u_next);
-    u->prev = u->next = nullptr;
-    
+    //u->prev = u->next = nullptr;
 }
 void insertPrev(Node *a, Node *b){
     int line_num = info[b->id];
@@ -48,7 +48,7 @@ void insertPrevRange(Node *a, Node *b, Node *c){
     Node *a_prev = a->prev;
     Node *b_next = b->next;
     connect(a_prev,b_next);
-    
+
     int line_num = info[c->id];
     Node *c_prev = c->prev;
     if(heads[line_num] == c)
@@ -82,7 +82,7 @@ int main(){
             }
             nodecnt++;
         }
-        for(int j= init+1; j<=init+num; j++){
+        for(int j= init+1; j<init+num; j++){
             connect(nodes[j-1],nodes[j]);
         }
     }
