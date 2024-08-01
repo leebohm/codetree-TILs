@@ -18,6 +18,7 @@ struct Node {
 
 Node *nodes[MAX_N] = {};
 Node *heads[MAX_M] = {};
+Node *tails[MAX_M] = {};
 
 void connect(Node *s, Node *e){
     if(s != nullptr) s->next = e;
@@ -74,7 +75,7 @@ void insertPrevRange(Node *a, Node *b, Node *c){
 
 int main(){
     cin >> n >> m >> q;
-    int nodecnt = 1;
+
     for(int i=1; i<=m; i++){
         int num;
         cin >> num;
@@ -85,10 +86,13 @@ int main(){
             nodes[tmp] = new Node(tmp);
             lineNum[tmp] = i;
             if(j==1) {
-                init = nodecnt;
-                heads[i] = nodes[tmp];
+                tails[i] = heads[i] = nodes[tmp];
             }
-            nodecnt++;
+            else{
+                connect(tails[i],nodes[tmp]);
+                tails[i] = nodes[tmp];
+            }
+
         }
         for(int j= init+1; j<init+num; j++){
             connect(nodes[j-1],nodes[j]);
