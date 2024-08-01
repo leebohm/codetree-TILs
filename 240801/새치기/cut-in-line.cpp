@@ -7,7 +7,7 @@ using namespace std;
 #define MAX_M 12
 
 int n,m,q;
-unordered_map<int,int> info; // index : node의 번호,  val : 줄의 번호 
+//unordered_map<int,int> lineNum; // index : node의 번호,  val : 줄의 번호 
 int lineNum[MAX_N];
 
 struct Node {
@@ -25,7 +25,7 @@ void connect(Node *s, Node *e){
 }
 
 void pop(Node *u){
-    int line_num = info[u->id];
+    int line_num = lineNum[u->id];
 
     if(line_num == 0) return;
 
@@ -36,17 +36,17 @@ void pop(Node *u){
     connect(u_prev,u_next);
 
     u->prev = u->next = nullptr;
-    info[u->id] = 0;
+    lineNum[u->id] = 0;
 }
 void insertPrev(Node *a, Node *b){
-    int line_num = info[b->id];
+    int line_num =  lineNum[b->id];
 
     if(heads[line_num] == b)
         heads[line_num] = a;
     
     connect(b->prev,a);
     connect(a,b);
-    info[a->id] = line_num;
+    lineNum[a->id] = line_num;
 }
 
 void insertPrevRange(Node *a, Node *b, Node *c){
@@ -54,9 +54,9 @@ void insertPrevRange(Node *a, Node *b, Node *c){
     Node *b_next = b->next;
     connect(a_prev,b_next);
 
-    if(heads[info[a->id]] == a) heads[info[a->id]] = b->next;
+    if(heads[lineNum[a->id]] == a) heads[lineNum[a->id]] = b->next;
 
-    int line_num = info[c->id];
+    int line_num = lineNum[c->id];
 
     if(heads[line_num] == c){
         connect(b,c);
@@ -68,7 +68,7 @@ void insertPrevRange(Node *a, Node *b, Node *c){
     }
     Node *cur = a;
     while(cur != c){
-        info[cur->id] = line_num;
+        lineNum[cur->id] = line_num;
         cur = cur->next;
     }
 }
@@ -84,7 +84,7 @@ int main(){
             int tmp;
             cin >> tmp;
             nodes[nodecnt] = new Node(tmp);
-            info[tmp] = i;
+            lineNum[tmp] = i;
             if(j==1) {
                 init = nodecnt;
                 heads[i] = nodes[nodecnt];
