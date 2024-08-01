@@ -31,9 +31,8 @@ void pop(Node *u){
 
     if(heads[line_num] == u)
         heads[line_num] = u->next;
-    Node *u_prev = u->prev;
-    Node *u_next = u->next;
-    connect(u_prev,u_next);
+
+    connect(u->prev,u->next);
 
     u->prev = u->next = nullptr;
     lineNum[u->id] = 0;
@@ -43,24 +42,24 @@ void insertPrev(Node *a, Node *b){
 
     if(heads[line_num] == b)
         heads[line_num] = a;
-    
+    pop(a);
     connect(b->prev,a);
     connect(a,b);
     lineNum[a->id] = line_num;
 }
 
 void insertPrevRange(Node *a, Node *b, Node *c){
-    Node *a_prev = a->prev;
-    Node *b_next = b->next;
-    connect(a_prev,b_next);
 
-    if(heads[lineNum[a->id]] == a) heads[lineNum[a->id]] = b->next;
+    
+    int line_num_a = lineNum[a->id];
+    int line_num_c = lineNum[c->id];
 
-    int line_num = lineNum[c->id];
+    if(heads[line_num_a] == a) heads[line_num_a] = b->next;
+    connect(a->prev,b->next);
 
-    if(heads[line_num] == c){
+    if(heads[line_num_c] == c){
         connect(b,c);
-        heads[line_num] = a; 
+        heads[line_num_c] = a; 
     }
     else{
         connect(c->prev,a);
@@ -68,7 +67,7 @@ void insertPrevRange(Node *a, Node *b, Node *c){
     }
     Node *cur = a;
     while(cur != c){
-        lineNum[cur->id] = line_num;
+        lineNum[cur->id] = line_num_c;
         cur = cur->next;
     }
 }
@@ -83,11 +82,11 @@ int main(){
         for(int j=1; j<= num; j++){
             int tmp;
             cin >> tmp;
-            nodes[nodecnt] = new Node(tmp);
+            nodes[tmp] = new Node(tmp);
             lineNum[tmp] = i;
             if(j==1) {
                 init = nodecnt;
-                heads[i] = nodes[nodecnt];
+                heads[i] = nodes[tmp];
             }
             nodecnt++;
         }
@@ -101,7 +100,6 @@ int main(){
         cin >> opt;
         if(opt == 1){
             cin >> a >> b;
-            pop(nodes[a]);
             insertPrev(nodes[a],nodes[b]);
         }
         if(opt == 2){
