@@ -32,7 +32,7 @@ void DFS(int x){
         if(parent[y]!=x)
             continue;
         dp[x][0] += dp[y][1];
-        dp[x][1] += dp[y][0];
+        dp[x][1] += min(dp[y][0],dp[y][1]);
     }
 }
 
