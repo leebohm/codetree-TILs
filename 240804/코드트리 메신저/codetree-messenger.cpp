@@ -32,6 +32,10 @@ int PreOrder(Node *cur,int cnt){
 int main() {
     cin >> n >> q;
     nodes[0] = new Node(0,nullptr); // 0번 노드는 메인 채팅방. 
+
+    for(int i=1; i<=n; i++)
+        nodes[i] = new Node(i,nullptr);
+
     for(int i=0; i<q; i++){
         int opt,c1,c2,power;
         cin >> opt;
@@ -41,8 +45,8 @@ int main() {
             for(int j=1; j<=n; j++){ // 1번부터 n번 노드 까지의 부모 노드 번호
                 int pnum = 0;
                 cin >> pnum; // 부모 노드 번호 받아서 
-                nodes[j] = new Node(j,nodes[pnum]);  // 자신 id와 부모 노드 번호 저장
-
+                nodes[j]->parent = nodes[pnum];
+                
                 if(nodes[pnum]->left == nullptr){ // 부모 노드의 왼쪽 자식 노드 없을 경우 저장.
                     nodes[pnum]->left = nodes[j];
                     //cout << pnum << " " << nodes[pnum]->left->id << endl;
