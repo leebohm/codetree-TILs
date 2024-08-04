@@ -5,56 +5,58 @@ using namespace std;
 #define MAX_N 51
 #define MAX_P 31
 
-int n,m,p,c,d;
+int n, m, p, c, d;
 int points[MAX_P];
-pair<int,int> pos[MAX_P];
-pair<int,int> rudolf;
+pair<int, int> pos[MAX_P];
+pair<int, int> rudolf;
 
 int board[MAX_N][MAX_N];
 bool is_live[MAX_P];
 int stun[MAX_P];
 
-const int dx[4] = {-1,0,1,0};
-const int dy[4] = {0,1,0,-1};
+const int dx[4] = {-1, 0, 1, 0};
+const int dy[4] = {0, 1, 0, -1};
 
-bool is_inrange(int x, int y){
-    return 1<=x && x<=n && 1<=y && y<=n;
+// (x, y)가 보드 내의 좌표인지 확인하는 함수입니다.
+bool is_inrange(int x, int y) {
+    return 1 <= x && x <= n && 1 <= y && y <= n;
 }
 
-int main(){
-    cin >> n >> m >> p >> c >> d;
+int main() {
+    cin >> n >> m >> p >> c >> d;  // 변수들을 입력받습니다.
     cin >> rudolf.first >> rudolf.second;
-    board[rudolf.first][rudolf.second] = -1;
+    board[rudolf.first][rudolf.second] = -1;  // 루돌프의 위치를 보드에 표시합니다.
 
-    for(int i=1; i<=p; i++){
+    for(int i = 1; i <= p; i++) {
         int id;
         cin >> id;
         cin >> pos[id].first >> pos[id].second;
-        board[pos[id].first][pos[id].second] = id;
-        is_live[id] = true;
+        board[pos[id].first][pos[id].second] = id; // 각 산타의 위치를 보드에 표시합니다.
+        is_live[id] = true;  // 산타가 살아있는지 여부를 표시합니다.
     }
 
-    for(int t = 1; t<=m; t++){
+    for(int t = 1; t <= m; t++) {
         int closestX = 10000, closestY = 10000, closestIdx = 0;
 
-        for(int i=1; i<=p; i++){
+        // 살아있는 산타 중 루돌프에 가장 가까운 산타를 찾습니다.
+        for(int i = 1; i <= p; i++) {
             if(!is_live[i]) continue;
 
-            pair<int,pair<int,int>> currentBest = {(closestX-rudolf.first)*(closestX-rudolf.first)+(closestY-rudolf.second)*(closestY-rudolf.second),{-closestX,-closestY}}
-            pair<int,pair<int,int>> currentValue = {(pos[i].first - rudolf.first)*(pos[i].first-rudolf)+(pos[i].second-rudolf.second)*(pos[i].second-rudolf.second),{-pos[i].first,-pos[i].second}};
-
-            if(currentValue < currentBest){
+            pair<int, pair<int, int>> currentBest = { (closestX - rudolf.first) * (closestX - rudolf.first) + (closestY - rudolf.second) * (closestY - rudolf.second), {-closestX, -closestY}};
+            pair<int, pair<int, int>> currentValue = {(pos[i].first - rudolf.first) * (pos[i].first - rudolf.first) + (pos[i].second - rudolf.second) * (pos[i].second - rudolf.second), {-pos[i].first, -pos[i].second}};
+            
+            if(currentValue < currentBest) {
                 closestX = pos[i].first;
                 closestY = pos[i].second;
                 closestIdx = i;
             }
         }
 
-        if(closestIdx){
-            pair<int,int> prevRudolf = rudolf;
+       if(closestIdx) {
+            pair<int, int> prevRudolf = rudolf;
             int moveX = 0;
-            if(closestX>rudolf.first) moveX = 1;
-            else if(closestX<rudolf.first) moveX = -1;
+            if(closestX > rudolf.first) moveX = 1;
+            else if(closestX < rudolf.first) moveX = -1;
 
             int moveY = 0;
             if(closestY > rudolf.second) moveY = 1;
@@ -64,7 +66,7 @@ int main(){
             rudolf.second += moveY;
             board[prevRudolf.first][prevRudolf.second] = 0;
 
-            if(rudolf.first == closestIdx && rudolf.second == closestY){
+            if(rudolf.first == closestX && rudolf.second == closestY){
                 int firstX = closestX + moveX * c;
                 int firstY = closestY + moveY * c;
                 int lastX = firstX;
@@ -113,7 +115,8 @@ int main(){
         for(int i=1; i<=p; i++){
             if(!is_live[i]|| stun[i]>=t) continue;
 
-            int minDist = (pos[i].first - rudolf.first)*(pos[i].first-rudolf.first)+(pos[i].second-rudolf.second)*(pos[i].second - rudolf.second);
+            int minDist = (pos[i].first - rudolf.first)*(pos[i].first-rudolf.first)+
+            (pos[i].second - rudolf.second)*(pos[i].second - rudolf.second);
             int moveDir = -1;
 
             for(int dir = 0; dir< 4; dir++){
@@ -122,7 +125,8 @@ int main(){
 
                 if(!is_inrange(nx,ny) || board[nx][ny] > 0) continue;
 
-                int dist = (nx - rudolf.first) * (nx-rudolf.first)+ (ny-rudolf.second)*(ny-rudolf.second);
+                int dist = (nx - rudolf.first) * (nx-rudolf.first)+ 
+                (ny-rudolf.second)*(ny-rudolf.second);
                 if(dist < minDist){
                     minDist = dist;
                     moveDir = dir;
