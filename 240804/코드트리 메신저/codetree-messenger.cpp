@@ -17,7 +17,7 @@ Node *nodes[MAX_N] = {};
 
 int PreOrder(Node *cur,int cnt){
 
-    cout << cur->id << " " << cur->aut <<" " << cnt << endl;
+    //cout << cur->id << " " << cur->aut <<" " << cnt << endl;
     if(cnt <= cur->aut && cur->button == true && cnt != 0)
         ans++;
     cnt++;
@@ -90,7 +90,7 @@ int main() {
             if(nodes[c2]->parent->left == nodes[c1])
                 nodes[c2]->parent->left = nodes[c2];
             else if(nodes[c2]->parent->right == nodes[c1])
-                nodes[c2]->parent->right = nodes[c2]
+                nodes[c2]->parent->right = nodes[c2];
             
         }
 
