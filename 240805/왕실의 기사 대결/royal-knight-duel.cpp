@@ -164,6 +164,7 @@ int main() {
             continue;
 
         knights_s = {};
+        knights_q = {};
         knights_q.push(num);
         knights_s.insert(num);
 
