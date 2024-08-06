@@ -139,6 +139,9 @@ int main() {
                 machine[num] = {url_tmp,t}; 
                 judging.insert(domain);
             }
+            else if(flag == false){
+                pq_machine.push(-num);
+            }
 
             while(waiting_pq_tmp.empty() == false){
                 tie(a,b,url_tmp) = waiting_pq_tmp.top(); waiting_pq_tmp.pop();
