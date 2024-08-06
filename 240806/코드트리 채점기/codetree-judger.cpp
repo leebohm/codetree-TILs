@@ -50,6 +50,7 @@ void Print_judging(){
 int main() {
 
     cin >> q;
+    int cnt = 0;
     for(int i=0; i<q; i++){
 
         int opt;
@@ -76,15 +77,22 @@ int main() {
         else if(opt == 300){  // 채점 시도
             cin >> t; 
             
-            if(pq_machine.empty() == true) // 쉬고 있는 채점기가 없다면 무시하고 넘어간다. 
+            if(pq_machine.empty() == true){
+                // 쉬고 있는 채점기가 없다면 무시하고 넘어간다. 
                 continue; 
-            int num = pq_machine.top(); // 채점기도 아직 Pop 하지는 않음. 
+            }
+
+            if(waiting_pq.empty() == true){ // 기다리고 있는 task가 없다면 pass
+                continue;
+            }
+
+            int num = pq_machine.top(); pq_machine.pop();
             num = -num; // 음수 전환
         
-            string url_tmp;
-            if(waiting_pq.empty() == true) // 기다리고 있는 task가 없다면 pass
-                continue;
-            tie(ignore,ignore,url_tmp) = waiting_pq.top();  // 아직pop 하지는 않음! 
+            string url_tmp; int a,b;
+
+            tie(a,b,url_tmp) = waiting_pq.top();  
+            priority_queue<tuple<int,int,string>> waiting_pq_tmp;  // 기록 용도 
             
             // 채점이 될 수 있는 조건인지 아닌지 확인
             size_t pos = url_tmp.find('/'); // '/'의 위치를 찾기.
@@ -92,21 +100,49 @@ int main() {
             // '/'가 발견되면 그 이전까지의 부분 문자열을 str1에 저장
             string domain = url_tmp.substr(0, pos);
 
-            if(history.find(domain) != history.end()){
-                // 기존의 도메인에 대해 판단 
-                // t가 start + 3*gap 보다 작으면 채점 불가 . 
-                int tmp = history[domain];
-                if(t<tmp)
-                    continue;
-            }
-            if(judging.find(domain) == judging.end()){ 
-                pq_machine.pop(); // 채점기 실행. 
-                waiting_pq.pop(); // 가장 우선순위 높은 task 꺼냄
-                waiting_s.erase(url_tmp);
+            bool flag = false;
+            
+            while(flag == false){
+                if(waiting_pq.empty() == true)
+                    break;
+                else if(history.find(domain) != history.end()){ // history에 최근에 작업한 domain이야?
+                    int tmp = history[domain];
+                    if(t<tmp){ // 채점 불가. 
+                        waiting_pq.pop();
+                        waiting_pq_tmp.push({a,b,url_tmp}); // 채점 불가하므로 일단 pq_tmp에 넣어놓기. 
+                        tie(a,b,url_tmp) = waiting_pq.top();
+                        pos = url_tmp.find('/'); 
+                        domain = url_tmp.substr(0, pos); // 다음 우선순위로 domain 업데이트 
+                    }
+                    else{
+                        waiting_pq.pop();
+                        flag = true;
+                    }
+                }
+                else if(judging.find(domain) != judging.end()){ // 현재 작업중인 domain 중에 있어? 
+                    // 채점 불가 
+                    waiting_pq.pop();
+                    waiting_pq_tmp.push({a,b,url_tmp}); // 채점 불가하므로 일단 pq_tmp에 넣어놓기. 
+                    tie(a,b,url_tmp) = waiting_pq.top();
+                    pos = url_tmp.find('/'); 
+                    domain = url_tmp.substr(0, pos); // 다음 우선순위로 domain 업데이트 
+                }
+                else{
+                    waiting_pq.pop();
+                    flag = true;
+                }
+            } 
 
-                // history에 있어도 조건에 안 맞고, 현재 진행중인 task중에 동일한 domain이 없다면 채점 시작.
-                machine[num] = {url_tmp,t}; // 채점 시작 
+            // 이제 채점 시도. 
+            if(flag == true){
+                waiting_s.erase(url_tmp);
+                machine[num] = {url_tmp,t}; 
                 judging.insert(domain);
+            }
+
+            while(waiting_pq_tmp.empty() == false){
+                tie(a,b,url_tmp) = waiting_pq_tmp.top(); waiting_pq_tmp.pop();
+                waiting_pq.push({a,b,url_tmp});
             }
         }
 
@@ -128,8 +164,8 @@ int main() {
             
         }
         else if(opt == 500){ // 채점 대기 큐 조회
+            cnt++;
             cin >> t;
-            //cout << "i : " << i << endl;
             if(waiting_pq.empty() == true)
                 cout << 0 << endl;
             else{
@@ -137,56 +173,22 @@ int main() {
                 cout << tmp << endl;
             }
         }
-
         /*
+        if(i>=115){
+            cout << "i : " << i << endl;
+            cout << "waiting_s size : " << (int) waiting_s.size() << endl;
+            cout << "judging size : " << (int) judging.size() << endl;
+            cout << "hisotry size : " << (int) history.size() << endl;
+        }
+
+        cout <<" i : " << i << " opt : " << opt << endl;
         Print_waiting_s();
         Print_judging();
         PrintHistory();
         */
+
     }
 
     
     return 0;
 }
-
-/*
-
-1) 코드트리 채점기 
-문제 url : 도메인/문제id 
-도메인 : 알파벳 소문자 & . 
-문제 id : 1~ 10억 이하 
-n 개의 채점기 1~n번
-0초에 채점 우선순위가 1이면서 urldl u0인 초기 문제에대한 채점 요청이 들어온다. 
-
-2) 채점 요청
-t초에 채점 우선순위가 p이면서 url이 u인 문제에 대한 채점 요청이 들어오게 된다.
-채점 task는 채점 대기 큐에 들어가게된다. 
-단, 채점 대기 큐에 있는 task 중 정확히 u와 일치하는 url이 단 하나라도 존재한다면 큐에 추가하지 않고 넘어감
-
-3) 채점 시도
-t초에 채점 대기 큐에서 즉시 채점이 불가능한 경우를 제외하고 
-남은 task 중 우선순위가 가장 높은 채점 task를 골라 채점을 진행한다 
-
-채점이 될 수 없는 조건
-- 해당 task의 도메인이 현재 채점을 진행중인 도메인 중 하나라면 불가능. 
-- 해당 task의 도메인과 정확히 일치하는 도메인에 대해 
-가장 최근에 진행된 채점 시작 시간이 start, 종료 시간이 start+gap였고, 
-현재 시간 t가 start + 3*gap 보다 작다면 부적절한 채점이라 의심, 채점 불가. 
-
-우선순위 높은 task 의 조건
-- 채점 우선순위 p의 번호가 작을수록 우선순위 높다. 
-- 우선순위 동일할 때 , 채점 task가 채점 대기 큐에 들어온 시가닝 더 빠를수록 우선순위가 높다 
-
-t초에 채점이 가능한 task 단 하나라도 있다면 쉬고 있는 채점기 중 
-가장 작은 번호의 채점기가 우선순위 가장 높은 task에 대한 채점 시작. 
-- 쉬고 있는 채점기 없다면 요청을 무시하고 넘어간다. 
-
-4) 채점 종료
-t초에 jid번 채점기가 진행하던 채점이 종료된다. 
-jid 채점기는 다시 쉬는 상태가 된다.
-jid 번 채점기가 진행하던 채점이 없었다면 이 명령은 무시된다.
-
-5) 채점 대기 큐 조회
-시간 t에 채점 대기 큐에 있는 task의 수를 출력
-
-*/
