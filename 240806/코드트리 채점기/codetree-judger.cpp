@@ -117,6 +117,7 @@ int main() {
                     else{
                         waiting_pq.pop();
                         flag = true;
+                        break;
                     }
                 }
                 else if(judging.find(domain) != judging.end()){ // 현재 작업중인 domain 중에 있어? 
@@ -130,6 +131,7 @@ int main() {
                 else{
                     waiting_pq.pop();
                     flag = true;
+                    break;
                 }
             } 
 
