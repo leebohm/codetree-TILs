@@ -219,7 +219,7 @@ int main() {
 
     for(int i=1; i<=m; i++){
         cin >> r[i] >> c[i];
-        board[r[i]][c[i]].insert(i); // 보드 위에 참가자 표현 아 근데.. 참가자가... 여러명 가능하다고 했잖아. 
+        board[r[i]][c[i]].insert(i); // 보드 위에 참가자 표현  
     }
 
     cin >> exit_r >> exit_c;
