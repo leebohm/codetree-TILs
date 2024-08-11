@@ -17,12 +17,11 @@ void DFS(int idx){
         int tmp = children[idx][i];
         if(visited[tmp] == false){
             score[tmp] += score[idx];
+            visited[tmp] = true;
             //cout << tmp << " " << score[tmp] << " " << score[idx] << endl;
             DFS(tmp);
             //score[tmp] += score[idx];
-            
         }
-        
     }
 }
 
@@ -38,7 +37,7 @@ int main() {
     for(int i=1; i<=m; i++){
         int idx, w;
         cin >> idx >> w;
-        score[idx] = w;
+        score[idx] += w;
     }
 
     visited[1] = true;
