@@ -16,8 +16,11 @@ void DFS(int idx){
     for(int i=0; i<num; i++){
         int tmp = children[idx][i];
         if(visited[tmp] == false){
-            DFS(tmp);
             score[tmp] += score[idx];
+            //cout << tmp << " " << score[tmp] << " " << score[idx] << endl;
+            DFS(tmp);
+            //score[tmp] += score[idx];
+            
         }
         
     }
