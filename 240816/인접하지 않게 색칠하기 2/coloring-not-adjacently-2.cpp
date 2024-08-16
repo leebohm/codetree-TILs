@@ -37,7 +37,7 @@ void DFS(int x){
 
     if(left_num && right_num) {
         for(int i=1; i<=k; i++)
-            for(int j=1; j<=i; j++)
+            for(int j=1; j<i; j++)
                 dp[x][i][1] = max(dp[x][i][1], dp[left_num][j][0] + dp[right_num][i-j-1][0] + a[x]);
 
             for(int i=0; i<=k; i++)
