@@ -23,8 +23,8 @@ int main(){
         int tmp = k-nums[i];
         if(maps.find(tmp) != maps.end()){
             ans += (maps[tmp] * maps[nums[i]]);
+            maps[tmp] = 0;
         }
     }
-    ans /= 2;
     cout << ans;
 }
