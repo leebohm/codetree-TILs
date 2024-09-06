@@ -24,7 +24,10 @@ int main() {
     for(int i=0; i<q;i++){
         int a,b;
         cin >> a >> b;
-        cout << pre_sum[b] - pre_sum[a-1] << endl;
+        if( a== 0)
+            cout << pre_sum[b] << endl;
+        else
+            cout << pre_sum[b] - pre_sum[a-1] << endl;
     }
     
     return 0;
