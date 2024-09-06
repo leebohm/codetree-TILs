@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-#define MAX_N 100002
+#define MAX_N 1000002
 int n,q;
 
 int arr[MAX_N];
