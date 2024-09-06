@@ -1,4 +1,5 @@
 #include <iostream>
+#include <climits>
 using namespace std;
 
 #define MAX_N 302
@@ -36,7 +37,7 @@ int main() {
 
     init();
 
-    int ans = 0;
+    int ans = -INT_MAX;
     for(int i=1;i<=n; i++){
         for(int j=1; j<=n; j++){
             for(int k=0; k<=i; k++){
