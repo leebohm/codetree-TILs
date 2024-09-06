@@ -37,12 +37,16 @@ int main() {
 
     init();
 
+    //Print();
+
     int ans = -INT_MAX;
+
     for(int i=1;i<=n; i++){
         for(int j=1; j<=n; j++){
-            for(int k=0; k<=i; k++){
-                for(int l=0; l<=j; l++){
+            for(int k=1; k<=i; k++){
+                for(int l=1; l<=j; l++){
                     int tmp = pre_sum[i][j] - pre_sum[i-k][j] - pre_sum[i][j-l] + pre_sum[i-k][j-l];
+                    //cout << tmp << " ";
                     ans = max(ans, tmp);
                 }
                 
@@ -50,8 +54,6 @@ int main() {
             
         }
     }
-
-    //Print();
 
     cout << ans;
     return 0;
