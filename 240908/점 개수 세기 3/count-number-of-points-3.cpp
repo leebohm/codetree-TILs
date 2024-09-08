@@ -43,7 +43,7 @@ int main(){
         int na = mapper[a];
         int nb = mapper[b];
 
-        cout << nb- na +1 << endl;
+        cout << nb - na +1 << endl;
     }
 
     return 0;
