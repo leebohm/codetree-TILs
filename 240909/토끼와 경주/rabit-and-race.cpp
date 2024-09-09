@@ -32,15 +32,18 @@ pair<int,int> Decision_pos(int num,int r, int c){
     priority_queue<tuple<int,int,int>> pq2; // 우선순위 높은 위치 결정
     int dist = pid2dist[num];
     int nx,ny;
-
     for(int i=0; i<4; i++){
+        if(i == 0 && i ==1)
+            dist = dist % (n+1);
+        else if(i == 2 && i ==3)
+            dist = dist % (m+1);
         int dir_tmp = i;
         int tmp_r = r;
         int tmp_c = c;
-        for(int j=0; j<dist; j++){
+        for(int j=0; j<dist; j++){ // 나누기!
             nx = tmp_r+dx[dir_tmp];
             ny = tmp_c+dy[dir_tmp];
-            if(InRange(nx,ny) == false){
+            if(InRange(nx,ny) == false){ 
                 if(dir_tmp == 0){
                     dir_tmp = 1;
                     nx = tmp_r + dx[dir_tmp];
