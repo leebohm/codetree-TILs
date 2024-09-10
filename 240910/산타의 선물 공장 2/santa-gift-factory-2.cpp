@@ -36,8 +36,10 @@ void move_everything(){
     cin >> src >> dst;
     // 1. 선물들의 벨트 번호 정보 바꿔주기 
     int num = (int) belts[src].size();
-    if(num == 0)
+    if(num == 0){
+        cout << (int) belts[dst].size() << endl;
         return; // src 번째 벨트에 선물이 존재하지 않다면 아무것도 옮기지 않아도 된다. 
+    }
 
     for(int i=0; i<num; i++){
         idx2belts_num[belts[src][i]] = dst;
@@ -108,8 +110,10 @@ void give_gift(){
     cin >> src >> dst;
 
     int num = (int) belts[src].size();
-    if(num <= 1)
+    if(num <= 1){
+        cout << (int) belts[dst].size() << endl;
         return;
+    }
     
     num = num / 2;
     // 1. 선물의 벨트 번호 정보 바꿔주기
@@ -174,6 +178,7 @@ int main() {
     int opt;
     for(int i=0; i<q; i++){
         cin >> opt;
+        //cout << "opt : " << opt << endl;
         if(opt == 100){
             // 1. 공장 설립
             make_factory();
@@ -200,6 +205,7 @@ int main() {
             get_belt_info();
         }
         //Print();
+        
     }
     return 0;
 }
