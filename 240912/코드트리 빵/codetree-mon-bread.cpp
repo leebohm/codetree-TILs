@@ -83,22 +83,25 @@ void act2(){
 }
 void act3(int t){
     // 3. 가고 싶은 편의점과 가장 가까운 베이스 캠프 찾기 
-    priority_queue<tuple<int,int,int>> pq;
+    priority_queue<tuple<int,int,int,int>> pq;
     int cx,cy;
     tie(cx,cy) = con_pos[t]; 
 
     for(int i=0; i< base_num; i++){
         int bx,by;
         tie(bx,by) = base_pos[i];
+        if(bx == 0 || by == 0)
+            continue;
         int tmp_dist = abs(bx-cx) + abs(by-cy);
-        pq.push(make_tuple(-tmp_dist,-bx,-by));
+        pq.push(make_tuple(-tmp_dist,-bx,-by,i));
     }
-    int px,py;
-    tie(ignore, px,py) = pq.top();
+    int px,py,idx;
+    tie(ignore, px,py,idx) = pq.top();
     px = -px; py = -py;
 
     people_pos[t] = make_pair(px,py);
     bool_board[px][py] = false;
+    base_pos[idx] = make_pair(0,0);
 
 }
 
