@@ -90,7 +90,7 @@ void act3(int t){
     for(int i=0; i< base_num; i++){
         int bx,by;
         tie(bx,by) = base_pos[i];
-        int tmp_dist = abs(bx-cx) + abs(by-by);
+        int tmp_dist = abs(bx-cx) + abs(by-cy);
         pq.push(make_tuple(-tmp_dist,-bx,-by));
     }
     int px,py;
