@@ -42,6 +42,14 @@ bool CanGo(int x, int y){
     return true;
 }
 
+void PrintVisited(){
+    for(int i=1 ; i<=n ; i++){
+        for(int j=1; j<=n; j++){
+            cout << visited[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
 void BFS(int x, int y){
 
     queue<pair<int,int>> q;
@@ -54,16 +62,16 @@ void BFS(int x, int y){
         for(int i=0; i<4; i++){
             int nx = tx+dx[i];
             int ny = ty+dy[i];
-        if(CanGo(nx,ny) == true && visited[nx][ny] == 0){
-            visited[nx][ny] = visited[tx][ty]+1;
-            q.push(make_pair(nx,ny));
+            if(CanGo(nx,ny) == true && visited[nx][ny] == 0){
+                visited[nx][ny] = visited[tx][ty]+1;
+                q.push(make_pair(nx,ny));
+            }
         }
-    }
     }
     
 }
 
-void act1_c(){
+void act1(){
     arrived_con.clear();
     // 1. i번 사람이 가고 싶은 편의점 방향을 향해서 1칸 움직이기
     for(int i=1; i<=m; i++){
@@ -82,7 +90,8 @@ void act1_c(){
                 InitVisited();
                 visited[nx][ny] = 1;
                 BFS(nx,ny);
-                pq.push(make_pair(-visited[cx][cy],-j));
+                if(visited[cx][cy] != 0)
+                    pq.push(make_pair(-visited[cx][cy],-j));
             }
         }
         int dir;
@@ -101,42 +110,6 @@ void act1_c(){
 
 
 }
-void act1(){
-    arrived_con.clear();
-    // 1. 본인이 가고 싶은 편의점 방향을 향해서 1칸 움직이기
-    for(int i=1; i<=m; i++){
-        int x,y;
-        tie(x,y) = people_pos[i];
-        int cx,cy; // 편의점 위치
-        tie(cx,cy) = con_pos[i];
-        if(x == 0) // 보드 밖에 있으면 움직이지 않음
-            continue;
-        //상 좌 우 하 4 방향으로 움직여서 편의점과 가장 가까운 방향 찾기
-        int dist = INT_MAX;
-        int dir = -1;
-        for(int j=0; j<4; j++){
-            int nx = x + dx[j];
-            int ny = y + dy[j];
-            if(CanGo(nx,ny) == true){
-                int tmp_dist = abs(nx-cx) + abs(ny-cy);
-                if(tmp_dist < dist){
-                    dist = tmp_dist;
-                    dir = j;
-                }
-            }
-        }
-        x += dx[dir];
-        y += dy[dir];
-        people_pos[i] = make_pair(x,y);
-
-        // 1-2. 편의점에 도착한 경우 
-        if(x == cx && y == cy){
-            people_pos[i] = make_pair(0,0); // 이 사람은 이동하지 않아도 됨
-            arrived_con.push_back(i);
-        }
-
-    }
-}
 
 void act2(){
     // 2. 편의점에 도착한 사람들 번호를 이용해 도착한 편의점 이동 불가하게 만들기
@@ -149,7 +122,7 @@ void act2(){
     }
 }
 
-void act3_c(int t){
+void act3(int t){
     // 3. 가고 싶은 편의점과 가장 가까운 베이스 캠프 찾기 
     int cx,cy;
     tie(cx,cy) = con_pos[t];
@@ -171,29 +144,6 @@ void act3_c(int t){
     people_pos[t] = make_pair(px,py);
     bool_board[px][py] = false;
     base_pos[idx] = make_pair(0,0);
-}
-void act3(int t){
-    // 3. 가고 싶은 편의점과 가장 가까운 베이스 캠프 찾기 
-    priority_queue<tuple<int,int,int,int>> pq;
-    int cx,cy;
-    tie(cx,cy) = con_pos[t]; 
-
-    for(int i=0; i< base_num; i++){
-        int bx,by;
-        tie(bx,by) = base_pos[i];
-        if(bx == 0 || by == 0)
-            continue;
-        int tmp_dist = abs(bx-cx) + abs(by-cy);
-        pq.push(make_tuple(-tmp_dist,-bx,-by,i));
-    }
-    int px,py,idx;
-    tie(ignore, px,py,idx) = pq.top();
-    px = -px; py = -py;
-
-    people_pos[t] = make_pair(px,py);
-    bool_board[px][py] = false;
-    base_pos[idx] = make_pair(0,0);
-
 }
 
 void Print_people_pos(){
@@ -224,10 +174,10 @@ int main() {
     }
 
     while(t!=0){
-        act1_c();
+        act1();
         act2();
         if(t <= m)
-            act3_c(t);
+            act3(t);
         if(cnt_m == m)
             break;
         //cout << t << endl;
