@@ -6,7 +6,7 @@
 using namespace std;
 
 #define MAX_N 16
-#define MAX_M 31
+#define MAX_M 226
 
 int n,m; // n : 격자의 크기, m : 사람의 수 
 int board[MAX_N][MAX_N]; // 베이스캠프 위치 담기 
@@ -162,8 +162,10 @@ int main() {
         for(int j=1;j<=n; j++){
             cin >> board[i][j];
             bool_board[i][j] = true;
-            if(board[i][j] == 1)
+            if(board[i][j] == 1){
                 base_pos[base_num++] = make_pair(i,j);
+
+            }
         }
     }
 
