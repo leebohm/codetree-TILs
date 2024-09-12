@@ -136,7 +136,8 @@ void act3(int t){
         InitVisited();
         visited[bx][by] = 1;
         BFS(bx,by);
-        pq.push(make_tuple(-visited[cx][cy],-bx,-by,i));
+        if(visited[cx][cy] != 0)
+            pq.push(make_tuple(-visited[cx][cy],-bx,-by,i));
     }
     int px,py,idx;
     tie(ignore, px,py,idx) = pq.top();
