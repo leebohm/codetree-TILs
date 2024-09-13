@@ -216,5 +216,10 @@ int main() {
     
     PrintScore();
 
+        // 동적 메모리 해제
+    for (int i = 1; i <= m; i++) {
+        delete player_list[i];  // 메모리 해제
+        player_list[i] = nullptr;  // 포인터 초기화 (안전성 확보)
+    }
     return 0;
 }
