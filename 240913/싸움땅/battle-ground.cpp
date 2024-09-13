@@ -95,6 +95,12 @@ void Lose(int idx){
     player_list[idx]->x = x;
     player_list[idx]->y = y;
     player_list[idx]->d = dir; // 배열에 위치 정보 업데이트
+    
+    // 도착한 자리에 총이 있다면 획득
+    if(gun_board[x][y].empty() == false){
+        gun_power = gun_board[x][y].top(); gun_board[x][y].pop();
+        player_list[idx]->gun = gun_power;
+    }
 }
 
 void Win(int idx){
@@ -144,7 +150,11 @@ void fight(int idx){
     }
     // 점수 얻기 
     score[win_idx] += abs(o_power - v_power);
-    //cout << "fight : " << win_idx << " " << lose_idx << " " << abs(o_power - v_power) << endl;
+    
+    //cout << "fight : " << win_idx << " " << lose_idx << " " << abs(o_power - v_power) <<  endl;
+    //cout << "win idx s,gun : " << player_list[win_idx]->s << " " << player_list[win_idx]->gun << endl;
+    //cout << "lose idx x,gun : " << player_list[lose_idx]->s << " " << player_list[lose_idx]->gun << endl;
+
     Lose(lose_idx);
     Win(win_idx);
 }
