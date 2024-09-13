@@ -100,6 +100,7 @@ void Lose(int idx){
 void Win(int idx){
     int x = player_list[idx]->x;
     int y = player_list[idx]->y;
+    player_board[x][y] = idx;
     int gun_origin = player_list[idx]->gun;
     int gun_power = gun_board[x][y].top(); 
 
@@ -143,6 +144,7 @@ void fight(int idx){
     }
     // 점수 얻기 
     score[win_idx] += abs(o_power - v_power);
+    //cout << "fight : " << win_idx << " " << lose_idx << " " << abs(o_power - v_power) << endl;
     Lose(lose_idx);
     Win(win_idx);
 }
@@ -153,6 +155,23 @@ void PrintScore(){
     }
     cout << endl;
 }
+void PrintPlayer(){
+    for(int i=1;i<=m; i++){
+        cout << i << " : " << player_list[i]->x << " " << player_list[i]->y << endl;
+    }
+    cout << endl;
+}
+
+void PrintPlayerBoard(){
+    for(int i=1; i<=n; i++){
+        for(int j=1; j<=n; j++){
+            cout << player_board[i][j] << " ";
+        }
+        cout << endl;
+    }
+    cout << endl;
+}
+
 int main() {
     
     cin >> n >> m >> k;
@@ -180,6 +199,8 @@ int main() {
             else
                 fight(i);
             //PrintScore();
+            //PrintPlayer();
+            //PrintPlayerBoard();
         }
     }
     
