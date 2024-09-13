@@ -40,40 +40,46 @@ bool InRange(int x, int y){
 }
 
 // 현재 위치에서 방향 d를 보고 있을 때 그 다음 위치와 방향을 찾아줍니다.
-tuple<int,int,int> GetNext(int x, int y, int d){
-    int nx = x+dx[d], ny = y + dy[d];
-    // 격자를 벗어나면 방향을 뒤집어 반대 방향으로 한 칸 이동합니다.
-    if(!InRange(nx,ny)){
+tuple<int, int, int> GetNext(int x, int y, int d) {
+    int nx = x + dx[d], ny = y + dy[d];
+    // 격자를 벗어나면
+    // 방향을 뒤집어
+    // 반대 방향으로 한 칸 이동합니다.
+    if(!InRange(nx, ny)) {
+        // 반대 방향 : 0 <-> 2 / 1 <-> 3
         d = (d < 2) ? (d + 2) : (d - 2);
         nx = x + dx[d], ny = y + dy[d];
     }
 
-    return make_tuple(nx,ny,d);
+    return make_tuple(nx, ny, d);
 }
 
 // 해당 칸에 있는 player를 찾아줍니다. 
 // 없다면 empty를 반환합니다.
-Player FindPlayer(pair<int,int> pos){
-    for(int i=0; i<m; i++){
+Player FindPlayer(pair<int, int> pos) {
+    for(int i = 0; i < m; i++) {
         int x, y;
-        tie(ignore, x, y, ignore,ignore,ignore) = players[i];
+        tie(ignore, x, y, ignore, ignore, ignore) = players[i];
 
-        if(pos == make_pair(x,y))
+        if(pos == make_pair(x, y))
             return players[i];
     }
+
     return EMPTY;
 }
 
 // player p의 정보를 갱신해줍니다. 
-void Update(Player p){
+void Update(Player p) {
     int num;
     tie(num, ignore, ignore, ignore, ignore, ignore) = p;
 
-    for(int i=0; i<m; i++){
+    // Player의 위치를 찾아
+    // 값을 갱신해줍니다.
+    for(int i = 0; i < m; i++) {
         int num_i;
         tie(num_i, ignore, ignore, ignore, ignore, ignore) = players[i];
 
-        if(num_i == num){
+        if(num_i == num) {
             players[i] = p;
             break;
         }
@@ -90,6 +96,7 @@ void Move(Player p, pair<int,int> pos){
     gun[nx][ny].push_back(a);
     sort(gun[nx][ny].begin(), gun[nx][ny].end(), greater<int>());
     a = gun[nx][ny][0];
+    gun[nx][ny].erase(gun[nx][ny].begin());
 
     p = make_tuple(num, nx,ny,d,s,a);
     Update(p);
