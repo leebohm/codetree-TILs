@@ -72,7 +72,7 @@ void Drop_Stuff(){
     for(int belt_num=1; belt_num<=m; belt_num++){ // 벨트 개수대로 돌아가며 w_max 이하라면 하차
         int idx = belts[belt_num][0];
         int w_tmp = stuffs[idx].second;
-        if( w_tmp <= w_max){ // w_max 이하라면 하차
+        if( w_tmp <= w_max && w_tmp > 0){ // w_max 이하라면 하차
             Drop(belt_num, idx); // 이 벨트 번호 위에 올려져 있는 이 인덱스 상자를 떨어뜨려라!
             ans += w_tmp; // 하차된 상자 무게에 더하기 
         }
@@ -186,14 +186,19 @@ void Move_to_next_belt(int next_belt_num, int belt_num){
 void Broke(){
     int belt_num;
     cin >> belt_num;
-
+    int next_belt_num = 0;
     // 1. 해당 벨트 정상일 경우
     if(belts[belt_num][0] != -1){
         // 2. 바로 오른쪽 벨트 번호 구하기
-        int next_belt_num = (belt_num + 1) % m; 
-        if(next_belt_num == 0)
-            next_belt_num = m;
+        while(true){
+            next_belt_num = (belt_num + 1) % m; 
+            if(next_belt_num == 0)
+                next_belt_num = m;
+            if(belts[next_belt_num][0] != -1)
+                break;
+        }
         // 3. 그 벨트 뒤에 가져다 붙이기 
+        //cout << "next_belt_num : " << next_belt_num << endl;
         Move_to_next_belt(next_belt_num, belt_num);
         // 4. 벨트 번호 출력
         cout << belt_num << endl;
@@ -234,7 +239,9 @@ int main() {
         }
         else if(opt == 500){
             Broke();
+            //PrintStuffs();
         }
+        //PrintBelts();
     }
     return 0;
 }
