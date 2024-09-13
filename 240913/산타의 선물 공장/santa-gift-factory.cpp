@@ -196,6 +196,7 @@ void Broke(){
                 next_belt_num = m;
             if(belts[next_belt_num][0] != -1)
                 break;
+            belt_num = next_belt_num;
         }
         // 3. 그 벨트 뒤에 가져다 붙이기 
         //cout << "next_belt_num : " << next_belt_num << endl;
