@@ -1,225 +1,181 @@
 #include <iostream>
-#include <queue>
+#include <vector>
+#include <tuple>
+#include <algorithm>
+#include <functional>
+
+#define MAX_N 20
+#define MAX_M 30
+#define DIR_NUM 4
+#define Player tuple<int,int,int,int,int,int>
+#define EMPTY make_tuple(-1,-1,-1,-1,-1,-1)
+
 using namespace std;
 
-#define MAX_N 21
-#define MAX_M 31
+int n,m,k;
 
-struct Player{
-    int x;
-    int y;
-    int d;
-    int s;
-    int gun;
-    Player(int p, int q, int r, int t, int u) : x(p), y(q), d(r),s(t),gun(u){};
-};
+// 각 칸마다 놓여있는 총 목록을 관리합니다.
+vector<int> gun[MAX_N][MAX_N];
 
+// 각 칸마다 플레이어 정보를 관리
+// 순서대로 num, x, y, d, s, a 정보를 관리
+// (x,y) 위치에서 방향 d를 보고 있으며
+// 초기 능력치가 s인 num번 플레이어가 
+// 공격력이 a인 총을 들고 있음을 뜻한다
+// 총이 없으면 a는 0이다.
 
-int n,m,k; // n * n: 격자크기, m : 플레이어 숫자, k : 라운드 수
-int dx[4] = {-1,0,1,0};
-int dy[4] = {0,1,0,-1};
-priority_queue<int> gun_board[MAX_N][MAX_N]; //총 있는 board
-int player_board[MAX_N][MAX_N];
-int score[MAX_M];
-Player *player_list[MAX_M]; // player struct 배열 
+Player players[MAX_M];
+
+// 입력으로 주어지는
+// 방향 순서대로
+// dx, dy를 정의합니다.
+int dx[DIR_NUM] = {-1,0,1,0};
+int dy[DIR_NUM] = {0,1,0,-1};
+
+// 플레이어들의 포인트 정보를 기록합니다.
+int points[MAX_M];
 
 bool InRange(int x, int y){
-    return x >= 1 && x <=n && y >= 1 && y <=n; 
+    return 0 <= x && x < n && 0 <= y && y < n;
 }
 
-bool move(int idx){
-    int x = player_list[idx]->x;
-    int y = player_list[idx]->y;
-    int dir = player_list[idx]->d;
+// 현재 위치에서 방향 d를 보고 있을 때 그 다음 위치와 방향을 찾아줍니다.
+tuple<int,int,int> GetNext(int x, int y, int d){
+    int nx = x+dx[d], ny = y + dy[d];
+    // 격자를 벗어나면 방향을 뒤집어 반대 방향으로 한 칸 이동합니다.
+    if(!InRange(nx,ny)){
+        d = (d < 2) ? (d + 2) : (d - 2);
+        nx = x + dx[d], ny = y + dy[d];
+    }
 
-    int nx = x + dx[dir];
-    int ny = y + dy[dir];
-    if(InRange(nx,ny) == false){ // 격자 밖을 벗어나면 방향 바꾸기!
-        dir = (dir + 2) % 4;
-    }
-    player_board[x][y] = 0;
-    x += dx[dir];
-    y += dy[dir];
-    player_list[idx]->x = x;
-    player_list[idx]->y = y;
-    player_list[idx]->d = dir;
-
-    if(player_board[x][y] != 0){ // 다른 player 있는 경우
-        return false;
-    }
-    else{
-        player_board[x][y] = idx; // 보드판 위에 player 정보 update 하기 
-        return true;
-    }
+    return make_tuple(nx,ny,d);
 }
 
-void get_gun(int idx){
-    int x = player_list[idx]->x;
-    int y = player_list[idx]->y;
-    int gun_origin = player_list[idx]->gun;
-    int gun_power = gun_board[x][y].top(); 
-    if(gun_power == 0) // 총이 없는 경우 끝남
-        return;
-    // 이미 총 가지고 있는 경우 비교해서 가장 공격력이 더 쎈 총을 획득.
-    if(gun_origin < gun_power){
-        player_list[idx]->gun = gun_power;
-        gun_board[x][y].pop();
-        gun_board[x][y].push(gun_origin);
+// 해당 칸에 있는 player를 찾아줍니다. 
+// 없다면 empty를 반환합니다.
+Player FindPlayer(pair<int,int> pos){
+    for(int i=0; i<m; i++){
+        int x, y;
+        tie(ignore, x, y, ignore,ignore,ignore) = players[i];
+
+        if(pos == make_pair(x,y))
+            return players[i];
     }
-    // 원래 가지고 있는 총이 더 쎈 경우 총 줍지 않음. 
+    return EMPTY;
 }
 
-void Lose(int idx){
-    int gun_power = player_list[idx]->gun;
-    int x = player_list[idx]->x;
-    int y = player_list[idx]->y;
-    gun_board[x][y].push(gun_power);
-    player_list[idx]->gun = 0; // 총 내려놓기 
+// player p의 정보를 갱신해줍니다. 
+void Update(Player p){
+    int num;
+    tie(num, ignore, ignore, ignore, ignore, ignore) = p;
 
-    int dir = player_list[idx]->d;
-    while(true){
-        int nx = x+dx[dir];
-        int ny = y+dy[dir];
-        if(InRange(nx,ny)== false){
-                dir = (dir+1) % 4;
-        } 
-        else if(player_board[nx][ny]!=0)
-                dir = (dir+1) % 4;
-        else
+    for(int i=0; i<m; i++){
+        int num_i;
+        tie(num_i, ignore, ignore, ignore, ignore, ignore) = players[i];
+
+        if(num_i == num){
+            players[i] = p;
             break;
-    }
-    player_board[x][y] = 0;
-    x += dx[dir];
-    y += dy[dir];
-    player_board[x][y] = idx; // 보드에 바뀐 위치 정보 업데이트
-    player_list[idx]->x = x;
-    player_list[idx]->y = y;
-    player_list[idx]->d = dir; // 배열에 위치 정보 업데이트
-    
-    // 도착한 자리에 총이 있다면 획득
-    if(gun_board[x][y].empty() == false){
-        gun_power = gun_board[x][y].top(); gun_board[x][y].pop();
-        player_list[idx]->gun = gun_power;
+        }
     }
 }
 
-void Win(int idx){
-    int x = player_list[idx]->x;
-    int y = player_list[idx]->y;
-    player_board[x][y] = idx;
-    int gun_origin = player_list[idx]->gun;
-    int gun_power = gun_board[x][y].top(); 
+void Move(Player p, pair<int,int> pos){
+    int num, x, y, d, s, a;
+    tie(num, x, y, d, s, a) = p;
 
-    if(gun_origin < gun_power){
-        gun_board[x][y].pop();
-        player_list[idx]->gun = gun_power;
-        gun_board[x][y].push(gun_origin);
+    int nx, ny;
+    tie(nx,ny) = pos;
+
+    gun[nx][ny].push_back(a);
+    sort(gun[nx][ny].begin(), gun[nx][ny].end(), greater<int>());
+    a = gun[nx][ny][0];
+
+    p = make_tuple(num, nx,ny,d,s,a);
+    Update(p);
+}
+
+void LoserMove(Player p){
+    int num, x, y, d,s,a;
+    tie(num, x, y, d, s, a) = p;
+
+    gun[x][y].push_back(a);
+
+    for(int i=0; i<4; i++){
+        int ndir = (d+i) % 4;
+        int nx = x + dx[ndir], ny = y + dy[ndir];
+        if(InRange(nx,ny) && FindPlayer(make_pair(nx,ny)) == EMPTY){
+            p = make_tuple(num,x,y,ndir,s,0);
+            Move(p,make_pair(nx,ny));
+            break;
+        }
     }
 }
 
-void fight(int idx){
-    
-    int x = player_list[idx]->x;
-    int y = player_list[idx]->y;
+void Duel(Player p1, Player p2, pair<int,int> pos){
+    int num1, d1, s1, a1;
+    tie(num1, ignore, ignore, d1, s1, a1) = p1;
 
-    int o_idx = player_board[x][y]; // 원래 있던 참가자 인덱스
-    int o_power = player_list[o_idx]-> s + player_list[o_idx]->gun;
-    int v_power = player_list[idx]->s + player_list[idx]->gun;
+    int num2, d2, s2, a2;
+    tie(num2, ignore, ignore, d2, s2, a2) = p2;
 
-    int win_idx, lose_idx;
-    // 1. 같은 경우
-    if(o_power == v_power){
-        if(player_list[idx]-> s > player_list[o_idx]-> s){
-            win_idx = idx;
-            lose_idx = o_idx;
-        }
-        else{
-            win_idx = o_idx;
-            lose_idx = idx;
-        }
-    }
+    if(make_pair(s1+a1, s1) > make_pair(s2+a2,s2)){
+        points[num1] += (s1+a1) - (s2+a2);
 
-    // 2.다른 경우
-    else if(o_power > v_power){
-        win_idx = o_idx;
-        lose_idx = idx;
+        LoserMove(p2);
+
+        Move(p1, pos);
     }
     else{
-        win_idx = idx;
-        lose_idx = o_idx;
+        points[num2] += (s2 + a2) - (s1 + a1);
+        LoserMove(p1);
+        Move(p2, pos);
     }
-    // 점수 얻기 
-    score[win_idx] += abs(o_power - v_power);
+}
+
+void Simulate(){
     
-    //cout << "fight : " << win_idx << " " << lose_idx << " " << abs(o_power - v_power) <<  endl;
-    //cout << "win idx s,gun : " << player_list[win_idx]->s << " " << player_list[win_idx]->gun << endl;
-    //cout << "lose idx x,gun : " << player_list[lose_idx]->s << " " << player_list[lose_idx]->gun << endl;
+    for(int i=0; i<m; i++){
+        int num, x, y, d, s,a;
+        tie(num, x, y, d, s, a) = players[i];
 
-    Lose(lose_idx);
-    Win(win_idx);
-}
+        int nx,ny,ndir;
+        tie(nx,ny,ndir) = GetNext(x,y,d);
 
-void PrintScore(){
-    for(int i=1; i<=m; i++){
-        cout << score[i] << " ";
+        Player next_player = FindPlayer(make_pair(nx,ny));
+
+        Player curr_player = make_tuple(num, nx,ny,ndir, s,a);
+        Update(curr_player);
+
+        if(next_player == EMPTY)
+            Move(curr_player, make_pair(nx,ny));
+        else
+            Duel(curr_player, next_player, make_pair(nx,ny));
     }
-    cout << endl;
-}
-void PrintPlayer(){
-    for(int i=1;i<=m; i++){
-        cout << i << " : " << player_list[i]->x << " " << player_list[i]->y << endl;
-    }
-    cout << endl;
 }
 
-void PrintPlayerBoard(){
-    for(int i=1; i<=n; i++){
-        for(int j=1; j<=n; j++){
-            cout << player_board[i][j] << " ";
+int main(){
+    cin >>  n >> m >> k;
+
+    for(int i=0; i<n; i++)
+        for(int j=0; j<n; j++){
+            int num;
+            cin >> num;
+            if(num != 0)
+                gun[i][j].push_back(num);
         }
-        cout << endl;
-    }
-    cout << endl;
-}
 
-int main() {
+    for(int i=0; i<m; i++){
+        int x, y, d, s;
+        cin >> x >> y >> d>> s;
+        players[i] = make_tuple(i,x-1,y-1,d,s,0);
+    }
+
+    while(k--)
+        Simulate();
+
+    for(int i=0; i<m; i++)
+        cout << points[i] << " ";
     
-    cin >> n >> m >> k;
-
-    for(int i=1; i<=n; i++){
-        for(int j=1; j<=n; j++){
-            int tmp;
-            cin >> tmp;
-            gun_board[i][j].push(tmp);
-        }
-    }
-
-    for(int i=1; i<=m; i++){
-        int x,y,d,s;
-        cin >> x >> y >> d >> s;
-        player_list[i] = new Player(x,y,d,s,0);
-        player_board[x][y] = i;
-    }
-
-    while(k--){
-        for(int i=1; i<=m; i++){
-            bool flag = move(i);
-            if(flag == true) // 다른 플레이어 없는 경우
-                get_gun(i);
-            else
-                fight(i);
-            //PrintScore();
-            //PrintPlayer();
-            //PrintPlayerBoard();
-        }
-    }
-    
-    PrintScore();
-
-        // 동적 메모리 해제
-    for (int i = 1; i <= m; i++) {
-        delete player_list[i];  // 메모리 해제
-        player_list[i] = nullptr;  // 포인터 초기화 (안전성 확보)
-    }
     return 0;
 }
