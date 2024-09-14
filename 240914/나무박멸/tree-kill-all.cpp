@@ -112,7 +112,7 @@ int CountKilledTree(int x, int y){
             if(BadDirection.find(i) == BadDirection.end()){
                 int nx = x + dx_diagonal[i] * v;
                 int ny = y + dy_diagonal[i] * v;
-                if(InRange(nx,ny) && board[nx][ny] == -1){
+                if(InRange(nx,ny) && (board[nx][ny] == -1 ||  board[nx][ny] == 0)){
                     BadDirection.insert(i);
                 }
                 if(InRange(nx,ny) && board[nx][ny] != -1){
@@ -135,7 +135,7 @@ void KillTree(int x, int y, int t){
             if(BadDirection.find(i) == BadDirection.end()){
                 int nx = x + dx_diagonal[i] * v;
                 int ny = y + dy_diagonal[i] * v;
-                if(InRange(nx,ny) && board[nx][ny] == -1){
+                if(InRange(nx,ny) && (board[nx][ny] == -1 ||  board[nx][ny] == 0)){
                     BadDirection.insert(i);
                 }
                 if(InRange(nx,ny) && board[nx][ny] != -1){
@@ -186,11 +186,15 @@ int main() {
     }
     for(int i=1; i<=m; i++){
         // 1. 나무의 성장 
+        //cout << i << endl;
         Grow();
+        //PrintBoard();
         // 2. 나무의 번식
         Breed(i);
+        //PrintBoard();
         // 3. 제초제 뿌리기
-        Sprinkle(i);  
+        Sprinkle(i); 
+        //PrintBoard(); 
     }
     cout << ans;
 
