@@ -127,7 +127,6 @@ int CountKilledTree(int x, int y){
 
 void KillTree(int x, int y, int t){
     set<int> BadDirection;
-
     // 대각선 k 범위 이내 외에도 가운데에도 0으로 만들기. 
     board[x][y] = 0;
     killer[x][y] = t+c;
@@ -171,7 +170,8 @@ void Sprinkle(int t){
     // 죽게되는 나무들 다 죽이기
     ans += max_cnt;
     //cout << "pi, pj : " << pi << " " << pj  << " "  << max_cnt << endl;
-    KillTree(pi,pj,t);
+    if(max_cnt != 0)
+        KillTree(pi,pj,t);
 
 }
 
@@ -190,9 +190,7 @@ int main() {
         // 2. 나무의 번식
         Breed(i);
         // 3. 제초제 뿌리기
-        Sprinkle(i);
-        //PrintBoard();
-        
+        Sprinkle(i);  
     }
     cout << ans;
 
