@@ -2,6 +2,7 @@
 #include <vector>
 #include <tuple>
 #include <deque>
+#include <queue>
 
 using namespace std;
 
@@ -113,29 +114,33 @@ bool CanGo2(int x, int y){
         return false;
     return true;
 }
+
 void WriteTeamNum(int idx){
     InitVisited();
     int x,y;
     tie(x,y) = heads[idx];
-    team_board[x][y] = idx;
-    bool flag = true;
-    while(flag){
+    visited[x][y] = true;
+    queue<pair<int,int>> q;
+    q.push(make_pair(x,y));
+    while(q.empty() != true){
+        int r,c;
+        tie(r,c) = q.front();
+        q.pop();
+        team_board[r][c] = idx;
         for(int i=0; i<4; i++){
-            int nx = x+dx[i];
-            int ny = y+dy[i];
+            int nx = r + dx[i];
+            int ny = c + dy[i];
             if(CanGo2(nx,ny) == true){
+                visited[nx][ny] = true;
+                q.push(make_pair(nx,ny));
                 team_board[nx][ny] = idx;
-                x = nx; y = ny;
-                visited[x][y] = true;
-                if(board[x][y] == 1){
-                    flag = false;
-                    break;
-                }
-                break;
             }
         }
+        
+        
     }
 }
+
 
 void init(){
     for(int i=1; i<=team_cnt; i++){
@@ -313,6 +318,7 @@ int main() {
 
     //0. 각 팀 정보 저장하기
     init();
+    //PrintTeamBoard();
 
     // 1. k 라운드 시작!
     for(int i=1; i<=k; i++){
