@@ -257,7 +257,7 @@ pair<int,int> ThrowBall(int dir, int x, int y){
 void GetScore(int idx, int x, int y){
 
     int num = (int) teams[idx].size();
-    int nth = 0;
+    int nth = -1;
     for(int i=0; i<num; i++){
         int r,c;
         tie(r,c) = teams[idx][i];
@@ -266,7 +266,8 @@ void GetScore(int idx, int x, int y){
             break;
         }
     }
-    score += (nth+1)*(nth+1);
+    if(nth != -1)
+        score += (nth+1)*(nth+1);
 }
 
 void ChangeDir(int idx){
@@ -310,6 +311,7 @@ int main() {
 
     // 1. k 라운드 시작!
     for(int i=1; i<=k; i++){
+        //cout <<"round : " << i << endl;
         // 1. 각 팀은 머리 사람을 따라 1칸 진행 
         Move();
         //PrintTeams();
