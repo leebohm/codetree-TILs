@@ -82,10 +82,13 @@ void FindMembers(int idx, int x, int y){
     bool flag = true;
 
     while(flag){
+        int num = (int) teams[idx].size();
         for(int i=0; i<4; i++){
             int nx = x+dx[i];
             int ny = y+dy[i];
-            if(CanGo(nx,ny) == true){
+            if(CanGo(nx,ny) == true ){
+                if(num < 2 && board[nx][ny] == 3)
+                    continue;
                 visited[nx][ny] = true;
                 teams[idx].push_back(make_pair(nx,ny));
                 x = nx; y = ny;
@@ -266,8 +269,10 @@ void GetScore(int idx, int x, int y){
             break;
         }
     }
-    if(nth != -1)
+    if(nth != -1){
         score += (nth+1)*(nth+1);
+        //cout << (nth+1)*(nth+1) << endl;
+    }
 }
 
 void ChangeDir(int idx){
