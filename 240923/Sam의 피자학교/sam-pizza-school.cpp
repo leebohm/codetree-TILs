@@ -56,7 +56,7 @@ pair<int,int> RollOut(){
             }
         for(int j=0; j<2; j++){
             if(j == 0){
-                if(n - (i*i-1) < i)
+                if(n - (i*(i-1)) < i)
                     return make_pair(i-1,i-1);
                 RollOut_ij(i,i-1);
                 
@@ -290,15 +290,18 @@ int main() {
         int row = 0; 
         int col = 0;
         tie(row,col) = RollOut();
-
+        
         PushDough(row, col);
+
         FoldDough();
 
         PushDough2();
+
         int diff = FindDiff();
+
         if(diff <= k)
             break;
-
+        
         cnt++;
     }
 
