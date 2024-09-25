@@ -132,23 +132,27 @@ void Mix(){
     int dx2[2] = {0,1};
     int dy2[2] = {1,0};
     
-    for(int i=1; i<n; i++){
-        for(int j=1;j <n; j++){
+    for(int i=1; i<=n; i++){
+        for(int j=1;j <=n; j++){
             for(int h = 0; h < 2; h++){
                 int ni = i + dx2[h];
                 int nj = j + dy2[h];
-                int diff = abs(AC_board[i][j] - AC_board[ni][nj]) / 4;
-                if(diff > 0){
-                    if(AC_board[i][j] > AC_board[ni][nj]){
-                        tmp_board[i][j] -= diff;
-                        tmp_board[ni][nj] += diff;
+                if(InRange(ni,nj) == false)
+                    continue;
+                bool flag = Check(i,j,ni,nj);
+                if(flag == true){
+                    int diff = abs(AC_board[i][j] - AC_board[ni][nj]) / 4;
+                    if(diff > 0){
+                        if(AC_board[i][j] > AC_board[ni][nj]){
+                            tmp_board[i][j] -= diff;
+                            tmp_board[ni][nj] += diff;
+                        }
+                        else{
+                            tmp_board[i][j] += diff;
+                            tmp_board[ni][nj] -= diff;
+                        }
                     }
-                    else{
-                        tmp_board[i][j] += diff;
-                        tmp_board[ni][nj] -= diff;
-                    }
-                }
-                
+                }  
             }
             
         }
