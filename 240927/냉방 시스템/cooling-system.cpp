@@ -226,14 +226,20 @@ int main() {
         }
     }
     int ans = 0;
+    bool flag = false;
     while(true){
         Simulation();
         ans++;
-        bool flag = Count();
+        flag = Count();
         if(flag == true)
             break;
+        if(ans > 100)
+            break;
     }
-    cout << ans;
 
+    if(flag == true)
+        cout << ans;
+    else
+        cout << -1;
     return 0;
 }
