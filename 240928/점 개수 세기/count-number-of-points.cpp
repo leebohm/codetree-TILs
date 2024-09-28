@@ -19,8 +19,9 @@ int Lowerbound(int cur){
     set<int>::iterator it;
 
     it = nums.lower_bound(cur);
-    if(it == nums.begin())
-        return 0;
+    if(it == nums.end())
+        return nums.size()+1;
+
     
     return mapper[*it];
 }
@@ -30,8 +31,8 @@ int UpperBound(int cur){
 
     it = nums.upper_bound(cur);
     
-    if(it == nums.end())
-        return nums.size()+1;
+    if(it == nums.begin())
+        return 0;
     it--;
     return mapper[*it];
 }
@@ -68,7 +69,7 @@ int main() {
         tie(x,y) = queries[i];
         int nx = Lowerbound(x);
         int ny = UpperBound(y);
-        int ans = pre_sum[ny] - pre_sum[nx];
+        int ans = pre_sum[ny] - pre_sum[nx-1];
         cout << ans  << endl;
     }
 
