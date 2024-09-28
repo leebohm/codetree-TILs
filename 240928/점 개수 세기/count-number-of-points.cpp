@@ -54,10 +54,11 @@ int main() {
 
     int cnt = 1; 
 
-    for(int i=0; i<n; i++){
-        mapper[points[i]] = cnt;
+    set<int>::iterator it;
+    for(it = nums.begin(); it != nums.end(); it++){
+        mapper[*it] = cnt;
         cnt++;
-        pre_sum[mapper[points[i]]]++;
+        pre_sum[mapper[*it]]++;
     }
 
     for(int i=1; i<= cnt; i++){
