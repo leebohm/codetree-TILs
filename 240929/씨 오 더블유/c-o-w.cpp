@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 
-#define MAX_N 10002
+#define MAX_N 100002
 long long l[MAX_N];
 long long r[MAX_N];
 string str;
