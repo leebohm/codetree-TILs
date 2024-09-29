@@ -32,7 +32,7 @@ int main() {
             r[i] = r[i+1];
     }
     
-    int ans = 0;
+    long long ans = 0;
     for(int i=2; i<=n-1; i++){
         if(str[i] == 'O'){
             ans += (l[i-1] * r[i+1]);
