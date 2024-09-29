@@ -3,10 +3,10 @@
 using namespace std;
 
 #define MAX_N 10002
-int l[MAX_N];
-int r[MAX_N];
+long long l[MAX_N];
+long long r[MAX_N];
 string str;
-int n;
+long long n;
 
 int main() {
 
