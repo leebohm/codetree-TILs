@@ -16,6 +16,12 @@ unordered_map<int,int> x2_2_x1;
 
 int n;
 
+bool Check(int a, int b, int c, int d){
+    if(a < c && d < b)
+        return true;
+    return false;
+}
+
 int main() {
     
     cin >> n;
@@ -34,15 +40,19 @@ int main() {
         if(it == s1.end())
             continue;
 
-        while(*it < x2[i]){ // c가 b보다 작을 때까지 
-            int d = x1_2_x2[*it]; // tmp : d
-            if(d < x2[i]){ // d가 b보다 작은 경우? 
-                ans_set.insert(*it);
-                ans_set.insert(x1[i]);
-                s1.erase(*it);
-            }
-            else
+        while(true){
+            int a = x1[i];
+            int b = x2[i];
+            int c = *it;
+            int d = x1_2_x2[*it];
+
+            bool flag = Check(a,b,c,d);
+            if(flag == false)
                 break;
+            else{
+                s1.erase(c);
+                ans_set.insert(a);
+            }
             it = s1.upper_bound(x1[i]);
             if(it == s1.end())
                 break;
@@ -61,3 +71,24 @@ int main() {
 
     return 0;
 }
+
+/*
+        if(*it < x2[i] && x1_2_x2[*it] < x2[i]){
+            while(true){ 
+                int d = x1_2_x2[*it]; // tmp : d
+                if(d < x2[i]){ // d가 b보다 작은 경우? 
+                    ans_set.insert(*it);
+                    ans_set.insert(x1[i]);
+                    s1.erase(*it);
+                    cout << *it << " " << x1[i] << endl;
+                }
+                else
+                    break;
+                it = s1.upper_bound(x1[i]);
+                if(it == s1.end())
+                    break;
+            }
+        }
+
+        while((*it > x2[i]) &&(x1_2_x2[*it]) )
+*/
