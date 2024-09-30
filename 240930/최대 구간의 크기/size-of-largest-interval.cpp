@@ -31,10 +31,10 @@ int main() {
             tie(prev_x, ignore) = lines[i-1];
             tmp += (x-prev_x);
         }
-        else if(num == 0){
-            ans = max(ans, tmp);
-        }
+        ans = max(ans, tmp);
         num += v;
+        if(num == 0)
+            tmp = 0;
     }
 
     cout << ans;
