@@ -16,7 +16,7 @@ int Find(int x){
 void Union(int x, int y){
     int rx = Find(x);
     int ry = Find(y);
-    if(rx != y){
+    if(rx != ry){
         uf[rx] = ry;
         sz[ry] += sz[rx];
     }
