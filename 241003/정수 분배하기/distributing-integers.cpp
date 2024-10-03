@@ -26,7 +26,7 @@ int main(){
     }
 
     int left = 1;
-    int right = min_val;
+    int right = 100000;
     int k = 0;
     while(left <= right){
         int mid = (left + right)/ 2;
