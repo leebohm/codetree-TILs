@@ -4,7 +4,7 @@
 using namespace std;
 
 #define MAX_M 100001
-#define MAX_T 1000000000
+#define MAX_T 100000000000
 
 int n,m;
 long long tunnel[MAX_M];
