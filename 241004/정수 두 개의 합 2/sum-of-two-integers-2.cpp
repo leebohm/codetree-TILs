@@ -1,35 +1,32 @@
 #include <iostream>
-
-using namespace std;
+#include <algorithm>
 
 #define MAX_N 100001
 
-int n,k;
+using namespace std;
+
 int arr[MAX_N];
+int n,k;
 
 int main(){
 
     cin >> n >> k;
-
-    for(int i=1; i<=n; i++){
+    for(int i=1; i<=n; i++)
         cin >> arr[i];
-    }
+    
+    sort(arr+1, arr+n+1);
 
-    int j = 0;
-    int cnt = 0;
-    int tmp = 0;
-    for(int i=1; i<=n; i++){
-        tmp = arr[i];
-        while(j+1 <=n && tmp + arr[j+1] <= k){
-            j++;
-            if(tmp + arr[j] <= k){
-                tmp += arr[j];
-                cnt++;
-                break;
-            }
-        }
-        tmp -= arr[i];
+    int ans = 0;
+
+    int j = n;
+    for(int i=1; i<=n;i++){
+        while(j!= 1 && arr[i] + arr[j] > k)
+            j--;
+        if(j <= i)
+            break;
+        
+        ans += j-i;
     }
-    cout << cnt;
+    cout << ans;
     return 0;
 }
