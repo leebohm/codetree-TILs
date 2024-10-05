@@ -37,7 +37,7 @@ int main(){
     bool flag = true;
     for(int i=0; i<k-1; i++){
         cin >> idx;
-        if(last_val != idx){
+        if(last_val != Find(idx)){
             flag = false;
             break;
         }
