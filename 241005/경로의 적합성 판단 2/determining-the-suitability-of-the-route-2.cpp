@@ -41,6 +41,7 @@ int main(){
             flag = false;
             break;
         }
+        last_val = Find(idx);
     }
 
     if(flag == true)
