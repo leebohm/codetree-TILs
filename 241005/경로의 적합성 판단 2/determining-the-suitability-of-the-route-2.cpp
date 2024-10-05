@@ -15,8 +15,8 @@ int Find(int x){
 }
 
 void Union(int x, int y){
-    int rx = uf[x];
-    int ry = uf[y];
+    int rx = Find(x);
+    int ry = Find(y);
     uf[rx] = ry;
 }
 
