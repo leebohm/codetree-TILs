@@ -74,7 +74,7 @@ void RemoveId(int id, bool remove_belt){
     nxt[id] = prv[id] = 0;
 }
 
-void PushId(int target_id, id){
+void PushId(int target_id, int id){
     nxt[target_id] = id;
     prv[id] = target_id;
     int b_num = belt_num[target_id] -1;
