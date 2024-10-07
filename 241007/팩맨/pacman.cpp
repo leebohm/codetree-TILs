@@ -39,7 +39,7 @@ bool CanGo(int x, int y){
 
 
 tuple<int,int,int> GetNextPos(int x, int y, int move_dir){
-    for(c_dir = 0; c_dir < DIR_NUM; c_dir++){
+    for(int c_dir = 0; c_dir < DIR_NUM; c_dir++){
         int n_dir = (move_dir + c_dir + DIR_NUM) % DIR_NUM;
         int nx = x+dx[n_dir];
         int ny = y+dy[n_dir];
@@ -66,6 +66,7 @@ void MoveM(){
 int GetKilledNum(int dir1, int dir2, int dir3){
     int dirs[] = {dir1, dir2, dir3};
     int x = px, y = py;
+    int killed_num = 0;
 
     vector<pair<int,int> > v_pos;
 
