@@ -52,7 +52,7 @@ void Move(){
     }
     if(num_gift[m_dst]== 0){
         head[m_dst] = head[m_src];
-        tail[m_src] = tail[m_src];
+        tail[m_dst] = tail[m_src];
     }
     else{
         int orig_head = head[m_dst];
