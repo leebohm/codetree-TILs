@@ -15,8 +15,14 @@ int main() {
     for(int i=0; i<m; i++){
         int x,y,d;
         cin >> x >> y >> d;
-        graph[x][y] = d;
-        graph[y][x] = d;
+        if(graph[x][y] == 0){
+            graph[x][y] = d;
+            graph[y][x] = d;
+        }
+        else{
+            graph[x][y] = min(graph[x][y], d);
+            graph[y][x] = min(graph[y][x], d);
+        }
     }
 
     cin >> a >> b;
