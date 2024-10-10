@@ -249,7 +249,7 @@ int main() {
 
     for(int i=1; i<=k; i++){
         int check = MoveG(i);
-        if(check == 0){
+        if(points[i].first <= 1 || check == 0){
             Reset();
             continue;
         }
@@ -263,6 +263,7 @@ int main() {
             board[nx][ny] = i;
         }
         MoveAngel(i);
+        //PrintBoard();
     }
     cout << ans <<"\n";
     return 0;
