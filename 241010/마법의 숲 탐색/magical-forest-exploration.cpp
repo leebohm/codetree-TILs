@@ -28,7 +28,7 @@ bool MoveSouth(int cx, int cy, int idx){
         if(cx+1 >=1)
             G.push_back(make_pair(cx,cy+1));
         bool flag = true;
-        for(int i=0; i<3; i++){
+        for(int i=0; i<(int)G.size(); i++){
             int x,y;
             tie(x,y) = G[i];
             int nx = x+1; int ny = y;
