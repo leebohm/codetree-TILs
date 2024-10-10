@@ -8,7 +8,7 @@ using namespace std;
 #define MAX_K 1001
 
 int r,c,k;
-int board[MAX_RC][MAX_RC]; // 숲
+int board[2*MAX_RC][MAX_RC]; // 숲
 int exits[MAX_K]; // 각 골렘의 출구
 int G_MaxR[MAX_K]; // 각 정령의 최대 행 기록
 int ans = 0; // 정답 최대행 누적
@@ -17,15 +17,12 @@ int dx[4] = {-1,0,1,0};
 int dy[4] = {0,1,0,-1};
 
 bool InRange(int x, int y){
-    return x>=1 && x <=r && y>=1 && y <=c;
+    return x>=1 && x <=2*r && y>=1 && y <=c;
 }
 bool MoveSouth(int cx, int cy, int idx){
     vector<pair<int,int> > G;
-        if(cx+1>=1)
             G.push_back(make_pair(cx,cy-1));
-        if(cx+2 >=1)
             G.push_back(make_pair(cx+1,cy));
-        if(cx+1 >=1)
             G.push_back(make_pair(cx,cy+1));
         bool flag = true;
         for(int i=0; i<(int)G.size(); i++){
@@ -49,11 +46,8 @@ bool MoveSouth(int cx, int cy, int idx){
 
 bool MoveWest(int cx, int cy, int idx){
     vector<pair<int,int> > G;
-    if(cx-1 >= 1)
         G.push_back(make_pair(cx-1,cy));
-    if(cx >= 1)
         G.push_back(make_pair(cx,cy-1));
-    if(cx+1 >= 1)
         G.push_back(make_pair(cx+1,cy));
     bool flag = true;
     for(int i=0; i<(int)G.size(); i++){
@@ -73,12 +67,9 @@ bool MoveWest(int cx, int cy, int idx){
         int ncx = cx;
         int ncy = cy - 1;
         G.clear();
-        if(ncx + 1 >= 1)
-            G.push_back(make_pair(ncx,ncy-1));
-        if(ncx + 2 >= 1)
-            G.push_back(make_pair(ncx+1,ncy));
-        if(ncx + 1 >= 1)
-            G.push_back(make_pair(ncx,ncy+1));
+        G.push_back(make_pair(ncx,ncy-1));
+        G.push_back(make_pair(ncx+1,ncy));
+        G.push_back(make_pair(ncx,ncy+1));
         for(int i=0; i<(int) G.size(); i++){
             int x, y;
             tie(x,y) = G[i];
@@ -107,12 +98,9 @@ bool MoveWest(int cx, int cy, int idx){
 
 bool MoveEast(int cx, int cy, int idx){
     vector<pair<int,int> > G;
-    if(cx-1>=1)
-        G.push_back(make_pair(cx-1,cy));
-    if(cx >=1)
-        G.push_back(make_pair(cx,cy+1));
-    if(cx+1>=1)
-        G.push_back(make_pair(cx+1,cy));
+    G.push_back(make_pair(cx-1,cy));
+    G.push_back(make_pair(cx,cy+1));
+    G.push_back(make_pair(cx+1,cy));
     bool flag = true;
     for(int i=0; i<(int) G.size(); i++){
         int x,y;
@@ -130,12 +118,9 @@ bool MoveEast(int cx, int cy, int idx){
     if(flag == true){ 
         int ncx = cx; int ncy = cy+1;
         G.clear();
-        if(ncx +1 >= 1)
-            G.push_back(make_pair(ncx,ncy-1));
-        if(ncx + 2 >=1)
-            G.push_back(make_pair(ncx+1,ncy));
-        if(ncy + 1 >= 1)
-            G.push_back(make_pair(ncx,ncy+1));
+        G.push_back(make_pair(ncx,ncy-1));
+        G.push_back(make_pair(ncx+1,ncy));
+        G.push_back(make_pair(ncx,ncy+1));
         for(int i=0; i<(int)G.size(); i++){
             int x, y;
             tie(x,y) = G[i];
@@ -200,7 +185,7 @@ void Reset(){
 }
 
 void PrintBoard(){
-    for(int i=1; i<=r; i++){
+    for(int i=r+1; i<=2*r; i++){
         for(int j=1; j<=c; j++){
             cout << board[i][j] << " ";
         }
@@ -246,7 +231,7 @@ void MoveAngel(int idx){
             pq.pop();
         }
     }
-    ans += G_MaxR[idx];
+    ans += (G_MaxR[idx]-r);
 }
 
 int main() {
@@ -258,13 +243,13 @@ int main() {
     for(int i=1; i<=k; i++){
         int cy, d;
         cin >> cy >> d;
-        points[i] = make_pair(-1,cy);
+        points[i] = make_pair(1,cy);
         exits[i] = d;
     }
 
     for(int i=1; i<=k; i++){
         int check = MoveG(i);
-        if(points[i].first < 2 || check == 0){
+        if(points[i].first < 2+r || check == 0){
             Reset();
             continue;
         }
