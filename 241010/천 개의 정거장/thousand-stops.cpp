@@ -62,13 +62,20 @@ int main() {
         }
     }
 
-    cout << dist[b] << " ";
+
     int x = a;
     int cnt = 0;
+    bool flag = true;
     while( x!= b){
         x = path[x];
         cnt++;
+        if(cnt >= MAX_N){
+            cout << -1 << " " << -1 << endl; 
+            flag = false; 
+            break;
+        }
     }
-    cout << cnt << endl;
+    if(flag == true)
+        cout << dist[b] << " " << cnt << endl;
     return 0;
 }
