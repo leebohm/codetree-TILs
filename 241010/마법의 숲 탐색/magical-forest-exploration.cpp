@@ -21,9 +21,12 @@ bool InRange(int x, int y){
 }
 bool MoveSouth(int cx, int cy, int idx){
     vector<pair<int,int> > G;
-        G.push_back(make_pair(cx,cy-1));
-        G.push_back(make_pair(cx+1,cy));
-        G.push_back(make_pair(cx,cy+1));
+        if(cx+1>=1)
+            G.push_back(make_pair(cx,cy-1));
+        if(cx+2 >=1)
+            G.push_back(make_pair(cx+1,cy));
+        if(cx+1 >=1)
+            G.push_back(make_pair(cx,cy+1));
         bool flag = true;
         for(int i=0; i<3; i++){
             int x,y;
@@ -46,10 +49,12 @@ bool MoveSouth(int cx, int cy, int idx){
 
 bool MoveWest(int cx, int cy, int idx){
     vector<pair<int,int> > G;
-    if(cx-1 != 0)
+    if(cx-1 >= 1)
         G.push_back(make_pair(cx-1,cy));
-    G.push_back(make_pair(cx,cy-1));
-    G.push_back(make_pair(cx+1,cy));
+    if(cx >= 1)
+        G.push_back(make_pair(cx,cy-1));
+    if(cx+1 >= 1)
+        G.push_back(make_pair(cx+1,cy));
     bool flag = true;
     for(int i=0; i<(int)G.size(); i++){
         int x,y;
@@ -68,10 +73,13 @@ bool MoveWest(int cx, int cy, int idx){
         int ncx = cx;
         int ncy = cy - 1;
         G.clear();
-        G.push_back(make_pair(ncx,ncy-1));
-        G.push_back(make_pair(ncx+1,ncy));
-        G.push_back(make_pair(ncx,ncy+1));
-        for(int i=0; i<3; i++){
+        if(ncx + 1 >= 1)
+            G.push_back(make_pair(ncx,ncy-1));
+        if(ncx + 2 >= 1)
+            G.push_back(make_pair(ncx+1,ncy));
+        if(ncx + 1 >= 1)
+            G.push_back(make_pair(ncx,ncy+1));
+        for(int i=0; i<(int) G.size(); i++){
             int x, y;
             tie(x,y) = G[i];
             int nx = x+1; int ny = y;
@@ -99,10 +107,12 @@ bool MoveWest(int cx, int cy, int idx){
 
 bool MoveEast(int cx, int cy, int idx){
     vector<pair<int,int> > G;
-    if(cx-1 != 0)
+    if(cx-1>=1)
         G.push_back(make_pair(cx-1,cy));
-    G.push_back(make_pair(cx,cy+1));
-    G.push_back(make_pair(cx+1,cy));
+    if(cx >=1)
+        G.push_back(make_pair(cx,cy+1));
+    if(cx+1>=1)
+        G.push_back(make_pair(cx+1,cy));
     bool flag = true;
     for(int i=0; i<(int) G.size(); i++){
         int x,y;
@@ -120,10 +130,13 @@ bool MoveEast(int cx, int cy, int idx){
     if(flag == true){ 
         int ncx = cx; int ncy = cy+1;
         G.clear();
-        G.push_back(make_pair(ncx,ncy-1));
-        G.push_back(make_pair(ncx+1,ncy));
-        G.push_back(make_pair(ncx,ncy+1));
-        for(int i=0; i<3; i++){
+        if(ncx +1 >= 1)
+            G.push_back(make_pair(ncx,ncy-1));
+        if(ncx + 2 >=1)
+            G.push_back(make_pair(ncx+1,ncy));
+        if(ncy + 1 >= 1)
+            G.push_back(make_pair(ncx,ncy+1));
+        for(int i=0; i<(int)G.size(); i++){
             int x, y;
             tie(x,y) = G[i];
             int nx = x+1; int ny = y;
@@ -245,13 +258,13 @@ int main() {
     for(int i=1; i<=k; i++){
         int cy, d;
         cin >> cy >> d;
-        points[i] = make_pair(1,cy);
+        points[i] = make_pair(-1,cy);
         exits[i] = d;
     }
 
     for(int i=1; i<=k; i++){
         int check = MoveG(i);
-        if(check == 0){
+        if(points[i].first < 2 || check == 0){
             Reset();
             continue;
         }
