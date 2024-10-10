@@ -187,7 +187,7 @@ void Reset(){
 void PrintBoard(){
     for(int i=r+1; i<=2*r; i++){
         for(int j=1; j<=c; j++){
-            cout << board[i][j] << " ";
+            cout << setw(3) << setfill('0') << board[i][j] << " ";
         }
         cout << endl;
     }
@@ -197,7 +197,7 @@ priority_queue<pair<int,int> > FindOtherG(int ex,int ey, int idx){
     priority_queue<pair<int,int> > pq;
     int cx,cy;
     tie(cx,cy) = points[idx];
-    pq.push(make_pair(max(ex,cx+1),idx));
+    pq.push(make_pair(cx+1,idx));
     for(int i=0; i<4; i++){
         int nx = ex+dx[i];
         int ny = ey+dy[i];
@@ -210,6 +210,33 @@ priority_queue<pair<int,int> > FindOtherG(int ex,int ey, int idx){
     }
     return pq;
 }
+bool IsExit(int x, int y, int idx){
+    int cx,cy;
+    tie(cx,cy) = points[idx];
+    int d = exits[idx];
+    int ex = cx + dx[d];
+    int ey = cy + dy[d];
+    if(ex == x && ey == y)
+        return true;
+    return false;
+}
+
+void Update(int ex, int ey, int idx, int max_r){
+    for(int i=0; i<4; i++){
+        int nx = ex + dx[i];
+        int ny = ey + dy[i];
+        if(InRange(nx,ny) == true && board[nx][ny] != 0){
+            int nidx = board[nx][ny];
+            if(nidx!= idx && IsExit(nx,ny,nidx)){
+                if(G_MaxR[nidx] < max_r){
+                    G_MaxR[nidx] = max_r;
+                    Update(nx,ny,nidx,max_r);
+                }
+
+            }
+        }
+    }
+}
 
 void MoveAngel(int idx){
     int d = exits[idx];
@@ -220,18 +247,15 @@ void MoveAngel(int idx){
     priority_queue<pair<int,int> > pq;
     pq = FindOtherG(ex,ey,idx);
     if((int) pq.size() == 1)
-        G_MaxR[idx] = max(ex, cx+1);
+        G_MaxR[idx] = cx+1;
     else{
-        int max_r,i;
-        tie(max_r,i) = pq.top();
-        while(pq.empty() == false){
-            int index;
-            tie(ignore,idx) = pq.top();
-            G_MaxR[idx] = max_r;
-            pq.pop();
-        }
+        int max_r, index;
+        tie(max_r, index) = pq.top(); pq.pop();
+        G_MaxR[idx] = max_r;
+        Update(ex,ey,idx,max_r);
     }
-    ans += (G_MaxR[idx]-r);
+    if(G_MaxR[idx] > r)
+        ans += (G_MaxR[idx]-r);
 }
 
 int main() {
