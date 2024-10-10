@@ -175,7 +175,7 @@ int MoveG(int idx){
 }
 
 void Reset(){
-    for(int i=1; i<=r; i++){
+    for(int i=1; i<=2*r; i++){
         for(int j=1; j<=c; j++){
             board[i][j] = 0;
         }
