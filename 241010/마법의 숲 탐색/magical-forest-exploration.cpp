@@ -46,11 +46,12 @@ bool MoveSouth(int cx, int cy, int idx){
 
 bool MoveWest(int cx, int cy, int idx){
     vector<pair<int,int> > G;
-    G.push_back(make_pair(cx-1,cy));
+    if(cx-1 != 0)
+        G.push_back(make_pair(cx-1,cy));
     G.push_back(make_pair(cx,cy-1));
     G.push_back(make_pair(cx+1,cy));
     bool flag = true;
-    for(int i=0; i<3; i++){
+    for(int i=0; i<(int)G.size(); i++){
         int x,y;
         tie(x,y) = G[i];
         int nx = x; int ny = y-1;
@@ -98,11 +99,12 @@ bool MoveWest(int cx, int cy, int idx){
 
 bool MoveEast(int cx, int cy, int idx){
     vector<pair<int,int> > G;
-    G.push_back(make_pair(cx-1,cy));
+    if(cx-1 != 0)
+        G.push_back(make_pair(cx-1,cy));
     G.push_back(make_pair(cx,cy+1));
     G.push_back(make_pair(cx+1,cy));
     bool flag = true;
-    for(int i=0; i<3; i++){
+    for(int i=0; i<(int) G.size(); i++){
         int x,y;
         tie(x,y) = G[i];
         int nx = x; int ny = y+1;
@@ -243,13 +245,13 @@ int main() {
     for(int i=1; i<=k; i++){
         int cy, d;
         cin >> cy >> d;
-        points[i] = make_pair(0,cy);
+        points[i] = make_pair(1,cy);
         exits[i] = d;
     }
 
     for(int i=1; i<=k; i++){
         int check = MoveG(i);
-        if(points[i].first <= 1 || check == 0){
+        if(check == 0){
             Reset();
             continue;
         }
