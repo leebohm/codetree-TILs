@@ -1,4 +1,6 @@
 #include <iostream>
+#include <climits>
+
 using namespace std;
 
 #define MAX_N 100001
@@ -16,7 +18,7 @@ int main() {
     for(int i=2; i<=n; i++){
         dp[i] = max(dp[i], dp[i-1] + arr[i]);
     }
-    int ans = 0;
+    int ans = INT_MIN;
     for(int i=1; i<=n; i++){
         ans = max(ans, dp[i]);
     }
