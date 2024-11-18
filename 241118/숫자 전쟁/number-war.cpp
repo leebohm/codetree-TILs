@@ -1,5 +1,5 @@
-#include <bits/stdc++.h>
-using namspace std;
+#include <iostream>
+using namespace std;
 
 const int MAXN = 1005;
 int n;
@@ -27,8 +27,8 @@ int main(){
             if(a[i+1] < b[j+1])
                 dp[i+1][j] = max(dp[i+1][j], dp[i][j]);
 
-            if(a[i+1] < b[j+1])
-                dp[i][j+1] = max(dp[i][j+1], dp[i][j], b[j+1]);
+            if(a[i+1] > b[j+1])
+                dp[i][j+1] = max(dp[i][j+1], dp[i][j]+ b[j+1]);
             
             dp[i+1][j+1] = max(dp[i+1][j+1], dp[i][j]);
         }
