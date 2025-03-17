@@ -19,7 +19,7 @@ int main() {
     int j= 0;
     int val = 0;
     for(int i=1; i<=n; i++){
-        while(j+1 <=n && val + arr[j+1] < s ){ // 커지는 순간, j가 안 커지고 나가네 
+        while(j+1 <=n && val + arr[j+1] <= s ){ // 커지는 순간, j가 안 커지고 나가네 
             val += arr[j+1];
             j++;
         }
@@ -29,7 +29,7 @@ int main() {
     }
 
     cout << ans;
-    
+
     return 0;
 }
 
