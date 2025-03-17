@@ -19,15 +19,18 @@ int main() {
     int j= 0;
     int val = 0;
     for(int i=1; i<=n; i++){
-        while(j+1 <=n && val + arr[j+1] <= s ){ // 커지는 순간, j가 안 커지고 나가네 
+        while(j+1 <=n && val < s ){ // 커지는 순간, j가 안 커지고 나가네 
             val += arr[j+1];
             j++;
         }
-
-        ans = min(ans, j+1-i+1);
+        if(val < s)
+            break;
+        ans = min(ans, j-i+1);
         val -= arr[i];
     }
 
+    if(ans == INT_MAX)
+        ans = -1;
     cout << ans;
 
     return 0;
