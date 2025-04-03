@@ -1,4 +1,6 @@
 #include <iostream>
+#include <algorithm>
+
 using namespace std;
 
 #define MAX_N 200005
@@ -25,6 +27,8 @@ int main() {
         cin >> arr[i];
     }
 
+    sort(arr, arr+n);
+    
     long long left = 0;
     long long right = 1000000005;
     long long ans = 0;
