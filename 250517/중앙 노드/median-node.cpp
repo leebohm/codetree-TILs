@@ -16,19 +16,21 @@ bool flag = false;
 int dp[MAX_N];
 
 void FindMid(int p){
-    int cnt = 0;
-    for(int i=0; i<(int) edges[p].size(); i++){
+    int child = (int) edges[p].size() - 1;
+
+    if(p == r)
+        child++;
+    
+    if(child >= 2 && mid_node == 0){
+        mid_node = p;
+    }
+
+    for(int i=0; i < (int) edges[p].size(); i++){
         int c = edges[p][i];
-        if(visited[c] == false && flag == false){
-            cnt++;
-            visited[c] = true;
-            if(flag == false && cnt >= 2){
-                mid_node = p;
-                flag = true;
-                return;
-            }
-            FindMid(c);
-        }
+        if(visited[c])
+            continue;
+        visited[c] = true;
+        FindMid(c);
     }
     return;
 }
