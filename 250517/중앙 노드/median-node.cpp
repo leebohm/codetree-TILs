@@ -9,9 +9,8 @@ using namespace std;
 
 int n,r;
 vector<int> edges[MAX_N];
-int mid_node = -1;
+int mid_node;
 bool visited[MAX_N];
-vector<int> p2c[MAX_N];
 bool flag = false;
 int dp[MAX_N];
 
@@ -25,6 +24,10 @@ void FindMid(int p){
         mid_node = p;
     }
 
+    if(child == 0 && mid_node == 0){
+        mid_node = p;
+    }
+    
     for(int i=0; i < (int) edges[p].size(); i++){
         int c = edges[p][i];
         if(visited[c])
@@ -37,7 +40,7 @@ void FindMid(int p){
 
 // DFS를 통해 각 노드를 루트로 하는 서브트리의 노드의 개수를 계산합니다.
 void DFS(int x) {
-    tree_size[x] = 1;
+    dp[x] = 1;
 
     for(int i = 0; i < edges[x].size(); i++) {
         int y = edges[x][i];
@@ -49,7 +52,7 @@ void DFS(int x) {
         visited[y] = true;
         DFS(y);
 
-        tree_size[x] += tree_size[y];
+        dp[x] += dp[y];
     }
 }
 
@@ -68,17 +71,18 @@ int main() {
     FindMid(r);
 
     memset(visited, false, sizeof(visited));
+
     visited[mid_node] = true;
     DFS(mid_node);
 
     int min_num = INT_MAX;
     int max_num = INT_MIN;
-    for(int i=0; i<(int)p2c[mid_node].size(); i++){
-        int c = p2c[mid_node][i];
+    for(int i=0; i<(int)edges[mid_node].size(); i++){
+        int c = edges[mid_node][i];
         min_num = min(min_num, dp[c]);
         max_num = max(max_num, dp[c]);
     }
-    cout << abs(min_num - max_num);
+    cout << max_num - min_num;
 
     return 0;
 }
