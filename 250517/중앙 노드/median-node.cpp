@@ -35,32 +35,22 @@ void FindMid(int p){
     return;
 }
 
-void MakeTree(int p){
-    for(int i=0; i< (int) edges[p].size(); i++){
-        int c = edges[p][i];
-        if(visited[c] == false){
-            visited[c] = true;
-            p2c[p].push_back(c);
-            MakeTree(c);
-        }
+// DFS를 통해 각 노드를 루트로 하는 서브트리의 노드의 개수를 계산합니다.
+void DFS(int x) {
+    tree_size[x] = 1;
+
+    for(int i = 0; i < edges[x].size(); i++) {
+        int y = edges[x][i];
+
+        // 이미 방문한 노드는 스킵합니다.
+        if(visited[y]) 
+            continue;
+
+        visited[y] = true;
+        DFS(y);
+
+        tree_size[x] += tree_size[y];
     }
-}
-
-void WriteDp(int p){
-
-    for(int i=0; i<(int) p2c[p].size(); i++){
-        int c = p2c[p][i];
-        WriteDp(c);
-    }
-
-    if(dp[p] == 0)
-        dp[p] = 1;
-
-    for(int i=0; i<(int) p2c[p].size(); i++){
-        int c = p2c[p][i];
-        dp[p] += dp[c];
-    }
-
 }
 
 int main() {
@@ -76,13 +66,10 @@ int main() {
 
     visited[r] = true;
     FindMid(r);
-    if(mid_node == -1)
-        mid_node = r;
 
     memset(visited, false, sizeof(visited));
     visited[mid_node] = true;
-    MakeTree(mid_node);
-    WriteDp(mid_node);
+    DFS(mid_node);
 
     int min_num = INT_MAX;
     int max_num = INT_MIN;
