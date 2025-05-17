@@ -34,7 +34,7 @@ void Count(int p){
     for(int i=0; i<(int) p2c[p].size(); i++){
         int c = p2c[p][i];
         dp[p][0] += dp[c][1];
-        dp[p][1] += dp[c][0];
+        dp[p][1] += min(dp[c][0],dp[c][1]);
     }
     return;
 }
@@ -55,6 +55,6 @@ int main() {
     
 
     cout << min(dp[1][0], dp[1][1]);
-    
+
     return 0;
 }
