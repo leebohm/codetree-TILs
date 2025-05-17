@@ -33,7 +33,7 @@ int main() {
     for(int j=0; j<m; j++){
         int i,w;
         cin >> i >> w;
-        dp[i] = w;
+        dp[i] += w;
     }
 
     WriteDp(1);
